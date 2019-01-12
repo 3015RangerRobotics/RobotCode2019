@@ -17,8 +17,13 @@ import frc.robot.commands.DriveForTime;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+  //Buttons for driver
   XboxController driver = new XboxController(0);
   Button driverA1 = new JoystickButton(driver, 1);
+  Button driverB2 = new JoystickButton(driver, 2);
+  Button driverX3 =new JoystickButton(driver, 3);
+
+  //Buttons for coDriver
 
   public OI(){
     driverA1.whenPressed(new DriveForTime(0.25, 1));
