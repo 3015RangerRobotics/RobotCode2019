@@ -3,6 +3,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.DriveHelper;
+import frc.robot.DriveSignal;
 import frc.robot.RobotMap;
 
 public class Drive extends Subsystem {
@@ -28,4 +30,9 @@ public class Drive extends Subsystem {
     this.leftMotors.set(leftMotor);
     this.rightMotors.set(rightMotor);
   }
+  
+  public void arcadeDrive(double moveValue, double rotateValue, boolean squaredInputs) {
+   // DriveSignal ds = DriveHelper.arcadeDrive(moveValue, rotateValue, squaredInputs);
+    //setMotorOutputs(ds.leftSignal, ds.rightSignal);
+}
 }
