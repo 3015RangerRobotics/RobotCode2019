@@ -34,5 +34,5 @@ public class Drive extends Subsystem {
   public void arcadeDrive(double moveValue, double rotateValue, boolean squaredInputs) {
    // DriveSignal ds = DriveHelper.arcadeDrive(moveValue, rotateValue, squaredInputs);
     //setMotorOutputs(ds.leftSignal, ds.rightSignal);
-}
+  }
 }
