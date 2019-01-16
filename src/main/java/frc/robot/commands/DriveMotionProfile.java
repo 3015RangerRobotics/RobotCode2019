@@ -21,8 +21,6 @@ public class DriveMotionProfile extends CommandBase {
     requires(drive);
     this.leftMotion = motionProfile;
     	this.rightMotion = motionProfile;
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
   }
 
   public DriveMotionProfile(double[][] leftMotion, double[][] rightMotion) {
