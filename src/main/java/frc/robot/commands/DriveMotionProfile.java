@@ -17,24 +17,6 @@ public class DriveMotionProfile extends CommandBase {
 	    private volatile double prevErrorL = 0;
       private volatile double prevErrorR = 0;
   
-  public DriveMotionProfile(double[][] motionProfile) {
-    requires(drive);
-    this.leftMotion = motionProfile;
-    	this.rightMotion = motionProfile;
-  }
-
-  public DriveMotionProfile(double[][] leftMotion, double[][] rightMotion) {
-    requires(drive);
-    this.leftMotion = leftMotion;
-    this.rightMotion = rightMotion;
-  }
-  
-  public DriveMotionProfile(HashMap<Side, double[][]> profiles) {
-    requires(drive);
-    this.leftMotion = profiles.get(Side.kLeft);
-    this.rightMotion = profiles.get(Side.kRight);
-  }
-  
   public DriveMotionProfile(String filename) {
     requires(drive);
     this.leftMotion = MotionProfiles.loadProfile(filename + "Left");
