@@ -11,15 +11,13 @@ package frc.robot;
  * Add your docs here.
  */
 
-
 public class DriveSignal {
 
-    public double leftSignal; 
-    public double rightSignal;
+	public double leftSignal;
+	public double rightSignal;
 
-    public DriveSignal(double leftSignal, double rightSignal)
-    {
-        this.leftSignal = leftSignal; 
-        this.rightSignal = rightSignal; 
-    }
+	public DriveSignal(double leftSignal, double rightSignal) {
+		this.leftSignal = leftSignal;
+		this.rightSignal = rightSignal;
+	}
 }
