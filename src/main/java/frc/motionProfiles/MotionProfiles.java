@@ -7,38 +7,42 @@
 
 package frc.motionProfiles;
 
-import edu.wpi.first.wpilibj.command.Command;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class MotionProfiles {
 	/**
 	 * Load a pre-generated motion profile from a text file
+	 * 
 	 * @param profileName The name of the file to load
 	 * @return The motion profile contained in the file
 	 */
-	public static double[][] loadProfile(String profileName){
+	public static double[][] loadProfile(String profileName) {
 		double[][] profile = new double[][] {};
 		try {
 			ArrayList<double[]> points = new ArrayList<double[]>();
-			BufferedReader br = new BufferedReader(new InputStreamReader(MotionProfiles.class.getResourceAsStream(profileName + ".txt")));
-			
+			BufferedReader br = new BufferedReader(
+					new InputStreamReader(MotionProfiles.class.getResourceAsStream(profileName + ".txt")));
+
 			String line = "";
-			while((line = br.readLine()) != null) {
+			while ((line = br.readLine()) != null) {
 				String[] pointString = line.split(",");
 				double[] point = new double[3];
-				for(int i = 0; i < 3; i++) {
+				for (int i = 0; i < 3; i++) {
 					point[i] = Double.parseDouble(pointString[i]);
 				}
 				points.add(point);
 			}
 			profile = new double[points.size()][3];
-			for(int i = 0; i < points.size(); i++) {
+			for (int i = 0; i < points.size(); i++) {
 				profile[i][0] = points.get(i)[0];
 				profile[i][1] = points.get(i)[1];
 				profile[i][2] = points.get(i)[2];
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return profile;		
+		return profile;
 	}
 }
