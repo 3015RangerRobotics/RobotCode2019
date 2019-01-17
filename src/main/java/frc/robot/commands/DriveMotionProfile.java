@@ -22,18 +22,18 @@ public class DriveMotionProfile extends CommandBase {
 
 	public DriveMotionProfile(String filename) {
 		requires(drive);
-		this.leftMotion = MotionProfiles.loadProfile(filename + "Left");
-		this.rightMotion = MotionProfiles.loadProfile(filename + "Right");
+		this.leftMotion = MotionProfiles.loadProfile(filename + "_left");
+		this.rightMotion = MotionProfiles.loadProfile(filename + "_right");
 	}
 
 	public DriveMotionProfile(String filename, boolean mirrored) {
 		requires(drive);
 		if (!mirrored) {
-			this.leftMotion = MotionProfiles.loadProfile(filename + "Left");
-			this.rightMotion = MotionProfiles.loadProfile(filename + "Right");
+			this.leftMotion = MotionProfiles.loadProfile(filename + "_left");
+			this.rightMotion = MotionProfiles.loadProfile(filename + "_right");
 		} else {
-			this.leftMotion = MotionProfiles.loadProfile(filename + "Right");
-			this.rightMotion = MotionProfiles.loadProfile(filename + "Left");
+			this.leftMotion = MotionProfiles.loadProfile(filename + "_right");
+			this.rightMotion = MotionProfiles.loadProfile(filename + "_left");
 		}
 	}
 

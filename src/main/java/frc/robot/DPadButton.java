@@ -1,18 +1,8 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 
-/**
- * Add your docs here.
- */
 public class DPadButton extends Button {
 	private int dPadDegree;
 	private XboxController controller;
@@ -31,7 +21,6 @@ public class DPadButton extends Button {
 	public DPadButton(XboxController controller, Value value) {
 		this.controller = controller;
 		switch (value) {
-
 		case kDPadRight:
 			this.dPadDegree = 90;
 			break;
@@ -58,7 +47,6 @@ public class DPadButton extends Button {
 			break;
 		default:
 			throw new AssertionError("Illegal value" + value);
-
 		}
 	}
 

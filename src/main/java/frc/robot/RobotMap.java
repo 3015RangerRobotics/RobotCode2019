@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot;
 
 /**
@@ -14,8 +7,7 @@ package frc.robot;
  * floating around.
  */
 public class RobotMap {
-	public static final double kPeriod = 0;
-	// Temporary value so that DriveMotionProfile would stop complaining
+	public static final double kPeriod = 0.01;
 
 	public static final int rightDriveMotors = 0;
 	public static final int leftDriveMotors = 1;

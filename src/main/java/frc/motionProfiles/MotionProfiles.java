@@ -8,8 +8,11 @@
 package frc.motionProfiles;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
+
+import edu.wpi.first.wpilibj.Filesystem;
 
 public class MotionProfiles {
 	/**
@@ -20,10 +23,9 @@ public class MotionProfiles {
 	 */
 	public static double[][] loadProfile(String profileName) {
 		double[][] profile = new double[][] {};
-		try {
+		try (BufferedReader br = new BufferedReader(
+				new FileReader(new File(Filesystem.getDeployDirectory(), profileName + ".csv")))) {
 			ArrayList<double[]> points = new ArrayList<double[]>();
-			BufferedReader br = new BufferedReader(
-					new InputStreamReader(MotionProfiles.class.getResourceAsStream(profileName + ".txt")));
 
 			String line = "";
 			while ((line = br.readLine()) != null) {
