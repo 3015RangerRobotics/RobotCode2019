@@ -16,6 +16,7 @@ public class DriveWithGamepad extends CommandBase {
 	protected void execute() {
 		double driveValue = oi.getDriverLeftStickY();
 		drive.arcadeDrive(driveValue, oi.getDriverLeftStickX() / 1.25, true);
+		// System.out.println(drive.getRightDistance());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

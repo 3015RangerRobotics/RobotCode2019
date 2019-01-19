@@ -24,7 +24,7 @@ public class MotionProfiles {
 	public static double[][] loadProfile(String profileName) {
 		double[][] profile = new double[][] {};
 		try (BufferedReader br = new BufferedReader(
-				new FileReader(new File(Filesystem.getDeployDirectory(), profileName + ".csv")))) {
+				new FileReader(new File(Filesystem.getDeployDirectory(), "paths/" + profileName + ".csv")))) {
 			ArrayList<double[]> points = new ArrayList<double[]>();
 
 			String line = "";

@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.DriveForTime;
+import frc.robot.commands.DriveMotionProfile;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 public class OI {
@@ -46,7 +47,7 @@ public class OI {
 	Button coDriverRTrigger = new TriggerButton(coDriver, Hand.kRight);
 
 	public OI() {
-		driverA1.whenPressed(new DriveForTime(0.25, 1));
+		driverA1.whenPressed(new DriveMotionProfile("test"));
 	}
 
 	public double getDriverLeftStickY() {
