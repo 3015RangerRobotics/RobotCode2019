@@ -47,7 +47,7 @@ public class OI {
 	Button coDriverRTrigger = new TriggerButton(coDriver, Hand.kRight);
 
 	public OI() {
-		driverA1.whenPressed(new DriveMotionProfile("test"));
+		driverA1.whenPressed(new DriveMotionProfile("path"));
 	}
 
 	public double getDriverLeftStickY() {

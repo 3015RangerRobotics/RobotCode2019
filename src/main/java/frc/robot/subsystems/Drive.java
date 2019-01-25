@@ -10,8 +10,8 @@ import frc.robot.RobotMap;
 import frc.robot.commands.DriveWithGamepad;;
 
 public class Drive extends Subsystem {
-	public final double kDriveP = 2.80;
-	public final double kDriveD = 0.10;
+	public final double kDriveP = 1.70;
+	public final double kDriveD = 0.09;
 
 	public final double kTurnPEncoder = 0;
 	public final double kTurnDEncoder = 0;
