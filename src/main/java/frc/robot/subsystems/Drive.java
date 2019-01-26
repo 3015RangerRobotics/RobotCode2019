@@ -1,7 +1,10 @@
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.DriveHelper;
@@ -13,13 +16,11 @@ public class Drive extends Subsystem {
 	public final double kDriveP = 1.70;
 	public final double kDriveD = 0.09;
 
-	public final double kTurnPEncoder = 0;
-	public final double kTurnDEncoder = 0;
-
 	public final double kVTurn = 0;
 	public final double kATurn = 0;
 
 	public final double kTurnP = 0;
+	public final double kTurnI = 0;
 	public final double kTurnD = 0;
 
 	public final double kV = 0.067;
@@ -32,6 +33,8 @@ public class Drive extends Subsystem {
 
 	private Encoder rightEncoder;
 	private Encoder leftEncoder;
+
+	public AHRS imu;
 
 	public Drive() {
 		SmartDashboard.putNumber("kDriveP", kDriveP);
@@ -50,8 +53,11 @@ public class Drive extends Subsystem {
 		rightMotors.setInverted(true);
 		rightEncoder.setReverseDirection(true);
 		rightEncoder.setDistancePerPulse(kDistancePerPulse);
+		imu = new AHRS(Port.kOnboard);
+
 		SmartDashboard.putData("Left Encoder", leftEncoder);
 		SmartDashboard.putData("Right Encoder", rightEncoder);
+		SmartDashboard.putData("Gyro", imu);
 	}
 
 	@Override
@@ -88,5 +94,11 @@ public class Drive extends Subsystem {
 
 	public double getRightVelocity() {
 		return rightEncoder.getRate();
+	}
+	public double getAngle() {
+		return imu.getAngle();
+	}
+	public void resetGyro() {
+		imu.zeroYaw();
 	}
 }
