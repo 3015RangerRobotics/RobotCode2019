@@ -3,9 +3,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.DriveForTime;
-import frc.robot.commands.DriveMotionProfile;
+import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 
 public class OI {
 	// Buttons for driver
@@ -47,7 +47,7 @@ public class OI {
 	Button coDriverRTrigger = new TriggerButton(coDriver, Hand.kRight);
 
 	public OI() {
-		driverA1.whenPressed(new DriveMotionProfile("path"));
+		driverA1.whenPressed(new DriveMotionProfile("platform_backRocket"));
 	}
 
 	public double getDriverLeftStickY() {
@@ -60,5 +60,14 @@ public class OI {
 
 	public double getDriverLeftStickX() {
 		return driver.getX(Hand.kLeft);
+	}
+
+	public void coDriverRumble(double d) {
+		coDriver.setRumble(RumbleType.kRightRumble, d);
+		coDriver.setRumble(RumbleType.kLeftRumble, d);
+	}
+
+	public double getCoDriverSumTriggers() {
+		return coDriver.getTriggerAxis(Hand.kRight) - coDriver.getTriggerAxis(Hand.kLeft);
 	}
 }
