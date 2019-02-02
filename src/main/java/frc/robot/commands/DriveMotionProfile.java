@@ -111,6 +111,10 @@ public class DriveMotionProfile extends CommandBase {
 
 			System.out.println(
 					goalPosL + ", " + goalPosR + ", " + drive.getLeftDistance() + ", " + drive.getRightDistance());
+					SmartDashboard.putNumber("goalPosL", goalPosL);
+					SmartDashboard.putNumber("goalPosR", goalPosR);
+					SmartDashboard.putNumber("leftDistance", drive.getLeftDistance());
+					SmartDashboard.putNumber("rightDistance", drive.getRightDistance());
 
 			prevErrorL = errorL;
 			prevErrorR = errorR;
