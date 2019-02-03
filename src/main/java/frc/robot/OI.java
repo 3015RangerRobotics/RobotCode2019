@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.AutoRocketFar;
 import frc.robot.commands.DriveForTime;
 import frc.robot.commands.DriveMotionProfile;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
@@ -48,7 +49,7 @@ public class OI {
 
 	public OI() {
 		driverA1.whenPressed(new DriveMotionProfile("backRocket_station"));
-		driverB2.whenPressed(new DriveMotionProfile("platform_backRocket"));
+		driverB2.whenPressed(new AutoRocketFar());
 	}
 
 	public double getDriverLeftStickY() {
