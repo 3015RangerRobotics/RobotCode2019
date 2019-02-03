@@ -9,15 +9,15 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class DriveTurnToAngle extends CommandBase implements PIDOutput {
+public class DriveTurnToTarget extends CommandBase implements PIDOutput {
 	PIDController turnController;
 	double setpoint = 0;
 	int onTargetCount = 0;
 	double minTurn = 0.05;
-	public DriveTurnToAngle(double angle, boolean isAbsolute) {
+	public DriveTurnToTarget() {
 		requires(drive);
-        this.setpoint = angle;
         turnController = new PIDController(drive.kTurnP, drive.kTurnI, drive.kTurnD, drive.imu, this);
         turnController.setInputRange(-180.0, 180.0);
         turnController.setOutputRange(-1.0 + minTurn, 1.0 - minTurn);
@@ -29,6 +29,7 @@ public class DriveTurnToAngle extends CommandBase implements PIDOutput {
 	@Override
 	protected void initialize() {
 		drive.resetGyro();
+		this.setpoint = SmartDashboard.getNumber("TargetXAngle", 0);
     	turnController.setSetpoint(setpoint);
     	turnController.enable();
 		onTargetCount = 0;
