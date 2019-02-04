@@ -19,11 +19,16 @@ public class DriveToTarget extends CommandBase {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		double distanceToTarget = (SmartDashboard.getNumber("TargetDistance", 0) / 12) - 1;
-		double angleToTarget = SmartDashboard.getNumber("TargetXAngle", 0);
-		double dx = Math.sin(Math.abs(angleToTarget)) * distanceToTarget;
-		double dy = Math.sqrt((distanceToTarget*distanceToTarget) - (dx*dx));
-		new DriveMotionProfile(MotionProfiles.generate2D(dx, dy, angleToTarget, 8, 5, 100, false)).start();
+		double distanceToTarget = (SmartDashboard.getNumber("TargetDistance", 0) / 12) - 2;
+		// double angleToTarget = SmartDashboard.getNumber("TargetXAngle", 0);
+		// double dx = Math.sin(Math.abs(angleToTarget)) * distanceToTarget;
+		// double dy = Math.sqrt((distanceToTarget*distanceToTarget) - (dx*dx));
+		// if(angleToTarget > 0) {
+		// 	dx *= -1;
+		// }
+		// new DriveMotionProfile(MotionProfiles.generate2D(dy, dx, 0, 8, 5, 100, false)).start();
+	
+		new DriveMotionProfile(MotionProfiles.generate1D(distanceToTarget, 8, 5, 100, true)).start();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
