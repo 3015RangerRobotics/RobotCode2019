@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.ControllerPower;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 
@@ -14,14 +15,15 @@ public class DriveTurnToAngle extends CommandBase implements PIDOutput {
 	PIDController turnController;
 	double setpoint = 0;
 	int onTargetCount = 0;
-	double minTurn = 0.2;
+	double minTurn = 0.22;
+
 	public DriveTurnToAngle(double angle, boolean isAbsolute) {
 		requires(drive);
-        this.setpoint = angle;
-        turnController = new PIDController(drive.kTurnP, drive.kTurnI, drive.kTurnD, drive.imu, this);
-        turnController.setInputRange(-180.0, 180.0);
-        turnController.setOutputRange(-1.0 + minTurn, 1.0 - minTurn);
-        turnController.setAbsoluteTolerance(1.0);
+		this.setpoint = angle;
+		turnController = new PIDController(drive.kTurnP, drive.kTurnI, drive.kTurnD, drive.imu, this);
+		turnController.setInputRange(-180.0, 180.0);
+		turnController.setOutputRange(-1.0, 1.0);
+		turnController.setAbsoluteTolerance(5.0);
 		turnController.setContinuous(true);
 	}
 
@@ -29,28 +31,34 @@ public class DriveTurnToAngle extends CommandBase implements PIDOutput {
 	@Override
 	protected void initialize() {
 		drive.resetGyro();
-    	turnController.setSetpoint(setpoint);
-    	turnController.enable();
+		turnController.setSetpoint(setpoint);
+		turnController.enable();
 		onTargetCount = 0;
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		double output = turnController.get();
-    	
-    	if(output < 0) {
-    		System.out.println(output - minTurn);
-    		drive.arcadeDrive(0, output - minTurn, false);
-    	}else {
-    		System.out.println(output + minTurn);
-    		drive.arcadeDrive(0, output + minTurn, false);
-    	}
-    	
-    	if(turnController.onTarget()) {
-    		onTargetCount++;
-    	}else {
-    		onTargetCount = 0;
+		// double output = turnController.get();
+
+		// if(output < 0) {
+		// if(minTurn > Math.abs(output)){
+		// output = -minTurn;
+		// }
+		// }else {
+		// if(minTurn > output){
+		// output = minTurn;
+		// }
+		// }
+
+		// output *= 12.5 / ControllerPower.getInputVoltage();
+		// System.out.println(output);
+		// drive.arcadeDrive(0, output, false);
+
+		if (turnController.onTarget()) {
+			onTargetCount++;
+		} else {
+			onTargetCount = 0;
 		}
 	}
 
@@ -76,6 +84,15 @@ public class DriveTurnToAngle extends CommandBase implements PIDOutput {
 
 	@Override
 	public void pidWrite(double output) {
-
+		if (output < 0) {
+			if (minTurn > Math.abs(output)) {
+				output = -minTurn;
+			}
+		} else {
+			if (minTurn > output) {
+				output = minTurn;
+			}
+		}
+		drive.arcadeDrive(0, (output * 12.5 / ControllerPower.getInputVoltage()), false);
 	}
 }
