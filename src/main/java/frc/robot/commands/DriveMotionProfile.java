@@ -7,11 +7,14 @@
 
 package frc.robot.commands;
 
+import java.util.HashMap;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.motionProfiles.MotionProfiles;
 import frc.robot.RobotMap;
+import frc.robot.RobotMap.Side;
 
 public class DriveMotionProfile extends CommandBase {
 	private volatile boolean isFinished = false;
@@ -26,6 +29,24 @@ public class DriveMotionProfile extends CommandBase {
 		this.leftMotion = MotionProfiles.loadProfile(filename + "_left");
 		this.rightMotion = MotionProfiles.loadProfile(filename + "_right");
 	}
+
+	public DriveMotionProfile(double[][] motionProfile) {
+    	requires(drive);
+    	this.leftMotion = motionProfile;
+    	this.rightMotion = motionProfile;
+	}
+	
+	public DriveMotionProfile(double[][] leftMotion, double[][] rightMotion) {
+    	requires(drive);
+    	this.leftMotion = leftMotion;
+    	this.rightMotion = rightMotion;
+    }
+    
+    public DriveMotionProfile(HashMap<Side, double[][]> profiles) {
+    	requires(drive);
+    	this.leftMotion = profiles.get(Side.kLeft);
+    	this.rightMotion = profiles.get(Side.kRight);
+    }
 
 	public DriveMotionProfile(String filename, boolean mirrored) {
 		requires(drive);
@@ -111,6 +132,10 @@ public class DriveMotionProfile extends CommandBase {
 
 			System.out.println(
 					goalPosL + ", " + goalPosR + ", " + drive.getLeftDistance() + ", " + drive.getRightDistance());
+					SmartDashboard.putNumber("goalPosL", goalPosL);
+					SmartDashboard.putNumber("goalPosR", goalPosR);
+					SmartDashboard.putNumber("leftDistance", drive.getLeftDistance());
+					SmartDashboard.putNumber("rightDistance", drive.getRightDistance());
 
 			prevErrorL = errorL;
 			prevErrorR = errorR;
