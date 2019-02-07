@@ -7,6 +7,9 @@ import frc.motionProfiles.MotionProfiles;
 import frc.robot.commands.AutoRocketFar;
 import frc.robot.commands.DriveForTime;
 import frc.robot.commands.DriveMotionProfile;
+import frc.robot.commands.DriveToTarget;
+import frc.robot.commands.DriveTurnToAngle;
+import frc.robot.commands.DriveTurnToTarget;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 public class OI {
@@ -49,13 +52,6 @@ public class OI {
 	Button coDriverRTrigger = new TriggerButton(coDriver, Hand.kRight);
 
 	public OI() {
-		//driverA1.whenPressed(new AutoRocketFar());
-		driverA1.whenPressed(new DriveMotionProfile("platform_farRocket"));
-		driverB2.whenPressed(new DriveMotionProfile(MotionProfiles.generate2D(2, .5, 70, 6, 3, 100, true)));
-		driverX3.whenPressed(new DriveMotionProfile("farRocket_station"));
-		driverY4.whenPressed(new DriveMotionProfile("station_farRocket"));
-		driverLB5.whenPressed(new DriveMotionProfile(MotionProfiles.generate1D(1, 6, 3, 100, false)));
-
 	}
 
 	public double getDriverLeftStickY() {
@@ -67,6 +63,10 @@ public class OI {
 	}
 
 	public double getDriverLeftStickX() {
-		return driver.getX(Hand.kLeft);
+		if (Math.abs(driver.getX(Hand.kLeft)) > 0.05) {
+			return driver.getX(Hand.kLeft);
+		} else {
+			return 0;
+		}
 	}
 }

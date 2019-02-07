@@ -19,9 +19,9 @@ public class Drive extends Subsystem {
 	public final double kVTurn = 0;
 	public final double kATurn = 0;
 
-	public final double kTurnP = 0;
-	public final double kTurnI = 0;
-	public final double kTurnD = 0;
+	public final double kTurnP = 0.0065;//0.005;//0.008
+	public final double kTurnI = 0.0;//0.0006
+	public final double kTurnD = 0.0;//0.08
 
 	public final double kV = 0.067;
 	public final double kA = 0.023;
