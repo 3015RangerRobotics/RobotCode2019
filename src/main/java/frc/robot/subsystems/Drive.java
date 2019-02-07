@@ -42,6 +42,10 @@ public class Drive extends Subsystem {
 		SmartDashboard.putNumber("kV", kV);
 		SmartDashboard.putNumber("kA", kA);
 
+		SmartDashboard.putNumber("kTurnP", kTurnP);
+		SmartDashboard.putNumber("kTurnI", kTurnI);
+		SmartDashboard.putNumber("kTurnD", kTurnD);
+
 		this.leftMotors = new VictorSP(RobotMap.leftDriveMotors);
 		this.leftEncoder = new Encoder(RobotMap.leftDriveEncoder1, RobotMap.leftDriveEncoder2);
 		leftMotors.setInverted(false);

@@ -18,6 +18,9 @@ public class RobotMap {
 	public static final int leftDriveEncoder1 = 2;
 	public static final int leftDriveEncoder2 = 3;
 
+	public static final int elevatorTalonSRX = 3;
+	public static final int elevatorBottomLimit = 4;
+  
 	public enum Side{
 		kLeft,
 		kRight

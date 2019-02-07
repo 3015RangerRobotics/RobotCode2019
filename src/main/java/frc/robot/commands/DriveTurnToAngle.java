@@ -10,11 +10,14 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.ControllerPower;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTurnToAngle extends CommandBase implements PIDOutput {
 	PIDController turnController;
 	double setpoint = 0;
 	int onTargetCount = 0;
+
+	public DriveTurnToAngle(double angle) {
 	double minTurn = 0.22;
 
 	public DriveTurnToAngle(double angle, boolean isAbsolute) {
@@ -31,6 +34,9 @@ public class DriveTurnToAngle extends CommandBase implements PIDOutput {
 	@Override
 	protected void initialize() {
 		drive.resetGyro();
+		turnController.setP(SmartDashboard.getNumber("kTurnP", 0));
+		turnController.setI(SmartDashboard.getNumber("kTurnI", 0));
+		turnController.setD(SmartDashboard.getNumber("kTurnD", 0));
 		turnController.setSetpoint(setpoint);
 		turnController.enable();
 		onTargetCount = 0;
@@ -39,22 +45,6 @@ public class DriveTurnToAngle extends CommandBase implements PIDOutput {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		// double output = turnController.get();
-
-		// if(output < 0) {
-		// if(minTurn > Math.abs(output)){
-		// output = -minTurn;
-		// }
-		// }else {
-		// if(minTurn > output){
-		// output = minTurn;
-		// }
-		// }
-
-		// output *= 12.5 / ControllerPower.getInputVoltage();
-		// System.out.println(output);
-		// drive.arcadeDrive(0, output, false);
-
 		if (turnController.onTarget()) {
 			onTargetCount++;
 		} else {
