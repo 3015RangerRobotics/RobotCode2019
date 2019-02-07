@@ -52,9 +52,6 @@ public class OI {
 	Button coDriverRTrigger = new TriggerButton(coDriver, Hand.kRight);
 
 	public OI() {
-		driverA1.whenPressed(new DriveToTarget());
-		driverB2.whenPressed(new DriveTurnToTarget());
-		driverX3.whenPressed(new DriveTurnToAngle(90, false));
 	}
 
 	public double getDriverLeftStickY() {
