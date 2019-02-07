@@ -8,6 +8,7 @@ package frc.robot;
  */
 public class RobotMap {
 	public static final double kPeriod = 0.01;
+	public static final double wheelBaseWidth = 2;
 
 	public static final int rightDriveMotors = 0;
 	public static final int leftDriveMotors = 1;
@@ -19,4 +20,9 @@ public class RobotMap {
 
 	public static final int elevatorTalonSRX = 3;
 	public static final int elevatorBottomLimit = 4;
+  
+	public enum Side{
+		kLeft,
+		kRight
+	}
 }
