@@ -1,10 +1,11 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.VictorSP;
-import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.DriveHelper;
@@ -28,11 +29,13 @@ public class Drive extends Subsystem {
 
 	public final double kDistancePerPulse = 0.00904774;
 
-	private VictorSP rightMotors;
-	private VictorSP leftMotors;
+	private TalonSRX rightMaster;
+	private VictorSPX rightFollower1;
+	private VictorSPX rightFollower2;
 
-	private Encoder rightEncoder;
-	private Encoder leftEncoder;
+	private TalonSRX leftMaster;
+	private VictorSPX leftFollower1;
+	private VictorSPX leftFollower2;
 
 	public AHRS imu;
 
@@ -46,21 +49,38 @@ public class Drive extends Subsystem {
 		SmartDashboard.putNumber("kTurnI", kTurnI);
 		SmartDashboard.putNumber("kTurnD", kTurnD);
 
-		this.leftMotors = new VictorSP(RobotMap.leftDriveMotors);
-		this.leftEncoder = new Encoder(RobotMap.leftDriveEncoder1, RobotMap.leftDriveEncoder2);
-		leftMotors.setInverted(false);
-		leftEncoder.setReverseDirection(false);
-		leftEncoder.setDistancePerPulse(kDistancePerPulse);
+		this.leftMaster = new TalonSRX(RobotMap.leftDriveMaster);
+		this.leftFollower1 = new VictorSPX(RobotMap.leftDriveFollower1);
+		this.leftFollower2 = new VictorSPX(RobotMap.leftDriveFollower2);
 
-		this.rightMotors = new VictorSP(RobotMap.rightDriveMotors);
-		this.rightEncoder = new Encoder(RobotMap.rightDriveEncoder1, RobotMap.rightDriveEncoder2);
-		rightMotors.setInverted(true);
-		rightEncoder.setReverseDirection(true);
-		rightEncoder.setDistancePerPulse(kDistancePerPulse);
-		imu = new AHRS(Port.kOnboard);
+		this.rightMaster = new TalonSRX(RobotMap.rightDriveMaster);
+		this.rightFollower1 = new VictorSPX(RobotMap.rightDriveFollower1);
+		this.rightFollower2 = new VictorSPX(RobotMap.rightDriveFollower2);
 
-		SmartDashboard.putData("Left Encoder", leftEncoder);
-		SmartDashboard.putData("Right Encoder", rightEncoder);
+		leftFollower1.follow(leftMaster);
+		leftFollower2.follow(leftMaster);
+		
+		rightFollower1.follow(rightMaster);
+		rightFollower2.follow(rightMaster);
+
+		leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+		rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+
+		// this.leftMotors = new VictorSP(RobotMap.leftDriveMotors);
+		// this.leftEncoder = new Encoder(RobotMap.leftDriveEncoder1, RobotMap.leftDriveEncoder2);
+		// leftMotors.setInverted(false);
+		// leftEncoder.setReverseDirection(false);
+		// leftEncoder.setDistancePerPulse(kDistancePerPulse);
+
+		// this.rightMotors = new VictorSP(RobotMap.rightDriveMotors);
+		// this.rightEncoder = new Encoder(RobotMap.rightDriveEncoder1, RobotMap.rightDriveEncoder2);
+		// rightMotors.setInverted(true);
+		// rightEncoder.setReverseDirection(true);
+		// rightEncoder.setDistancePerPulse(kDistancePerPulse);
+		// imu = new AHRS(Port.kOnboard);
+
+		SmartDashboard.putNumber("Left Encoder", leftMaster.getSelectedSensorPosition());
+		SmartDashboard.putNumber("Right Encoder", rightMaster.getSelectedSensorPosition());
 		SmartDashboard.putData("Gyro", imu);
 	}
 
@@ -70,13 +90,13 @@ public class Drive extends Subsystem {
 	}
 
 	public void resetEncoders() {
-		leftEncoder.reset();
-		rightEncoder.reset();
+		leftMaster.setSelectedSensorPosition(0);
+		rightMaster.setSelectedSensorPosition(0);
 	}
 
 	public void setMotorOutputs(double leftMotor, double rightMotor) {
-		this.leftMotors.set(leftMotor);
-		this.rightMotors.set(rightMotor);
+		this.leftMaster.set(ControlMode.PercentOutput, leftMotor);
+		this.rightMaster.set(ControlMode.PercentOutput, rightMotor);
 	}
 
 	public void arcadeDrive(double moveValue, double rotateValue, boolean squaredInputs) {
@@ -85,19 +105,19 @@ public class Drive extends Subsystem {
 	}
 
 	public double getLeftDistance() {
-		return leftEncoder.getDistance();
+		return leftMaster.getSelectedSensorPosition();
 	}
 
 	public double getRightDistance() {
-		return rightEncoder.getDistance();
+		return rightMaster.getSelectedSensorPosition();
 	}
 
 	public double getLeftVelocity() {
-		return leftEncoder.getRate();
+		return leftMaster.getSelectedSensorVelocity();
 	}
 
 	public double getRightVelocity() {
-		return rightEncoder.getRate();
+		return rightMaster.getSelectedSensorVelocity();
 	}
 	public double getAngle() {
 		return imu.getAngle();
