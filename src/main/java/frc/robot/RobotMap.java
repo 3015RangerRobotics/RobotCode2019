@@ -23,6 +23,8 @@ public class RobotMap {
 
 	public static final int ballMechTalon = 10;
 	public static final int ballLimitSwitch = 11;
+
+	public static final int hatchSolenoid = 12;
   
 	public enum Side{
 		kLeft,

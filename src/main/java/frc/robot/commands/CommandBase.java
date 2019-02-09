@@ -5,17 +5,20 @@ import frc.robot.OI;
 import frc.robot.subsystems.BallMech;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.HatchMech;
 
 public abstract class CommandBase extends Command {
 	public static Drive drive;
 	public static Elevator elevator;
 	public static BallMech ballMech;
 	public static OI oi;
+	public static HatchMech hatchMech;
 
 	public static void init() {
 		drive = new Drive();
 		elevator = new Elevator();
 		oi = new OI();
 		ballMech = new BallMech();
+		hatchMech = new HatchMech();
 	}
 }
