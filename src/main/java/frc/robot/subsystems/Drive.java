@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.DriveHelper;
 import frc.robot.DriveSignal;
+import frc.robot.GraphThread;
 import frc.robot.RobotMap;
 import frc.robot.commands.DriveWithGamepad;
 
@@ -38,6 +39,8 @@ public class Drive extends Subsystem {
 	private TalonSRX leftMaster;
 	private VictorSPX leftFollower1;
 	private VictorSPX leftFollower2;
+
+	private GraphThread graphThread;
 
 	public AHRS imu;
 
@@ -84,6 +87,8 @@ public class Drive extends Subsystem {
 		SmartDashboard.putNumber("Left Encoder", leftMaster.getSelectedSensorPosition());
 		SmartDashboard.putNumber("Right Encoder", rightMaster.getSelectedSensorPosition());
 		SmartDashboard.putData("Gyro", imu);
+
+		graphThread = new GraphThread(leftMaster, rightMaster);
 	}
 
 	@Override
@@ -151,5 +156,13 @@ public class Drive extends Subsystem {
 	
 	public boolean isProfileFinished() {
 		return leftMaster.isMotionProfileFinished() && rightMaster.isMotionProfileFinished();
+	}
+
+	public void startGraphing() {
+		graphThread.start();
+	}
+
+	public void stopGraphing() {
+		graphThread.stop();
 	}
 }

@@ -11,20 +11,13 @@ import java.util.HashMap;
 
 import com.ctre.phoenix.motion.BufferedTrajectoryPointStream;
 
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.motionProfiles.MotionProfiles;
-import frc.robot.RobotMap;
 import frc.robot.RobotMap.Side;
 
 public class DriveMotionProfile extends CommandBase {
-	private volatile boolean isFinished = false;
 	private double[][] leftMotion;
 	private double[][] rightMotion;
-	private volatile int i = 0;
-	private volatile double prevErrorL = 0;
-	private volatile double prevErrorR = 0;
 
 	public DriveMotionProfile(String filename) {
 		requires(drive);
@@ -64,10 +57,12 @@ public class DriveMotionProfile extends CommandBase {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
+		SmartDashboard.putBoolean("PathRunning", true);
 		BufferedTrajectoryPointStream leftBuffer = drive.getProfileBuffer(this.leftMotion);
 		BufferedTrajectoryPointStream rightBuffer = drive.getProfileBuffer(this.rightMotion);
 		
 		drive.startMotionProfile(leftBuffer, rightBuffer);
+		drive.startGraphing();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -85,14 +80,15 @@ public class DriveMotionProfile extends CommandBase {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
+		SmartDashboard.putBoolean("PathRunning", false);
 		drive.setMotorOutputs(0, 0);
+		drive.stopGraphing();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		isFinished = true;
 		end();
 	}
 }
