@@ -30,7 +30,7 @@ public class Drive extends Subsystem {
 	public final double kV = 0.067;
 	public final double kA = 0.023;
 
-	public final double kDistancePerPulse = 0.00904774;
+	public final double kDistancePerPulse = 0.00904774 / 4;
 
 	private TalonSRX rightMaster;
 	private VictorSPX rightFollower1;
