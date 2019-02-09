@@ -7,10 +7,9 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
@@ -20,14 +19,14 @@ import frc.robot.RobotMap;
 public class BallMech extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-	private TalonSRX intakeMotor1;
+	private VictorSP intakeMotor1;
 	private DigitalInput ballSensor;
 
 	private final double INTAKE_SPEED = 0.75;
 	private final double OUTTAKE_SPEED = -0.85;
 
 	public BallMech(){
-		intakeMotor1 = new TalonSRX(RobotMap.ballMechTalon);
+		intakeMotor1 = new VictorSP(RobotMap.ballMechVictor);
 		ballSensor = new DigitalInput(RobotMap.ballLimitSwitch);
 	}
   @Override
@@ -40,14 +39,14 @@ public class BallMech extends Subsystem {
   }
 
   public void intakeUp(){
-	  intakeMotor1.set(ControlMode.PercentOutput, INTAKE_SPEED);
+	  intakeMotor1.set(INTAKE_SPEED);
   }
 
   public void intakeDown(){
-	  intakeMotor1.set(ControlMode.PercentOutput, OUTTAKE_SPEED);
+	  intakeMotor1.set(OUTTAKE_SPEED);
   }
 
   public void intakeStop(){
-	  intakeMotor1.set(ControlMode.PercentOutput, 0);
+	  intakeMotor1.set(0);
   }
 }
