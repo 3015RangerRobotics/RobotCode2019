@@ -29,10 +29,11 @@ public class Climber extends Subsystem {
   private AnalogInput centerWheelsAnalogInput;
 
   public final double pulsesPerInch = 200;
-  public final double centerUpPos = 24;
-  public final double centerDownPos = 20;
-  public final double backBasePos = 0; 
-  public final double backDownPos = 20;
+  public final double centerExtendPos = 24;
+  public final double centerRetractPos = 0;
+  public final double centerPlatformPos = 20;
+  public final double backRetractPos = 0; 
+  public final double backExtendPos = 20;
   
 
   public Climber() {

@@ -17,7 +17,7 @@ public class ClimberCenterPrepare extends CommandBase {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-	climber.setCenterPosition(climber.centerUpPos);
+	climber.setCenterPosition(climber.centerExtendPos);
   }
 
   // Called repeatedly when this Command is scheduled to run

@@ -17,7 +17,7 @@ public class ClimberJackExtend extends CommandBase {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-	climber.setCenterPosition(climber.backDownPos);
+	climber.setBackPosition(climber.backExtendPos);
   }
 
   // Called repeatedly when this Command is scheduled to run

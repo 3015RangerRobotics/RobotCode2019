@@ -17,7 +17,7 @@ public class ClimberCenterTouchPlatform extends CommandBase {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-	climber.setCenterPosition(climber.centerDownPos);
+	climber.setCenterPosition(climber.centerPlatformPos);
   }
 
   // Called repeatedly when this Command is scheduled to run
