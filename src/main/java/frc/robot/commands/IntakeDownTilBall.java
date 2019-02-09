@@ -8,10 +8,9 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.BallMech;
 
-public class IntakeIn extends CommandBase {
-  public IntakeIn() {
+public class IntakeDownTilBall extends CommandBase {
+  public IntakeDownTilBall() {
     // Use requires() here to declare subsystem dependencies
 	// eg. requires(chassis);
 	requires(ballMech);
@@ -25,13 +24,17 @@ public class IntakeIn extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-	  ballMech.intakeIn();
-    }
+	  if(ballMech.isBallPresent()) {
+		  ballMech.intakeDown();
+	  }else {
+		  ballMech.intakeDown();
+	  }
+  }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+	return ballMech.isBallPresent();
   }
 
   // Called once after isFinished returns true

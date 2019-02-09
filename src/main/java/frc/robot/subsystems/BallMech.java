@@ -39,11 +39,11 @@ public class BallMech extends Subsystem {
 	return ballSensor.get();
   }
 
-  public void intakeIn(){
+  public void intakeUp(){
 	  intakeMotor1.set(ControlMode.PercentOutput, INTAKE_SPEED);
   }
 
-  public void intakeOut(){
+  public void intakeDown(){
 	  intakeMotor1.set(ControlMode.PercentOutput, OUTTAKE_SPEED);
   }
 

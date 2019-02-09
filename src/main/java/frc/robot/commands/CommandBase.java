@@ -16,5 +16,6 @@ public abstract class CommandBase extends Command {
 		drive = new Drive();
 		elevator = new Elevator();
 		oi = new OI();
+		ballMech = new BallMech();
 	}
 }
