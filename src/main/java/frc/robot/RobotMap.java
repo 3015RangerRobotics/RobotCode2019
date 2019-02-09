@@ -20,6 +20,12 @@ public class RobotMap {
 
 	public static final int elevatorTalonSRX = 3;
 	public static final int elevatorBottomLimit = 4;
+
+	public static final int climberCenterJackTalonSRX = 20; 
+	public static final int climberLeftJackTalonSRX = 19; 
+	public static final int climberRightJackTalonSRX = 18; 
+	public static final int climberCenterWheelsVictorSP = 7; 
+	public static final int climberCenterWheelsAnalogInput = 6; 
   
 	public enum Side{
 		kLeft,

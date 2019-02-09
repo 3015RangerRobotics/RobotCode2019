@@ -9,15 +9,15 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ClimberDrivePlatform extends CommandBase {
-  public ClimberDrivePlatform() {
+public class ClimberCenterTouchPlatform extends CommandBase {
+  public ClimberCenterTouchPlatform() {
     requires(climber);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-
+	climber.setCenterPosition(climber.centerDownPos);
   }
 
   // Called repeatedly when this Command is scheduled to run

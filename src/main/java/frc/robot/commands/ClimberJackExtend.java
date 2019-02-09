@@ -9,15 +9,15 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ClimberJackUp extends CommandBase {
-  public ClimberJackUp() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+public class ClimberJackExtend extends CommandBase {
+  public ClimberJackExtend() {
+    requires(climber);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+	climber.setCenterPosition(climber.backDownPos);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -28,7 +28,7 @@ public class ClimberJackUp extends CommandBase {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true
