@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.DriveHelper;
@@ -71,18 +72,7 @@ public class Drive extends Subsystem {
 		leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
 		rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
 
-		// this.leftMotors = new VictorSP(RobotMap.leftDriveMotors);
-		// this.leftEncoder = new Encoder(RobotMap.leftDriveEncoder1, RobotMap.leftDriveEncoder2);
-		// leftMotors.setInverted(false);
-		// leftEncoder.setReverseDirection(false);
-		// leftEncoder.setDistancePerPulse(kDistancePerPulse);
-
-		// this.rightMotors = new VictorSP(RobotMap.rightDriveMotors);
-		// this.rightEncoder = new Encoder(RobotMap.rightDriveEncoder1, RobotMap.rightDriveEncoder2);
-		// rightMotors.setInverted(true);
-		// rightEncoder.setReverseDirection(true);
-		// rightEncoder.setDistancePerPulse(kDistancePerPulse);
-		// imu = new AHRS(Port.kOnboard);
+		imu = new AHRS(Port.kOnboard);
 
 		SmartDashboard.putNumber("Left Encoder", leftMaster.getSelectedSensorPosition());
 		SmartDashboard.putNumber("Right Encoder", rightMaster.getSelectedSensorPosition());
@@ -101,14 +91,14 @@ public class Drive extends Subsystem {
 		rightMaster.setSelectedSensorPosition(0);
 	}
 
-	public void setMotorOutputs(double leftMotor, double rightMotor) {
-		this.leftMaster.set(ControlMode.PercentOutput, leftMotor);
-		this.rightMaster.set(ControlMode.PercentOutput, rightMotor);
+	public void setMotorOutputs(ControlMode mode, double leftMotor, double rightMotor) {
+		this.leftMaster.set(mode, leftMotor);
+		this.rightMaster.set(mode, rightMotor);
 	}
 
 	public void arcadeDrive(double moveValue, double rotateValue, boolean squaredInputs) {
 		DriveSignal ds = DriveHelper.arcadeDrive(moveValue, rotateValue, squaredInputs);
-		setMotorOutputs(ds.leftSignal, ds.rightSignal);
+		setMotorOutputs(ControlMode.PercentOutput, ds.leftSignal, ds.rightSignal);
 	}
 
 	public double getLeftDistance() {

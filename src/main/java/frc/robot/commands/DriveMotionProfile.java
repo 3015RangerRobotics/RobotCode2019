@@ -10,6 +10,7 @@ package frc.robot.commands;
 import java.util.HashMap;
 
 import com.ctre.phoenix.motion.BufferedTrajectoryPointStream;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.motionProfiles.MotionProfiles;
@@ -81,7 +82,7 @@ public class DriveMotionProfile extends CommandBase {
 	@Override
 	protected void end() {
 		SmartDashboard.putBoolean("PathRunning", false);
-		drive.setMotorOutputs(0, 0);
+		drive.setMotorOutputs(ControlMode.PercentOutput, 0, 0);
 		drive.stopGraphing();
 	}
 
