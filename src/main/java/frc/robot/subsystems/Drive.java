@@ -37,36 +37,36 @@ public class Drive extends Subsystem {
 	public AHRS imu;
 
 	public Drive() {
-		SmartDashboard.putNumber("kDriveP", kDriveP);
-		SmartDashboard.putNumber("kDriveD", kDriveD);
-		SmartDashboard.putNumber("kV", kV);
-		SmartDashboard.putNumber("kA", kA);
+		// SmartDashboard.putNumber("kDriveP", kDriveP);
+		// SmartDashboard.putNumber("kDriveD", kDriveD);
+		// SmartDashboard.putNumber("kV", kV);
+		// SmartDashboard.putNumber("kA", kA);
 
-		SmartDashboard.putNumber("kTurnP", kTurnP);
-		SmartDashboard.putNumber("kTurnI", kTurnI);
-		SmartDashboard.putNumber("kTurnD", kTurnD);
+		// SmartDashboard.putNumber("kTurnP", kTurnP);
+		// SmartDashboard.putNumber("kTurnI", kTurnI);
+		// SmartDashboard.putNumber("kTurnD", kTurnD);
 
-		this.leftMotors = new VictorSP(RobotMap.leftDriveMotors);
-		this.leftEncoder = new Encoder(RobotMap.leftDriveEncoder1, RobotMap.leftDriveEncoder2);
-		leftMotors.setInverted(false);
-		leftEncoder.setReverseDirection(false);
-		leftEncoder.setDistancePerPulse(kDistancePerPulse);
+		// this.leftMotors = new VictorSP(RobotMap.leftDriveMotors);
+		// this.leftEncoder = new Encoder(RobotMap.leftDriveEncoder1, RobotMap.leftDriveEncoder2);
+		// leftMotors.setInverted(false);
+		// leftEncoder.setReverseDirection(false);
+		// leftEncoder.setDistancePerPulse(kDistancePerPulse);
 
-		this.rightMotors = new VictorSP(RobotMap.rightDriveMotors);
-		this.rightEncoder = new Encoder(RobotMap.rightDriveEncoder1, RobotMap.rightDriveEncoder2);
-		rightMotors.setInverted(true);
-		rightEncoder.setReverseDirection(true);
-		rightEncoder.setDistancePerPulse(kDistancePerPulse);
-		imu = new AHRS(Port.kOnboard);
+		// this.rightMotors = new VictorSP(RobotMap.rightDriveMotors);
+		// this.rightEncoder = new Encoder(RobotMap.rightDriveEncoder1, RobotMap.rightDriveEncoder2);
+		// rightMotors.setInverted(true);
+		// rightEncoder.setReverseDirection(true);
+		// rightEncoder.setDistancePerPulse(kDistancePerPulse);
+		// imu = new AHRS(Port.kOnboard);
 
-		SmartDashboard.putData("Left Encoder", leftEncoder);
-		SmartDashboard.putData("Right Encoder", rightEncoder);
-		SmartDashboard.putData("Gyro", imu);
+		// SmartDashboard.putData("Left Encoder", leftEncoder);
+		// SmartDashboard.putData("Right Encoder", rightEncoder);
+		// SmartDashboard.putData("Gyro", imu);
 	}
 
 	@Override
 	public void initDefaultCommand() {
-		this.setDefaultCommand(new DriveWithGamepad());
+		// this.setDefaultCommand(new DriveWithGamepad());
 	}
 
 	public void resetEncoders() {
