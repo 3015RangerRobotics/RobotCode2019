@@ -25,10 +25,10 @@ public class GraphThread implements Runnable {
 
 	@Override
 	public void run() {
-		while(running) {
+		while (running) {
 			try {
 				Thread.sleep(10);
-			}catch(InterruptedException e) {
+			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 

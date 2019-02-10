@@ -24,10 +24,11 @@ public class DriveToTarget extends CommandBase {
 		// double dx = Math.sin(Math.abs(angleToTarget)) * distanceToTarget;
 		// double dy = Math.sqrt((distanceToTarget*distanceToTarget) - (dx*dx));
 		// if(angleToTarget > 0) {
-		// 	dx *= -1;
+		// dx *= -1;
 		// }
-		// new DriveMotionProfile(MotionProfiles.generate2D(dy, dx, 0, 8, 5, 100, false)).start();
-	
+		// new DriveMotionProfile(MotionProfiles.generate2D(dy, dx, 0, 8, 5, 100,
+		// false)).start();
+
 		new DriveMotionProfile(MotionProfiles.generate1D(distanceToTarget, 8, 5, 100, false)).start();
 	}
 

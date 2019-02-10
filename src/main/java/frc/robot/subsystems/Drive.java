@@ -24,9 +24,9 @@ public class Drive extends Subsystem {
 	public final double kVTurn = 0;
 	public final double kATurn = 0;
 
-	public final double kTurnP = 0.0065;//0.005;//0.008
-	public final double kTurnI = 0.0;//0.0006
-	public final double kTurnD = 0.0;//0.08
+	public final double kTurnP = 0.0065;// 0.005;//0.008
+	public final double kTurnI = 0.0;// 0.0006
+	public final double kTurnD = 0.0;// 0.08
 
 	public final double kV = 0.067;
 	public final double kA = 0.023;
@@ -65,7 +65,7 @@ public class Drive extends Subsystem {
 
 		leftFollower1.follow(leftMaster);
 		leftFollower2.follow(leftMaster);
-		
+
 		rightFollower1.follow(rightMaster);
 		rightFollower2.follow(rightMaster);
 
@@ -128,7 +128,7 @@ public class Drive extends Subsystem {
 	public BufferedTrajectoryPointStream getProfileBuffer(double[][] profile) {
 		BufferedTrajectoryPointStream buffer = new BufferedTrajectoryPointStream();
 		TrajectoryPoint point = new TrajectoryPoint();
-		for(int i = 0; i < profile.length; i++) {
+		for (int i = 0; i < profile.length; i++) {
 			point.position = profile[i][0] / this.kDistancePerPulse;
 			point.velocity = profile[i][1] / this.kDistancePerPulse / 10;
 			point.timeDur = (int) profile[i][2];
@@ -138,12 +138,13 @@ public class Drive extends Subsystem {
 		}
 		return buffer;
 	}
-	
-	public void startMotionProfile(BufferedTrajectoryPointStream leftBuffer, BufferedTrajectoryPointStream rightBuffer) {
+
+	public void startMotionProfile(BufferedTrajectoryPointStream leftBuffer,
+			BufferedTrajectoryPointStream rightBuffer) {
 		leftMaster.startMotionProfile(leftBuffer, 10, ControlMode.MotionProfile);
 		rightMaster.startMotionProfile(rightBuffer, 10, ControlMode.MotionProfile);
 	}
-	
+
 	public boolean isProfileFinished() {
 		return leftMaster.isMotionProfileFinished() && rightMaster.isMotionProfileFinished();
 	}

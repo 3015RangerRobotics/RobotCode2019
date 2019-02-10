@@ -9,12 +9,13 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class DriveTurnToTarget extends CommandBase{
+public class DriveTurnToTarget extends CommandBase {
 
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		new DriveTurnToAngle((SmartDashboard.getNumber("TargetXAngle", 0)), false).start();;
+		new DriveTurnToAngle((SmartDashboard.getNumber("TargetXAngle", 0)), false).start();
+		;
 	}
 
 	// Called repeatedly when this Command is scheduled to run

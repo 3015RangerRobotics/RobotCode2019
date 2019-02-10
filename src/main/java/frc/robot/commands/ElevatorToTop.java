@@ -11,32 +11,37 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ElevatorManualControl extends CommandBase {
-	double position = 0;
-
-	public ElevatorManualControl() {
+public class ElevatorToTop extends CommandBase {
+	public ElevatorToTop() {
 		requires(elevator);
 	}
 
+	// Called just before this Command runs the first time
+	@Override
 	protected void initialize() {
-		this.position = elevator.getRawDistance();
+		elevator.set(ControlMode.Position, elevator.elevatorHeightTop);
 	}
 
+	// Called repeatedly when this Command is scheduled to run
+	@Override
 	protected void execute() {
-		if ((!elevator.isAtBottom() || oi.getCoDriverSumTriggers() > 0) || elevator.getDistance() > 65) {
-			this.position += oi.getCoDriverSumTriggers() * 100;
-		}
-		elevator.set(ControlMode.Position, position);
 	}
 
+	// Make this return true when this Command no longer needs to run execute()
+	@Override
 	protected boolean isFinished() {
 		return false;
 	}
 
+	// Called once after isFinished returns true
+	@Override
 	protected void end() {
 		elevator.set(ControlMode.PercentOutput, 0);
 	}
 
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	@Override
 	protected void interrupted() {
 		end();
 	}

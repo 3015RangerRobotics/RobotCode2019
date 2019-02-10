@@ -54,7 +54,7 @@ public class OI {
 	Button coDriverRTrigger = new TriggerButton(coDriver, Hand.kRight);
 
 	public OI() {
-	
+
 	}
 
 	public double getDriverLeftStickY() {

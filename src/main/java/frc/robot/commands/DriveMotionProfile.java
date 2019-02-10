@@ -27,22 +27,22 @@ public class DriveMotionProfile extends CommandBase {
 	}
 
 	public DriveMotionProfile(double[][] motionProfile) {
-    	requires(drive);
-    	this.leftMotion = motionProfile;
-    	this.rightMotion = motionProfile;
+		requires(drive);
+		this.leftMotion = motionProfile;
+		this.rightMotion = motionProfile;
 	}
-	
+
 	public DriveMotionProfile(double[][] leftMotion, double[][] rightMotion) {
-    	requires(drive);
-    	this.leftMotion = leftMotion;
-    	this.rightMotion = rightMotion;
-    }
-    
-    public DriveMotionProfile(HashMap<Side, double[][]> profiles) {
-    	requires(drive);
-    	this.leftMotion = profiles.get(Side.kLeft);
-    	this.rightMotion = profiles.get(Side.kRight);
-    }
+		requires(drive);
+		this.leftMotion = leftMotion;
+		this.rightMotion = rightMotion;
+	}
+
+	public DriveMotionProfile(HashMap<Side, double[][]> profiles) {
+		requires(drive);
+		this.leftMotion = profiles.get(Side.kLeft);
+		this.rightMotion = profiles.get(Side.kRight);
+	}
 
 	public DriveMotionProfile(String filename, boolean mirrored) {
 		requires(drive);
@@ -61,7 +61,7 @@ public class DriveMotionProfile extends CommandBase {
 		SmartDashboard.putBoolean("PathRunning", true);
 		BufferedTrajectoryPointStream leftBuffer = drive.getProfileBuffer(this.leftMotion);
 		BufferedTrajectoryPointStream rightBuffer = drive.getProfileBuffer(this.rightMotion);
-		
+
 		drive.startMotionProfile(leftBuffer, rightBuffer);
 		drive.startGraphing();
 	}
