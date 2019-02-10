@@ -69,6 +69,13 @@ public class Drive extends Subsystem {
 		rightFollower1.follow(rightMaster);
 		rightFollower2.follow(rightMaster);
 
+		rightMaster.setInverted(true);
+		rightFollower1.setInverted(true);
+		rightFollower2.setInverted(true);
+		leftMaster.setInverted(false);
+		leftFollower1.setInverted(false);
+		leftFollower2.setInverted(false);
+
 		leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
 		rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
 

@@ -68,9 +68,9 @@ public class Elevator extends Subsystem {
 	}
 
 	public void periodic() {
-		if (isAtBottom() && elevatorTalonSRX.getSelectedSensorPosition(0) < 65) {
-			elevatorTalonSRX.setSelectedSensorPosition(0, 0, 0);
-		}
+		// if (isAtBottom() && elevatorTalonSRX.getSelectedSensorPosition(0) < 65) {
+		// 	elevatorTalonSRX.setSelectedSensorPosition(0, 0, 0);
+		// }
 
 		if (Math.abs(elevatorTalonSRX.getMotorOutputVoltage()) >= 4
 				&& Math.abs(elevatorTalonSRX.getSelectedSensorVelocity(0) / pulsesPerInch) < 0.25) {
