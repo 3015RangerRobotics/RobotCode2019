@@ -1,5 +1,7 @@
 package frc.robot.commands;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 public class DriveForTime extends CommandBase {
 	private double speed;
 	private double time;
@@ -14,13 +16,13 @@ public class DriveForTime extends CommandBase {
 	@Override
 	protected void initialize() {
 		this.setTimeout(time);
-		drive.setMotorOutputs(-speed, speed);
+		drive.setMotorOutputs(ControlMode.PercentOutput, -speed, speed);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		drive.setMotorOutputs(-speed, speed);
+		drive.setMotorOutputs(ControlMode.PercentOutput, -speed, speed);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -32,7 +34,7 @@ public class DriveForTime extends CommandBase {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		drive.setMotorOutputs(0, 0);
+		drive.setMotorOutputs(ControlMode.PercentOutput, 0, 0);
 	}
 
 	// Called when another command which requires one or more of the same
