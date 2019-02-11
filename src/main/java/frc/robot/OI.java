@@ -48,6 +48,9 @@ public class OI {
 	Button coDriverRTrigger = new TriggerButton(coDriver, Hand.kRight);
 
 	public OI() {
+		driverB2.whileHeld(new IntakeUp());
+		driverX3.whileHeld(new IntakeDown());
+    
 		coDriverA1.whenPressed(new ElevatorToBottom());
 		coDriverB2.whenPressed(new ElevatorToMiddle());
 		coDriverY4.whenPressed(new ElevatorToTop());
