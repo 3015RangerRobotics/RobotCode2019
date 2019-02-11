@@ -48,8 +48,8 @@ public class OI {
 	Button coDriverRTrigger = new TriggerButton(coDriver, Hand.kRight);
 
 	public OI() {
-		driverB2.whenPressed(new IntakeUp());
-		driverX3.whenPressed(new IntakeDown());
+		driverB2.whileHeld(new IntakeUp());
+		driverX3.whileHeld(new IntakeDown());
 	
 	}
 

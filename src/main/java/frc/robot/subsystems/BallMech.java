@@ -22,8 +22,8 @@ public class BallMech extends Subsystem {
 	private VictorSP intakeMotor1;
 	private DigitalInput ballSensor;
 
-	private final double INTAKE_SPEED = 0.75;
-	private final double OUTTAKE_SPEED = -0.85;
+	private final double INTAKE_SPEED = 1;
+	private final double OUTTAKE_SPEED = -1;
 
 	public BallMech(){
 		intakeMotor1 = new VictorSP(RobotMap.ballMechVictor);

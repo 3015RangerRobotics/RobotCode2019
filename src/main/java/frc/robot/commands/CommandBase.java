@@ -11,14 +11,14 @@ public abstract class CommandBase extends Command {
 	public static Drive drive;
 	public static Elevator elevator;
 	public static BallMech ballMech;
-	public static OI oi;
 	public static HatchMech hatchMech;
+	public static OI oi;
 
 	public static void init() {
 		drive = new Drive();
 		elevator = new Elevator();
-		oi = new OI();
 		ballMech = new BallMech();
 		hatchMech = new HatchMech();
+		oi = new OI();
 	}
 }

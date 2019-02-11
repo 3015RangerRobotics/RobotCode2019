@@ -21,10 +21,10 @@ public class RobotMap {
 	public static final int elevatorTalonSRX = 3;
 	public static final int elevatorBottomLimit = 4;
 
-	public static final int ballMechVictor = 10;
+	public static final int ballMechVictor = 2;
 	public static final int ballLimitSwitch = 11;
 
-	public static final int hatchSolenoid = 12;
+	public static final int hatchSolenoid = 0;
   
 	public enum Side{
 		kLeft,
