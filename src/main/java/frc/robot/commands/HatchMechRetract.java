@@ -1,12 +1,13 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-public class DriveTurnToTarget extends CommandBase {
+public class HatchMechRetract extends CommandBase {
+	public HatchMechRetract() {
+		requires(hatchMech);
+	}
 
 	@Override
 	protected void initialize() {
-		new DriveTurnToAngle((SmartDashboard.getNumber("TargetXAngle", 0)), false).start();
+		hatchMech.hatchMechRetract();
 	}
 
 	@Override
@@ -24,5 +25,6 @@ public class DriveTurnToTarget extends CommandBase {
 
 	@Override
 	protected void interrupted() {
+		end();
 	}
 }

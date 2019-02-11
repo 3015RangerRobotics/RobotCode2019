@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -15,6 +16,7 @@ import frc.robot.DriveHelper;
 import frc.robot.DriveSignal;
 import frc.robot.GraphThread;
 import frc.robot.RobotMap;
+import frc.robot.StatTracker;
 import frc.robot.commands.DriveWithGamepad;
 
 public class Drive extends Subsystem {
@@ -44,6 +46,9 @@ public class Drive extends Subsystem {
 	private GraphThread graphThread;
 
 	public AHRS imu;
+
+	private double lastDistanceLeft = 0.0;
+	private double lastDistanceRight = 0.0;
 
 	public Drive() {
 		SmartDashboard.putNumber("kDriveP", kDriveP);
@@ -91,6 +96,17 @@ public class Drive extends Subsystem {
 	@Override
 	public void initDefaultCommand() {
 		this.setDefaultCommand(new DriveWithGamepad());
+	}
+
+	@Override
+	public void periodic() {
+		if (DriverStation.getInstance().isEnabled()) {
+			double left = this.leftMaster.getSelectedSensorPosition() * this.kDistancePerPulse;
+			double right = this.rightMaster.getSelectedSensorPosition() * this.kDistancePerPulse;
+			StatTracker.addDriveDistance(left - this.lastDistanceLeft, right - this.lastDistanceRight);
+			this.lastDistanceLeft = left;
+			this.lastDistanceRight = right;
+		}
 	}
 
 	public void resetEncoders() {

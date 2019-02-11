@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.*;
-import frc.motionProfiles.MotionProfiles;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 
@@ -48,9 +47,9 @@ public class OI {
 	Button coDriverRTrigger = new TriggerButton(coDriver, Hand.kRight);
 
 	public OI() {
-		driverB2.whileHeld(new IntakeUp());
-		driverX3.whileHeld(new IntakeDown());
-    
+		driverB2.whileHeld(new BallMechUp());
+		driverX3.whileHeld(new BallMechDown());
+
 		coDriverA1.whenPressed(new ElevatorToBottom());
 		coDriverB2.whenPressed(new ElevatorToMiddle());
 		coDriverY4.whenPressed(new ElevatorToTop());
