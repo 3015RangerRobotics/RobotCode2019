@@ -2,11 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
-import frc.robot.subsystems.BallMech;
-import frc.robot.subsystems.Drive;
-import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.HatchMech;
-import frc.robot.subsystems.OurCompressor;
+import frc.robot.subsystems.*;
 
 public abstract class CommandBase extends Command {
 	public static Drive drive;
