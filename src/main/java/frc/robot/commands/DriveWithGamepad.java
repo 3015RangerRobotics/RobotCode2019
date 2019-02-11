@@ -1,5 +1,7 @@
 package frc.robot.commands;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 public class DriveWithGamepad extends CommandBase {
 	public DriveWithGamepad() {
 		requires(drive);
@@ -29,7 +31,7 @@ public class DriveWithGamepad extends CommandBase {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		drive.setMotorOutputs(0, 0);
+		drive.setMotorOutputs(ControlMode.PercentOutput, 0, 0);
 	}
 
 	// Called when another command which requires one or more of the same

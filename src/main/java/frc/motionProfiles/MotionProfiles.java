@@ -45,6 +45,7 @@ public class MotionProfiles {
 			profile[i][2] = (reverse) ? -seg.acceleration : seg.velocity;
 		}
 		return profile;
+
 	}
 
 	/**
