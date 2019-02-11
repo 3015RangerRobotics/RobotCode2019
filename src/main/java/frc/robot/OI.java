@@ -5,12 +5,6 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.*;
 import frc.motionProfiles.MotionProfiles;
-import frc.robot.commands.AutoRocketFar;
-import frc.robot.commands.DriveForTime;
-import frc.robot.commands.DriveMotionProfile;
-import frc.robot.commands.DriveToTarget;
-import frc.robot.commands.DriveTurnToAngle;
-import frc.robot.commands.DriveTurnToTarget;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 
@@ -54,7 +48,9 @@ public class OI {
 	Button coDriverRTrigger = new TriggerButton(coDriver, Hand.kRight);
 
 	public OI() {
-
+		coDriverA1.whenPressed(new ElevatorToBottom());
+		coDriverB2.whenPressed(new ElevatorToMiddle());
+		coDriverY4.whenPressed(new ElevatorToTop());
 	}
 
 	public double getDriverLeftStickY() {
