@@ -17,7 +17,8 @@ public class RobotMap {
 	public static final int ballMechVictor = 2;
 	public static final int ballLimitSwitch = 11;
 
-	public static final int hatchSolenoid = 0;
+	public static final int hatchGrabSolenoid = 0;
+	public static final int hatchEjectSolenoid = 0;
 
 	public enum Side {
 		kLeft, kRight

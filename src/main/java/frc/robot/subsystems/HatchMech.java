@@ -5,10 +5,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 public class HatchMech extends Subsystem {
-	private Solenoid hatchSolenoid;
+	private Solenoid hatchGrabSolenoid;
+	private Solenoid hatchEjectSolenoid;
 
 	public HatchMech() {
-		hatchSolenoid = new Solenoid(RobotMap.hatchSolenoid);
+		hatchGrabSolenoid = new Solenoid(RobotMap.hatchGrabSolenoid);
+		hatchEjectSolenoid = new Solenoid(RobotMap.hatchEjectSolenoid);
 	}
 
 	@Override
@@ -16,11 +18,19 @@ public class HatchMech extends Subsystem {
 		
 	}
 
-	public void hatchMechExtend() {
-		hatchSolenoid.set(true);
+	public void hatchGrabExtend() {
+		hatchGrabSolenoid.set(true);
 	}
 
-	public void hatchMechRetract() {
-		hatchSolenoid.set(false);
+	public void hatchGrabRetract() {
+		hatchGrabSolenoid.set(false);
+	}
+
+	public void hatchEjectExtend() {
+		hatchEjectSolenoid.set(true);
+	}
+
+	public void hatchEjectRetract() {
+		hatchEjectSolenoid.set(false);
 	}
 }
