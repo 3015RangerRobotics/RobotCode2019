@@ -14,6 +14,9 @@ public class RobotMap {
 	public static final int elevatorTalonSRX = 16;
 	public static final int elevatorBottomLimit = 4;
 
+	public static final int intakeAidSPLeft = 0;
+	public static final int intakeAidSPRight = 0;
+
 	public static final int ballMechVictor = 2;
 	public static final int ballLimitSwitch = 11;
 
