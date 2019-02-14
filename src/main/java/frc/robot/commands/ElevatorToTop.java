@@ -7,36 +7,42 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 
-public class DriveTurnToTarget extends CommandBase {
+import edu.wpi.first.wpilibj.command.Command;
+
+public class ElevatorToTop extends CommandBase {
+	public ElevatorToTop() {
+		requires(elevator);
+	}
 
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		new DriveTurnToAngle((SmartDashboard.getNumber("TargetXAngle", 0)), false).start();
-		;
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
+		elevator.set(ControlMode.Position, elevator.elevatorHeightTop * elevator.pulsesPerInch);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return true;
+		return false;
 	}
 
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
+		elevator.set(ControlMode.PercentOutput, 0);
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
+		end();
 	}
 }

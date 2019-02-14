@@ -9,20 +9,16 @@ package frc.robot.commands;
 
 import java.util.HashMap;
 
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Timer;
+import com.ctre.phoenix.motion.BufferedTrajectoryPointStream;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.motionProfiles.MotionProfiles;
-import frc.robot.RobotMap;
 import frc.robot.RobotMap.Side;
 
 public class DriveMotionProfile extends CommandBase {
-	private volatile boolean isFinished = false;
 	private double[][] leftMotion;
 	private double[][] rightMotion;
-	private volatile int i = 0;
-	private volatile double prevErrorL = 0;
-	private volatile double prevErrorR = 0;
 
 	public DriveMotionProfile(String filename) {
 		requires(drive);
@@ -31,22 +27,22 @@ public class DriveMotionProfile extends CommandBase {
 	}
 
 	public DriveMotionProfile(double[][] motionProfile) {
-    	requires(drive);
-    	this.leftMotion = motionProfile;
-    	this.rightMotion = motionProfile;
+		requires(drive);
+		this.leftMotion = motionProfile;
+		this.rightMotion = motionProfile;
 	}
-	
+
 	public DriveMotionProfile(double[][] leftMotion, double[][] rightMotion) {
-    	requires(drive);
-    	this.leftMotion = leftMotion;
-    	this.rightMotion = rightMotion;
-    }
-    
-    public DriveMotionProfile(HashMap<Side, double[][]> profiles) {
-    	requires(drive);
-    	this.leftMotion = profiles.get(Side.kLeft);
-    	this.rightMotion = profiles.get(Side.kRight);
-    }
+		requires(drive);
+		this.leftMotion = leftMotion;
+		this.rightMotion = rightMotion;
+	}
+
+	public DriveMotionProfile(HashMap<Side, double[][]> profiles) {
+		requires(drive);
+		this.leftMotion = profiles.get(Side.kLeft);
+		this.rightMotion = profiles.get(Side.kRight);
+	}
 
 	public DriveMotionProfile(String filename, boolean mirrored) {
 		requires(drive);
@@ -62,89 +58,12 @@ public class DriveMotionProfile extends CommandBase {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		drive.resetEncoders();
-		isFinished = false;
-		i = 0;
-		prevErrorL = 0;
-		prevErrorR = 0;
+		SmartDashboard.putBoolean("PathRunning", true);
+		BufferedTrajectoryPointStream leftBuffer = drive.getProfileBuffer(this.leftMotion);
+		BufferedTrajectoryPointStream rightBuffer = drive.getProfileBuffer(this.rightMotion);
 
-		if (leftMotion.length != rightMotion.length) {
-			System.out.println("Left and right profiles not of equal length!");
-			this.cancel();
-			return;
-		}
-
-		new Thread(() -> {
-			double lastTime = 0;
-
-			while (!isFinished && DriverStation.getInstance().isEnabled()) {
-				if (Timer.getFPGATimestamp() >= lastTime + RobotMap.kPeriod) {
-					lastTime = Timer.getFPGATimestamp();
-					threadedExecute();
-				}
-				try {
-					Thread.sleep(2);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}).start();
-	}
-
-	protected synchronized void threadedExecute() {
-		// if (i == 24) {
-		// 	if (drive.getLeftDistance() == 0) {
-		// 		DriverStation.reportError("yo man left encoder is dead man", false);
-		// 		new DriveForTime(.5, 3).start();
-		// 	} else if (drive.getRightDistance() == 0) {
-		// 		DriverStation.reportError("aw dang right encoder is chooched", false);
-		// 		new DriveForTime(.5, 3).start();
-		// 	}
-		// }
-
-		if (i < leftMotion.length) {
-			double goalPosL = leftMotion[i][0];
-			double goalVelL = leftMotion[i][1];
-			double goalAccL = leftMotion[i][2];
-
-			double goalPosR = rightMotion[i][0];
-			double goalVelR = rightMotion[i][1];
-			double goalAccR = rightMotion[i][2];
-
-			double errorL = goalPosL - drive.getLeftDistance();
-			double errorDerivL = ((errorL - prevErrorL) / RobotMap.kPeriod) - goalVelL;
-
-			double errorR = goalPosR - drive.getRightDistance();
-			double errorDerivR = ((errorR - prevErrorR) / RobotMap.kPeriod) - goalVelR;
-
-			// double kP = drive.kDriveP;
-			// double kD = drive.kDriveD;
-			// double kV = drive.kV;
-			// double kA = drive.kA;
-
-			double kP = SmartDashboard.getNumber("kDriveP", 0);
-			double kD = SmartDashboard.getNumber("kDriveD", 0);
-			double kV = SmartDashboard.getNumber("kV", 0);
-			double kA = SmartDashboard.getNumber("kA", 0);
-
-			double pwmL = (kP * errorL) + (kD * errorDerivL) + (kV * goalVelL) + (kA * goalAccL);
-			double pwmR = (kP * errorR) + (kD * errorDerivR) + (kV * goalVelR) + (kA * goalAccR);
-
-			System.out.println(
-					goalPosL + ", " + goalPosR + ", " + drive.getLeftDistance() + ", " + drive.getRightDistance());
-					SmartDashboard.putNumber("goalPosL", goalPosL);
-					SmartDashboard.putNumber("goalPosR", goalPosR);
-					SmartDashboard.putNumber("leftDistance", drive.getLeftDistance());
-					SmartDashboard.putNumber("rightDistance", drive.getRightDistance());
-
-			prevErrorL = errorL;
-			prevErrorR = errorR;
-
-			drive.setMotorOutputs(pwmL, pwmR);
-			i++;
-		} else {
-			isFinished = true;
-		}
+		drive.startMotionProfile(leftBuffer, rightBuffer);
+		drive.startGraphing();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -156,20 +75,21 @@ public class DriveMotionProfile extends CommandBase {
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return isFinished;
+		return drive.isProfileFinished();
 	}
 
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		drive.setMotorOutputs(0, 0);
+		SmartDashboard.putBoolean("PathRunning", false);
+		drive.setMotorOutputs(ControlMode.PercentOutput, 0, 0);
+		drive.stopGraphing();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		isFinished = true;
 		end();
 	}
 }

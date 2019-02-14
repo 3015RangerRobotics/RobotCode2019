@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
-import frc.robot.commands.CommandBase;
+import frc.robot.commands.*;
 
 /**
  * Add your docs here.
@@ -24,18 +24,14 @@ public class Elevator extends Subsystem {
 	private TalonSRX elevatorTalonSRX;
 	private DigitalInput elevatorBottomLimit;
 
-	public final double elevatorMaxV = 10.0;
-	public final double elevatorAcc = 15.0;
 	public final double elevatorHeightBottom = 0;
-	public final double elevatorHeightSwitch = 26;
-	public final double elevatorHeightScale = 77;// 77
-	public final double elevatorHeightScaleLow = 57;
-	public final double kElevatorP = 0.6;
+	public final double elevatorHeightMiddle = 27; // Switch = 26;
+	public final double elevatorHeightTop = 55; // = 77;
+	// public final double elevatorHeightScaleLow = 57;
+	public final double kElevatorP = 0.6;// 0.6;
 	public final double kElevatorI = 0.0;
-	public final double kElevatorD = 0.2;
-	public final double kElevatorF = 0.005;
-	public final double kV = 0.04;
-	public final double kA = 0.01;
+	public final double kElevatorD = 0.2; // 0.2;
+	public final double kElevatorF = 0.005;// 0.005;
 
 	public final double pulsesPerInch = 331;
 
@@ -43,18 +39,18 @@ public class Elevator extends Subsystem {
 		elevatorTalonSRX = new TalonSRX(RobotMap.elevatorTalonSRX);
 		elevatorTalonSRX.configVoltageCompSaturation(13, 10);
 		elevatorTalonSRX.enableVoltageCompensation(true);
-		elevatorTalonSRX.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		elevatorTalonSRX.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
 		elevatorTalonSRX.setSensorPhase(true);
-		elevatorTalonSRX.setSelectedSensorPosition(0, 0, 0);
+		elevatorTalonSRX.setSelectedSensorPosition(0);
 		elevatorTalonSRX.setInverted(false);
 		elevatorTalonSRX.configPeakCurrentLimit(40, 10);
 		elevatorTalonSRX.configPeakCurrentDuration(200, 10);
 		elevatorTalonSRX.configContinuousCurrentLimit(30, 10);
 		elevatorTalonSRX.enableCurrentLimit(true);
-		elevatorTalonSRX.config_kP(0, kElevatorP, 0);
-		elevatorTalonSRX.config_kI(0, kElevatorI, 0);
-		elevatorTalonSRX.config_kD(0, kElevatorD, 0);
-		elevatorTalonSRX.config_kF(0, kElevatorF, 0);
+		elevatorTalonSRX.config_kP(0, kElevatorP, 10);
+		elevatorTalonSRX.config_kI(0, kElevatorI, 10);
+		elevatorTalonSRX.config_kD(0, kElevatorD, 10);
+		elevatorTalonSRX.config_kF(0, kElevatorF, 10);
 		elevatorTalonSRX.configPeakOutputForward(1.0, 10);
 		elevatorTalonSRX.configPeakOutputReverse(-0.4, 10);
 
@@ -63,14 +59,12 @@ public class Elevator extends Subsystem {
 
 	@Override
 	public void initDefaultCommand() {
-		// Set the default command for a subsystem here.
-		// setDefaultCommand(new MySpecialCommand());
 	}
 
 	public void periodic() {
-		if (isAtBottom() && elevatorTalonSRX.getSelectedSensorPosition(0) < 65) {
-			elevatorTalonSRX.setSelectedSensorPosition(0, 0, 0);
-		}
+		// if (isAtBottom() && elevatorTalonSRX.getSelectedSensorPosition(0) < 65) {
+		// elevatorTalonSRX.setSelectedSensorPosition(0, 0, 0);
+		// }
 
 		if (Math.abs(elevatorTalonSRX.getMotorOutputVoltage()) >= 4
 				&& Math.abs(elevatorTalonSRX.getSelectedSensorVelocity(0) / pulsesPerInch) < 0.25) {
@@ -78,6 +72,8 @@ public class Elevator extends Subsystem {
 		} else {
 			CommandBase.oi.coDriverRumble(0);
 		}
+
+		System.out.println(getDistance() + ", " + elevatorTalonSRX.getOutputCurrent());
 
 		SmartDashboard.putNumber("Elevator Encoder", getDistance());
 		SmartDashboard.putBoolean("Elevator Bottom", isAtBottom());

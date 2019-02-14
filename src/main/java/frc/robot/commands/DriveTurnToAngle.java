@@ -7,6 +7,8 @@
 
 package frc.robot.commands;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.ControllerPower;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
@@ -63,7 +65,7 @@ public class DriveTurnToAngle extends CommandBase implements PIDOutput {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		drive.setMotorOutputs(0, 0);
+		drive.setMotorOutputs(ControlMode.PercentOutput, 0, 0);
 		turnController.disable();
 	}
 

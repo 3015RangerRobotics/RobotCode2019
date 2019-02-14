@@ -1,16 +1,21 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motion.BufferedTrajectoryPointStream;
+import com.ctre.phoenix.motion.TrajectoryPoint;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.DriveHelper;
 import frc.robot.DriveSignal;
+import frc.robot.GraphThread;
 import frc.robot.RobotMap;
-import frc.robot.commands.DriveWithGamepad;;
+import frc.robot.commands.DriveWithGamepad;
 
 public class Drive extends Subsystem {
 	public final double kDriveP = 1.70;
@@ -19,20 +24,24 @@ public class Drive extends Subsystem {
 	public final double kVTurn = 0;
 	public final double kATurn = 0;
 
-	public final double kTurnP = 0.0065;//0.005;//0.008
-	public final double kTurnI = 0.0;//0.0006
-	public final double kTurnD = 0.0;//0.08
+	public final double kTurnP = 0.0065;// 0.005;//0.008
+	public final double kTurnI = 0.0;// 0.0006
+	public final double kTurnD = 0.0;// 0.08
 
 	public final double kV = 0.067;
 	public final double kA = 0.023;
 
-	public final double kDistancePerPulse = 0.00904774;
+	public final double kDistancePerPulse = 0.00904774 / 4;
 
-	private VictorSP rightMotors;
-	private VictorSP leftMotors;
+	private TalonSRX rightMaster;
+	private VictorSPX rightFollower1;
+	private VictorSPX rightFollower2;
 
-	private Encoder rightEncoder;
-	private Encoder leftEncoder;
+	private TalonSRX leftMaster;
+	private VictorSPX leftFollower1;
+	private VictorSPX leftFollower2;
+
+	private GraphThread graphThread;
 
 	public AHRS imu;
 
@@ -46,22 +55,37 @@ public class Drive extends Subsystem {
 		SmartDashboard.putNumber("kTurnI", kTurnI);
 		SmartDashboard.putNumber("kTurnD", kTurnD);
 
-		this.leftMotors = new VictorSP(RobotMap.leftDriveMotors);
-		this.leftEncoder = new Encoder(RobotMap.leftDriveEncoder1, RobotMap.leftDriveEncoder2);
-		leftMotors.setInverted(false);
-		leftEncoder.setReverseDirection(false);
-		leftEncoder.setDistancePerPulse(kDistancePerPulse);
+		this.leftMaster = new TalonSRX(RobotMap.leftDriveMaster);
+		this.leftFollower1 = new VictorSPX(RobotMap.leftDriveFollower1);
+		this.leftFollower2 = new VictorSPX(RobotMap.leftDriveFollower2);
 
-		this.rightMotors = new VictorSP(RobotMap.rightDriveMotors);
-		this.rightEncoder = new Encoder(RobotMap.rightDriveEncoder1, RobotMap.rightDriveEncoder2);
-		rightMotors.setInverted(true);
-		rightEncoder.setReverseDirection(true);
-		rightEncoder.setDistancePerPulse(kDistancePerPulse);
+		this.rightMaster = new TalonSRX(RobotMap.rightDriveMaster);
+		this.rightFollower1 = new VictorSPX(RobotMap.rightDriveFollower1);
+		this.rightFollower2 = new VictorSPX(RobotMap.rightDriveFollower2);
+
+		leftFollower1.follow(leftMaster);
+		leftFollower2.follow(leftMaster);
+
+		rightFollower1.follow(rightMaster);
+		rightFollower2.follow(rightMaster);
+
+		rightMaster.setInverted(true);
+		rightFollower1.setInverted(true);
+		rightFollower2.setInverted(true);
+		leftMaster.setInverted(false);
+		leftFollower1.setInverted(false);
+		leftFollower2.setInverted(false);
+
+		leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+		rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+
 		imu = new AHRS(Port.kOnboard);
 
-		SmartDashboard.putData("Left Encoder", leftEncoder);
-		SmartDashboard.putData("Right Encoder", rightEncoder);
+		SmartDashboard.putNumber("Left Encoder", leftMaster.getSelectedSensorPosition());
+		SmartDashboard.putNumber("Right Encoder", rightMaster.getSelectedSensorPosition());
 		SmartDashboard.putData("Gyro", imu);
+
+		graphThread = new GraphThread(leftMaster, rightMaster);
 	}
 
 	@Override
@@ -70,39 +94,73 @@ public class Drive extends Subsystem {
 	}
 
 	public void resetEncoders() {
-		leftEncoder.reset();
-		rightEncoder.reset();
+		leftMaster.setSelectedSensorPosition(0);
+		rightMaster.setSelectedSensorPosition(0);
 	}
 
-	public void setMotorOutputs(double leftMotor, double rightMotor) {
-		this.leftMotors.set(leftMotor);
-		this.rightMotors.set(rightMotor);
+	public void setMotorOutputs(ControlMode mode, double leftMotor, double rightMotor) {
+		this.leftMaster.set(mode, leftMotor);
+		this.rightMaster.set(mode, rightMotor);
 	}
 
 	public void arcadeDrive(double moveValue, double rotateValue, boolean squaredInputs) {
 		DriveSignal ds = DriveHelper.arcadeDrive(moveValue, rotateValue, squaredInputs);
-		setMotorOutputs(ds.leftSignal, ds.rightSignal);
+		setMotorOutputs(ControlMode.PercentOutput, ds.leftSignal, ds.rightSignal);
 	}
 
 	public double getLeftDistance() {
-		return leftEncoder.getDistance();
+		return leftMaster.getSelectedSensorPosition();
 	}
 
 	public double getRightDistance() {
-		return rightEncoder.getDistance();
+		return rightMaster.getSelectedSensorPosition();
 	}
 
 	public double getLeftVelocity() {
-		return leftEncoder.getRate();
+		return leftMaster.getSelectedSensorVelocity();
 	}
 
 	public double getRightVelocity() {
-		return rightEncoder.getRate();
+		return rightMaster.getSelectedSensorVelocity();
 	}
+
 	public double getAngle() {
 		return imu.getAngle();
 	}
+
 	public void resetGyro() {
 		imu.zeroYaw();
+	}
+
+	public BufferedTrajectoryPointStream getProfileBuffer(double[][] profile) {
+		BufferedTrajectoryPointStream buffer = new BufferedTrajectoryPointStream();
+		TrajectoryPoint point = new TrajectoryPoint();
+		for (int i = 0; i < profile.length; i++) {
+			point.position = profile[i][0] / this.kDistancePerPulse;
+			point.velocity = profile[i][1] / this.kDistancePerPulse / 10;
+			point.timeDur = (int) profile[i][2];
+			point.zeroPos = (i == 0);
+			point.isLastPoint = (i == profile.length - 1);
+			buffer.Write(point);
+		}
+		return buffer;
+	}
+
+	public void startMotionProfile(BufferedTrajectoryPointStream leftBuffer,
+			BufferedTrajectoryPointStream rightBuffer) {
+		leftMaster.startMotionProfile(leftBuffer, 10, ControlMode.MotionProfile);
+		rightMaster.startMotionProfile(rightBuffer, 10, ControlMode.MotionProfile);
+	}
+
+	public boolean isProfileFinished() {
+		return leftMaster.isMotionProfileFinished() && rightMaster.isMotionProfileFinished();
+	}
+
+	public void startGraphing() {
+		graphThread.start();
+	}
+
+	public void stopGraphing() {
+		graphThread.stop();
 	}
 }
