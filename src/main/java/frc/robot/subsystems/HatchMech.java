@@ -1,37 +1,38 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
-/**
- * Add your docs here.
- */
 public class HatchMech extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
-  private Solenoid hatchSolenoid;
+	private DoubleSolenoid hatchGrabSolenoid;
+	private DoubleSolenoid hatchEjectSolenoid;
 
-  public HatchMech() {
-	  hatchSolenoid = new Solenoid(RobotMap.hatchSolenoid);
-  }
+	public HatchMech() {
+		hatchGrabSolenoid = new DoubleSolenoid(RobotMap.hatchGrabSolenoid1, RobotMap.hatchGrabSolenoid2);
+		hatchEjectSolenoid = new DoubleSolenoid(RobotMap.hatchEjectSolenoid1, RobotMap.hatchEjectSolenoid2);
+	}
 
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-  }
-  public void hatchMechExtend(){
-	  hatchSolenoid.set(true);
-  }
-  public void hatchMechRetract(){
-	  hatchSolenoid.set(false);
-  }
+	@Override
+	public void initDefaultCommand() {
+		
+	}
+
+	public void hatchGrabExtend() {
+		hatchGrabSolenoid.set(Value.kForward);
+	}
+
+	public void hatchGrabRetract() {
+		hatchGrabSolenoid.set(Value.kReverse);
+	}
+
+	public void hatchEjectExtend() {
+		hatchEjectSolenoid.set(Value.kForward);
+	}
+
+	public void hatchEjectRetract() {
+		hatchEjectSolenoid.set(Value.kReverse);
+	}
 }

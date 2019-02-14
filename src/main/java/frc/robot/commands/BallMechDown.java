@@ -1,28 +1,31 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-public class DriveTurnToTarget extends CommandBase {
+public class BallMechDown extends CommandBase {
+	public BallMechDown() {
+		requires(ballMech);
+	}
 
 	@Override
 	protected void initialize() {
-		new DriveTurnToAngle((SmartDashboard.getNumber("TargetXAngle", 0)), false).start();
 	}
 
 	@Override
 	protected void execute() {
+		ballMech.intakeDown();
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return true;
+		return false;
 	}
 
 	@Override
 	protected void end() {
+		ballMech.intakeStop();
 	}
 
 	@Override
 	protected void interrupted() {
+		end();
 	}
 }

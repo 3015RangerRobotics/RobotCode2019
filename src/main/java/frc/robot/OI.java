@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.*;
-import frc.motionProfiles.MotionProfiles;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 
@@ -48,12 +47,16 @@ public class OI {
 	Button coDriverRTrigger = new TriggerButton(coDriver, Hand.kRight);
 
 	public OI() {
-		driverB2.whileHeld(new IntakeUp());
-		driverX3.whileHeld(new IntakeDown());
-    
-		coDriverA1.whenPressed(new ElevatorToBottom());
-		coDriverB2.whenPressed(new ElevatorToMiddle());
-		coDriverY4.whenPressed(new ElevatorToTop());
+		driverA1.whenPressed(new HatchGrabExtend());
+		driverB2.whenPressed(new HatchGrabRetract());
+		driverX3.whenPressed(new HatchEjectExtend());
+		driverY4.whenPressed(new HatchEjectRetract());
+		// driverB2.whileHeld(new BallMechUp());
+		// driverX3.whileHeld(new BallMechDown());
+
+		// coDriverA1.whenPressed(new ElevatorToBottom());
+		// coDriverB2.whenPressed(new ElevatorToMiddle());
+		// coDriverY4.whenPressed(new ElevatorToTop());
 	}
 
 	public double getDriverLeftStickY() {

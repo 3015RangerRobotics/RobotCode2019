@@ -1,11 +1,5 @@
 package frc.robot;
 
-/**
- * The RobotMap is a mapping from the ports sensors and actuators are wired into
- * to a variable name. This provides flexibility changing wiring, makes checking
- * the wiring easier and significantly reduces the number of magic numbers
- * floating around.
- */
 public class RobotMap {
 	public static final double kPeriod = 0.01;
 	public static final double wheelBaseWidth = 2;
@@ -18,6 +12,18 @@ public class RobotMap {
 	public static final int rightDriveFollower2 = 15;
 	public static final int elevatorTalonSRX = 16;
 	public static final int elevatorBottomLimit = 4;
+
+	public static final int intakeAidSPLeft = 0;
+	public static final int intakeAidSPRight = 0;
+
+	public static final int ballMechVictor = 2;
+	public static final int ballLimitSwitch = 11;
+
+	public static final int hatchGrabSolenoid1 = 0;
+	public static final int hatchGrabSolenoid2 = 1;
+	public static final int hatchEjectSolenoid1 = 2;
+	public static final int hatchEjectSolenoid2 = 3;
+
 	public static final int climberCenterJackTalonSRX = 20; 
 	public static final int climberLeftJackTalonSRX = 19; 
 	public static final int climberRightJackTalonSRX = 18; 
