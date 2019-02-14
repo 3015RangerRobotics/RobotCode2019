@@ -47,12 +47,16 @@ public class OI {
 	Button coDriverRTrigger = new TriggerButton(coDriver, Hand.kRight);
 
 	public OI() {
-		driverB2.whileHeld(new BallMechUp());
-		driverX3.whileHeld(new BallMechDown());
+		driverA1.whenPressed(new HatchGrabExtend());
+		driverB2.whenPressed(new HatchGrabRetract());
+		driverX3.whenPressed(new HatchEjectExtend());
+		driverY4.whenPressed(new HatchEjectRetract());
+		// driverB2.whileHeld(new BallMechUp());
+		// driverX3.whileHeld(new BallMechDown());
 
-		coDriverA1.whenPressed(new ElevatorToBottom());
-		coDriverB2.whenPressed(new ElevatorToMiddle());
-		coDriverY4.whenPressed(new ElevatorToTop());
+		// coDriverA1.whenPressed(new ElevatorToBottom());
+		// coDriverB2.whenPressed(new ElevatorToMiddle());
+		// coDriverY4.whenPressed(new ElevatorToTop());
 	}
 
 	public double getDriverLeftStickY() {

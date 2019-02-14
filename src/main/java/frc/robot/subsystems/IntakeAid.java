@@ -22,8 +22,8 @@ public class IntakeAid extends Subsystem {
 	private final double AID_OUTTAKE_SPEED = -1;
 
 	public IntakeAid() {
-		intakeAidSPLeft = new VictorSP(RobotMap.intakeAidSPLeft);
-		intakeAidSPRight = new VictorSP(RobotMap.intakeAidSPRight);
+		// intakeAidSPLeft = new VictorSP(RobotMap.intakeAidSPLeft);
+		// intakeAidSPRight = new VictorSP(RobotMap.intakeAidSPRight);
 	}
 	@Override
 	public void initDefaultCommand() {
