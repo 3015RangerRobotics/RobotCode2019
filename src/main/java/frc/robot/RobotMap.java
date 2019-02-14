@@ -10,7 +10,6 @@ public class RobotMap {
 	public static final int rightDriveMaster = 13;
 	public static final int rightDriveFollower1 = 14;
 	public static final int rightDriveFollower2 = 15;
-
 	public static final int elevatorTalonSRX = 16;
 	public static final int elevatorBottomLimit = 4;
 
@@ -25,7 +24,17 @@ public class RobotMap {
 	public static final int hatchEjectSolenoid1 = 2;
 	public static final int hatchEjectSolenoid2 = 3;
 
-	public enum Side {
-		kLeft, kRight
+	public static final int climberCenterJackTalonSRX = 20; 
+	public static final int climberLeftJackTalonSRX = 19; 
+	public static final int climberRightJackTalonSRX = 18; 
+	public static final int climberCenterWheelsVictorSP = 7; 
+	public static final int climberCenterWheelsAnalogInput = 6; 
+	public static final int ballMechVictor = 2;
+	public static final int ballLimitSwitch = 11;
+	public static final int hatchSolenoid = 0;
+  
+	public enum Side{
+		kLeft,
+		kRight
 	}
 }
