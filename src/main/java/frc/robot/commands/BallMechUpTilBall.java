@@ -25,9 +25,9 @@ public class BallMechUpTilBall extends CommandBase {
   @Override
   protected void execute() {
 	  if(ballMech.isBallPresent()){
-		  ballMech.intakeUp();
+		  ballMech.ballMechUp();
 	  }else {
-		  ballMech.intakeUp();
+		  ballMech.ballMechUp();
 	  }
   }
 

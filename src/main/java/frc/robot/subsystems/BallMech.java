@@ -38,11 +38,11 @@ public class BallMech extends Subsystem {
 	return ballSensor.get();
   }
 
-  public void intakeUp(){
+  public void ballMechUp(){
 	  ballMotor1.set(INTAKE_SPEED);
   }
 
-  public void intakeDown(){
+  public void ballMechDown(){
 	  ballMotor1.set(OUTTAKE_SPEED);
   }
 
