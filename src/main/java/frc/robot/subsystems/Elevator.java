@@ -17,7 +17,7 @@ public class Elevator extends Subsystem {
 	private DigitalInput elevatorBottomLimit;
 
 	public final double elevatorHeightBottom = 0;
-	public final double elevatorHeightMiddle = 27;
+	public final double elevatorHeightMiddle = 9; //27;
 	public final double elevatorHeightTop = 55;
 	public final double kElevatorP = 0.6;
 	public final double kElevatorI = 0.0;
@@ -66,7 +66,7 @@ public class Elevator extends Subsystem {
 			CommandBase.oi.coDriverRumble(0);
 		}
 
-		System.out.println(getDistance() + ", " + elevatorTalonSRX.getOutputCurrent());
+		// System.out.println(getDistance() + ", " + elevatorTalonSRX.getOutputCurrent());
 
 		SmartDashboard.putNumber("Elevator Encoder", getDistance());
 		SmartDashboard.putBoolean("Elevator Bottom", isAtBottom());

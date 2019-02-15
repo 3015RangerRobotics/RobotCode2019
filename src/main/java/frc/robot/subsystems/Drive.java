@@ -20,8 +20,10 @@ import frc.robot.StatTracker;
 import frc.robot.commands.DriveWithGamepad;
 
 public class Drive extends Subsystem {
-	public final double kDriveP = 1.70;
-	public final double kDriveD = 0.09;
+	public final double kDriveP = 1.0;//1.70;
+	// public final double kDriveI = 0.0;
+	public final double kDriveD = 0.0;//0.09;
+	// public final double kDriveF = 0.067;
 
 	public final double kVTurn = 0;
 	public final double kATurn = 0;
@@ -84,6 +86,9 @@ public class Drive extends Subsystem {
 		leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
 		rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
 
+		rightMaster.setSensorPhase(true);
+		leftMaster.setSensorPhase(false);
+
 		imu = new AHRS(Port.kOnboard);
 
 		SmartDashboard.putNumber("Left Encoder", leftMaster.getSelectedSensorPosition());
@@ -125,19 +130,19 @@ public class Drive extends Subsystem {
 	}
 
 	public double getLeftDistance() {
-		return leftMaster.getSelectedSensorPosition();
+		return leftMaster.getSelectedSensorPosition() * kDistancePerPulse;
 	}
 
 	public double getRightDistance() {
-		return rightMaster.getSelectedSensorPosition();
+		return rightMaster.getSelectedSensorPosition() * kDistancePerPulse;
 	}
 
 	public double getLeftVelocity() {
-		return leftMaster.getSelectedSensorVelocity();
+		return leftMaster.getSelectedSensorVelocity() * kDistancePerPulse * 10;
 	}
 
 	public double getRightVelocity() {
-		return rightMaster.getSelectedSensorVelocity();
+		return rightMaster.getSelectedSensorVelocity() * kDistancePerPulse * 10;
 	}
 
 	public double getAngle() {

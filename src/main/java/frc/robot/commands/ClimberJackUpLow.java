@@ -9,15 +9,16 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ClimberJackExtend extends CommandBase {
-  public ClimberJackExtend() {
+public class ClimberJackUpLow extends CommandBase {
+  public ClimberJackUpLow() {
     requires(climber);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-	climber.setBackPosition(climber.backExtendPos);
+	// climber.setBackPosition(climber.backPosLow);
+	// climber.setCenterPosition(climber.centerPosJacked);
   }
 
   // Called repeatedly when this Command is scheduled to run

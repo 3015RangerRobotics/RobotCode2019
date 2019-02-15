@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.motionProfiles.MotionProfiles;
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -47,10 +48,18 @@ public class OI {
 	Button coDriverRTrigger = new TriggerButton(coDriver, Hand.kRight);
 
 	public OI() {
-		driverA1.whenPressed(new HatchGrabExtend());
-		driverB2.whenPressed(new HatchGrabRetract());
-		driverX3.whenPressed(new HatchEjectExtend());
-		driverY4.whenPressed(new HatchEjectRetract());
+		// driverA1.whenPressed(new HatchGrabExtend());
+		// driverB2.whenPressed(new HatchGrabRetract());
+		// driverX3.whenPressed(new HatchEjectExtend());
+		// driverY4.whenPressed(new HatchEjectRetract());
+
+		// driverRB6.whenPressed(new DriveMotionProfile(MotionProfiles.generate1D(5, 8, 4, 100, false)));
+
+		driverA1.whenPressed(new ClimberCenterPrepareLow());
+
+		// driverRB6.whenPressed(new ElevatorToMiddle());
+		// driverLB5.whenPressed(new ElevatorToBottom());
+
 		// driverB2.whileHeld(new BallMechUp());
 		// driverX3.whileHeld(new BallMechDown());
 
@@ -70,6 +79,14 @@ public class OI {
 	public double getDriverLeftStickX() {
 		if (Math.abs(driver.getX(Hand.kLeft)) > 0.05) {
 			return driver.getX(Hand.kLeft);
+		} else {
+			return 0;
+		}
+	}
+
+	public double getDriverRightStickY() {
+		if (Math.abs(driver.getY(Hand.kRight)) > 0.05) {
+			return -driver.getY(Hand.kRight);
 		} else {
 			return 0;
 		}
