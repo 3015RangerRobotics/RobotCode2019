@@ -8,8 +8,9 @@
 package frc.robot.commands;
 
 
-public class IntakeDownTilBall extends CommandBase {
-  public IntakeDownTilBall() {
+public class BallMechUpTilBall extends CommandBase {
+
+  public BallMechUpTilBall() {
     // Use requires() here to declare subsystem dependencies
 	// eg. requires(chassis);
 	requires(ballMech);
@@ -23,17 +24,17 @@ public class IntakeDownTilBall extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-	  if(ballMech.isBallPresent()) {
-		  ballMech.intakeDown();
+	  if(ballMech.isBallPresent()){
+		  ballMech.intakeUp();
 	  }else {
-		  ballMech.intakeDown();
+		  ballMech.intakeUp();
 	  }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-	return ballMech.isBallPresent();
+    return ballMech.isBallPresent();
   }
 
   // Called once after isFinished returns true

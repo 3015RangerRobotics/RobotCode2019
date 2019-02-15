@@ -19,14 +19,14 @@ import frc.robot.RobotMap;
 public class BallMech extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-	private VictorSP intakeMotor1;
+	private VictorSP ballMotor1;
 	private DigitalInput ballSensor;
 
 	private final double INTAKE_SPEED = 0.75;
 	private final double OUTTAKE_SPEED = -0.85;
 
 	public BallMech(){
-		intakeMotor1 = new VictorSP(RobotMap.ballMechVictor);
+		ballMotor1 = new VictorSP(RobotMap.ballMechVictor);
 		ballSensor = new DigitalInput(RobotMap.ballLimitSwitch);
 	}
   @Override
@@ -39,14 +39,14 @@ public class BallMech extends Subsystem {
   }
 
   public void intakeUp(){
-	  intakeMotor1.set(INTAKE_SPEED);
+	  ballMotor1.set(INTAKE_SPEED);
   }
 
   public void intakeDown(){
-	  intakeMotor1.set(OUTTAKE_SPEED);
+	  ballMotor1.set(OUTTAKE_SPEED);
   }
 
   public void intakeStop(){
-	  intakeMotor1.set(0);
+	  ballMotor1.set(0);
   }
 }

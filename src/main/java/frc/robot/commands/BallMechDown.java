@@ -8,8 +8,8 @@
 package frc.robot.commands;
 
 
-public class IntakeDown extends CommandBase {
-  public IntakeDown() {
+public class BallMechDown extends CommandBase {
+  public BallMechDown() {
     // Use requires() here to declare subsystem dependencies
 	// eg. requires(chassis);
 	requires(ballMech);
