@@ -1,7 +1,5 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motion.BufferedTrajectoryPointStream;
-import com.ctre.phoenix.motion.TrajectoryPoint;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -14,7 +12,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.DriveHelper;
 import frc.robot.DriveSignal;
-import frc.robot.GraphThread;
 import frc.robot.RobotMap;
 import frc.robot.StatTracker;
 import frc.robot.commands.DriveWithGamepad;
@@ -44,8 +41,6 @@ public class Drive extends Subsystem {
 	private TalonSRX leftMaster;
 	private VictorSPX leftFollower1;
 	private VictorSPX leftFollower2;
-
-	private GraphThread graphThread;
 
 	public AHRS imu;
 
@@ -94,8 +89,6 @@ public class Drive extends Subsystem {
 		SmartDashboard.putNumber("Left Encoder", leftMaster.getSelectedSensorPosition());
 		SmartDashboard.putNumber("Right Encoder", rightMaster.getSelectedSensorPosition());
 		SmartDashboard.putData("Gyro", imu);
-
-		graphThread = new GraphThread(leftMaster, rightMaster);
 	}
 
 	@Override
@@ -151,37 +144,5 @@ public class Drive extends Subsystem {
 
 	public void resetGyro() {
 		imu.zeroYaw();
-	}
-
-	public BufferedTrajectoryPointStream getProfileBuffer(double[][] profile) {
-		BufferedTrajectoryPointStream buffer = new BufferedTrajectoryPointStream();
-		TrajectoryPoint point = new TrajectoryPoint();
-		for (int i = 0; i < profile.length; i++) {
-			point.position = profile[i][0] / this.kDistancePerPulse;
-			point.velocity = profile[i][1] / this.kDistancePerPulse / 10;
-			point.timeDur = (int) profile[i][2];
-			point.zeroPos = (i == 0);
-			point.isLastPoint = (i == profile.length - 1);
-			buffer.Write(point);
-		}
-		return buffer;
-	}
-
-	public void startMotionProfile(BufferedTrajectoryPointStream leftBuffer,
-			BufferedTrajectoryPointStream rightBuffer) {
-		leftMaster.startMotionProfile(leftBuffer, 10, ControlMode.MotionProfile);
-		rightMaster.startMotionProfile(rightBuffer, 10, ControlMode.MotionProfile);
-	}
-
-	public boolean isProfileFinished() {
-		return leftMaster.isMotionProfileFinished() && rightMaster.isMotionProfileFinished();
-	}
-
-	public void startGraphing() {
-		graphThread.start();
-	}
-
-	public void stopGraphing() {
-		graphThread.stop();
 	}
 }
