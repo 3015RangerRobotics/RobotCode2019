@@ -16,7 +16,8 @@ public class DriveWithGamepad extends CommandBase {
 	protected void execute() {
 		double driveValue = oi.getDriverLeftStickY();
 		drive.arcadeDrive(driveValue, oi.getDriverLeftStickX() / 1.25, true);
-		// System.out.println(oi.getDriverLeftStickX());
+		climber.setCenterWheels(-driveValue);
+		// System.out.println(oi.getDriverLeftStickX());\[]
 		// System.out.println(drive.getRightVelocity());
 	}
 

@@ -30,12 +30,12 @@ public class Climber extends Subsystem {
 	private VictorSP centerWheelsVictorSP;
 	private AnalogInput centerWheelsAnalogInput;
 
-	private double backP = 0.3; //2.0
-	private double backD = 0.0;
-	private double backF = 0.95;
-	private double centerP = 0.3; //2.0
-	private double centerD = 0.0;
-	private double centerF = 0.95;
+	private double backP = 0.7; //2.0
+	private double backD = 0;
+	private double backF = 1.2;
+	private double centerP = 0.9; //2.0
+	private double centerD = 0;
+	private double centerF = 1.3;
 
 	public final double pulsesPerInchCenter = 1000;
 	public final double pulsesPerInchFront = 1000; //945
@@ -43,7 +43,7 @@ public class Climber extends Subsystem {
 	public final double centerPosJacked = 21;
 	public final double centerPosLow = 13;
 	public final double backPosLow = 8;
-	public final double backPosHigh = 0;
+	public final double backPosHigh = 21;
 
 	public Climber() {
 		this.centerJackTalonSRX = new TalonSRX(RobotMap.climberCenterJackTalonSRX);
@@ -74,6 +74,13 @@ public class Climber extends Subsystem {
 		centerJackTalonSRX.config_kP(0, centerP);
 		centerJackTalonSRX.config_kD(0, centerD);
 		centerJackTalonSRX.config_kF(0, centerF);
+
+		centerJackTalonSRX.enableVoltageCompensation(true);
+		centerJackTalonSRX.configVoltageCompSaturation(12.5);
+		leftJackTalonSRX.enableVoltageCompensation(true);
+		leftJackTalonSRX.configVoltageCompSaturation(12.5);
+		rightJackTalonSRX.enableVoltageCompensation(true);
+		rightJackTalonSRX.configVoltageCompSaturation(12.5);
 
 		centerJackTalonSRX.setSelectedSensorPosition(0);
 		leftJackTalonSRX.setSelectedSensorPosition(0);
@@ -125,10 +132,14 @@ public class Climber extends Subsystem {
 		return (centerJackTalonSRX.getSelectedSensorVelocity() / pulsesPerInchCenter) * 10;
 	}
 
+	public void setCenterWheels(double speed) {
+		centerWheelsVictorSP.set(speed);
+	}
+
 	public void test() {
-		// leftJackTalonSRX.set(ControlMode.PercentOutput, CommandBase.oi.getDriverRightStickY());
-		// rightJackTalonSRX.set(ControlMode.PercentOutput, CommandBase.oi.getDriverRightStickY());
+		leftJackTalonSRX.set(ControlMode.PercentOutput, CommandBase.oi.getDriverRightStickY());
+		rightJackTalonSRX.set(ControlMode.PercentOutput, CommandBase.oi.getDriverRightStickY());
 		// centerJackTalonSRX.set(ControlMode.PercentOutput, CommandBase.oi.getDriverRightStickY());
-		// System.out.println("Left: " + leftJackTalonSRX.getSelectedSensorPosition() + ", Right: " + rightJackTalonSRX.getSelectedSensorPosition() + ", Center: " + centerJackTalonSRX.getSelectedSensorPosition());
+		System.out.println("Left: " + getBackLeftPosition() + ", Right: " + getBackRightPosition() + ", Center: " + getCenterPosition());
 	}
 }

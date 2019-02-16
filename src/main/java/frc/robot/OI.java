@@ -48,26 +48,27 @@ public class OI {
 	Button coDriverRTrigger = new TriggerButton(coDriver, Hand.kRight);
 
 	public OI() {
-		// driverA1.whenPressed(new HatchGrabExtend());
-		// driverB2.whenPressed(new HatchGrabRetract());
-		// driverX3.whenPressed(new HatchEjectExtend());
-		// driverY4.whenPressed(new HatchEjectRetract());
+		driverA1.whenPressed(new HatchGrabExtend());
+		driverB2.whenPressed(new HatchGrabRetract());
+		driverX3.whenPressed(new HatchEjectExtend());
+		driverY4.whenPressed(new HatchEjectRetract());
 
 		// driverRB6.whenPressed(new DriveMotionProfile(MotionProfiles.generate1D(5, 8, 4, 100, false)));
 
-		driverA1.whenPressed(new ClimberCenterPrepareLow());
-		driverB2.whenPressed(new ClimberJackRetract());
-		driverX3.whenPressed(new ClimberJackUpLow());
+		// driverA1.whenPressed(new ClimberCenterPrepareLow());
+		// driverB2.whenPressed(new ClimberJackRetract());
+		// driverX3.whenPressed(new ClimberJackUpLow());
+		// driverY4.whenPressed(new ClimberJackUpHigh());
 
 		// driverRB6.whenPressed(new ElevatorToMiddle());
 		// driverLB5.whenPressed(new ElevatorToBottom());
 
-		// driverB2.whileHeld(new BallMechUp());
-		// driverX3.whileHeld(new BallMechDown());
+		coDriverRB6.whileHeld(new BallMechUp());
+		coDriverLB5.whileHeld(new BallMechDown());
 
-		// coDriverA1.whenPressed(new ElevatorToBottom());
-		// coDriverB2.whenPressed(new ElevatorToMiddle());
-		// coDriverY4.whenPressed(new ElevatorToTop());
+		coDriverA1.whenPressed(new ElevatorToBottom());
+		coDriverB2.whenPressed(new ElevatorToMiddle());
+		coDriverY4.whenPressed(new ElevatorToTop());
 	}
 
 	public double getDriverLeftStickY() {

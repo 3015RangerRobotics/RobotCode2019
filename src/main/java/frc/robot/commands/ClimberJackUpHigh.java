@@ -11,11 +11,11 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ClimberJackUpLow extends CommandBase {
+public class ClimberJackUpHigh extends CommandBase {
 	boolean isCenterAtTarget = false;
 	boolean isLeftAtTarget = false;
 	boolean isRightAtTarget = false;
-  public ClimberJackUpLow() {
+  public ClimberJackUpHigh() {
     requires(climber);
   }
 
@@ -38,7 +38,7 @@ public class ClimberJackUpLow extends CommandBase {
 		  isCenterAtTarget = true;
 	  }
 
-	  if(climber.getBackLeftPosition() <= climber.backPosLow && !isLeftAtTarget) {
+	  if(climber.getBackLeftPosition() <= climber.backPosHigh && !isLeftAtTarget) {
 		  climber.setBackVelocityLeft(3);
 	  }
 	  else {
@@ -46,7 +46,7 @@ public class ClimberJackUpLow extends CommandBase {
 		  isLeftAtTarget = true;
 	  }
 
-	  if(climber.getBackRightPosition() <= climber.backPosLow && !isRightAtTarget) {
+	  if(climber.getBackRightPosition() <= climber.backPosHigh && !isRightAtTarget) {
 		  climber.setBackVelocityRight(3);
 	  }
 	  else {

@@ -18,7 +18,7 @@ public class Elevator extends Subsystem {
 
 	public final double elevatorHeightBottom = 0;
 	public final double elevatorHeightMiddle = 9; //27;
-	public final double elevatorHeightTop = 55;
+	public final double elevatorHeightTop = 58;
 	public final double kElevatorP = 0.6;
 	public final double kElevatorI = 0.0;
 	public final double kElevatorD = 0.2;
