@@ -18,27 +18,22 @@ import frc.robot.RobotMap;
 import frc.robot.commands.CommandBase;
 import frc.robot.commands.ClimberTempFrontWheel;
 
-/**
- * Add your docs here.
- */
 public class Climber extends Subsystem {
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
 	private TalonSRX centerJackTalonSRX;
 	private TalonSRX leftJackTalonSRX;
 	private TalonSRX rightJackTalonSRX;
 	private VictorSP centerWheelsVictorSP;
 	private AnalogInput centerWheelsAnalogInput;
 
-	private double backP = 0.7; //2.0
+	private double backP = 0.7; // 2.0
 	private double backD = 0;
 	private double backF = 1.2;
-	private double centerP = 0.9; //2.0
+	private double centerP = 0.9; // 2.0
 	private double centerD = 0;
 	private double centerF = 1.3;
 
 	public final double pulsesPerInchCenter = 1000;
-	public final double pulsesPerInchFront = 1000; //945
+	public final double pulsesPerInchFront = 1000; // 945
 
 	public final double centerPosJacked = 21;
 	public final double centerPosLow = 13;
@@ -105,22 +100,22 @@ public class Climber extends Subsystem {
 	}
 
 	public void setCenterVelocity(double velocity) {
-		centerJackTalonSRX.set(ControlMode.Velocity, (velocity*pulsesPerInchCenter) / 10);
+		centerJackTalonSRX.set(ControlMode.Velocity, (velocity * pulsesPerInchCenter) / 10);
 	}
 
 	public void setBackVelocityLeft(double velocity) {
-		leftJackTalonSRX.set(ControlMode.Velocity, (velocity*pulsesPerInchFront) / 10);
+		leftJackTalonSRX.set(ControlMode.Velocity, (velocity * pulsesPerInchFront) / 10);
 	}
 
 	public void setBackVelocityRight(double velocity) {
-		rightJackTalonSRX.set(ControlMode.Velocity, (velocity*pulsesPerInchFront) / 10);
+		rightJackTalonSRX.set(ControlMode.Velocity, (velocity * pulsesPerInchFront) / 10);
 	}
 
-	public double getCenterPosition(){
-		return centerJackTalonSRX.getSelectedSensorPosition() / pulsesPerInchCenter; 
+	public double getCenterPosition() {
+		return centerJackTalonSRX.getSelectedSensorPosition() / pulsesPerInchCenter;
 	}
 
-	public double getBackRightPosition(){
+	public double getBackRightPosition() {
 		return rightJackTalonSRX.getSelectedSensorPosition() / pulsesPerInchFront;
 	}
 
@@ -139,7 +134,9 @@ public class Climber extends Subsystem {
 	public void test() {
 		leftJackTalonSRX.set(ControlMode.PercentOutput, CommandBase.oi.getDriverRightStickY());
 		rightJackTalonSRX.set(ControlMode.PercentOutput, CommandBase.oi.getDriverRightStickY());
-		// centerJackTalonSRX.set(ControlMode.PercentOutput, CommandBase.oi.getDriverRightStickY());
-		System.out.println("Left: " + getBackLeftPosition() + ", Right: " + getBackRightPosition() + ", Center: " + getCenterPosition());
+		// centerJackTalonSRX.set(ControlMode.PercentOutput,
+		// CommandBase.oi.getDriverRightStickY());
+		System.out.println("Left: " + getBackLeftPosition() + ", Right: " + getBackRightPosition() + ", Center: "
+				+ getCenterPosition());
 	}
 }

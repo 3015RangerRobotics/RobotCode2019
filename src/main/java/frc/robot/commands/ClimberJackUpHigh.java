@@ -20,7 +20,6 @@ public class ClimberJackUpHigh extends CommandBase {
 		requires(climber);
 	}
 
-	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
 		isCenterAtTarget = false;
@@ -28,7 +27,6 @@ public class ClimberJackUpHigh extends CommandBase {
 		isRightAtTarget = false;
 	}
 
-	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
 		if (climber.getCenterPosition() <= climber.centerPosJacked && !isCenterAtTarget) {
@@ -55,13 +53,11 @@ public class ClimberJackUpHigh extends CommandBase {
 		System.out.println(climber.getCenterVelocity());
 	}
 
-	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
 		return false;
 	}
 
-	// Called once after isFinished returns true
 	@Override
 	protected void end() {
 		climber.setCenter(ControlMode.PercentOutput, 0);
@@ -69,8 +65,6 @@ public class ClimberJackUpHigh extends CommandBase {
 		climber.setBackRight(ControlMode.PercentOutput, 0);
 	}
 
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
 		end();

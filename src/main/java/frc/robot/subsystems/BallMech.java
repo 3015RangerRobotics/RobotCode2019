@@ -19,7 +19,7 @@ public class BallMech extends Subsystem {
 
 	@Override
 	public void initDefaultCommand() {
-		
+
 	}
 
 	public boolean isBallPresent() {
