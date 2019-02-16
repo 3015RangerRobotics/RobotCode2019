@@ -7,6 +7,8 @@
 
 package frc.robot.commands;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ClimberJackUpLow extends CommandBase {
@@ -24,22 +26,48 @@ public class ClimberJackUpLow extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+	  if(climber.getCenterPosition() <= climber.centerPosJacked) {
+		climber.setCenterVelocity(2);
+	  }
+	  else {
+		  climber.setCenterVelocity(0);
+	  }
+
+	  if(climber.getBackLeftPosition() <= climber.backPosLow) {
+		  climber.setBackVelocityLeft(2);
+	  }
+	  else {
+		  climber.setBackVelocityLeft(0);
+	  }
+
+	  if(climber.getBackRightPosition() <= climber.backPosLow) {
+		  climber.setBackVelocityRight(2);
+	  }
+	  else {
+		  climber.setBackVelocityRight(0);
+	  }
+
+	  System.out.println(climber.getCenterVelocity());
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+	  climber.setCenter(ControlMode.PercentOutput, 0);
+	  climber.setBackLeft(ControlMode.PercentOutput, 0);
+	  climber.setBackRight(ControlMode.PercentOutput, 0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+	  end();
   }
 }

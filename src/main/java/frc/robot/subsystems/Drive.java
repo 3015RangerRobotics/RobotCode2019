@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
@@ -77,6 +78,13 @@ public class Drive extends Subsystem {
 		leftMaster.setInverted(false);
 		leftFollower1.setInverted(false);
 		leftFollower2.setInverted(false);
+
+		leftMaster.setNeutralMode(NeutralMode.Brake);
+		leftFollower1.setNeutralMode(NeutralMode.Brake);
+		leftFollower2.setNeutralMode(NeutralMode.Brake);
+		rightMaster.setNeutralMode(NeutralMode.Brake);
+		rightFollower1.setNeutralMode(NeutralMode.Brake);
+		rightFollower2.setNeutralMode(NeutralMode.Brake);
 
 		leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
 		rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);

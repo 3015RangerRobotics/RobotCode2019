@@ -7,39 +7,66 @@
 
 package frc.robot.commands;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ClimberJackRetract extends CommandBase {
-  public ClimberJackRetract() {
-    requires(climber);
-  }
 
-  // Called just before this Command runs the first time
-  @Override
-  protected void initialize() {
-	// climber.setBackPosition(climber.backPosRetract);
-	// climber.setCenterPosition(climber.centerPosRetract);
-  }
+	public ClimberJackRetract() {
+		requires(climber);
+	}
 
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-  }
+	// Called just before this Command runs the first time
+	@Override
+	protected void initialize() {
+		// climber.setBackPosition(climber.backPosRetract);
+		// climber.setCenterPosition(climber.centerPosRetract);
+	}
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return true;
-  }
+	// Called repeatedly when this Command is scheduled to run
+	@Override
+	protected void execute() {
+		if(climber.getCenterPosition() >= .1){
+			climber.setCenter(ControlMode.PercentOutput, -.3);
+		}
+		else {
+			climber.setCenter(ControlMode.PercentOutput, 0);
+		}
 
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-  }
+		if(climber.getBackLeftPosition() >= .1) {
+			climber.setBackLeft(ControlMode.PercentOutput, -.3);
+		}
+		else{
+			climber.setBackLeft(ControlMode.PercentOutput, 0);
+		}
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-  }
+		if(climber.getBackRightPosition() >= .1) {
+			climber.setBackRight(ControlMode.PercentOutput, -.3);
+		}
+		else{
+			climber.setBackRight(ControlMode.PercentOutput, 0);
+		}
+	}
+
+	// Make this return true when this Command no longer needs to run execute()
+	@Override
+	protected boolean isFinished() {
+		return climber.getCenterPosition() <= 0.1 && climber.getBackLeftPosition() <= 0.1 && climber.getBackRightPosition() <= 0.1;
+	}
+
+	// Called once after isFinished returns true
+	@Override
+	protected void end() {
+		climber.setCenter(ControlMode.PercentOutput, 0);
+		climber.setBackLeft(ControlMode.PercentOutput, 0);
+		climber.setBackRight(ControlMode.PercentOutput, 0);
+	}
+
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	@Override
+	protected void interrupted() {
+		end();
+	}
 }

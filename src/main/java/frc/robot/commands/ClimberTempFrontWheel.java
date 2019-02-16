@@ -24,6 +24,7 @@ public class ClimberTempFrontWheel extends CommandBase {
 	@Override
 	protected void execute() {
 		climber.test();
+		// System.out.println(climber.getBackLeftPosition());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
