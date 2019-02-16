@@ -63,8 +63,6 @@ public class OI {
 		coDriverRTrigger.whenReleased(new HatchEjectRetract());
 
 		coDriverA1.whenPressed(new ElevatorToBottom());
-		coDriverB2.whenPressed(new ElevatorToMiddle());
-		coDriverY4.whenPressed(new ElevatorToTop());
 
 		driverRB6.whenPressed(new ElevatorToRocketSideLow());
 		

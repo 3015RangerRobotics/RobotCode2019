@@ -11,8 +11,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ElevatorToRocketSideHigh extends CommandBase {
-	public ElevatorToRocketSideHigh() {
+public class ElevatorToRocketSideTop extends CommandBase {
+	public ElevatorToRocketSideTop() {
 		requires(elevator);
 	}
 
@@ -24,7 +24,7 @@ public class ElevatorToRocketSideHigh extends CommandBase {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		elevator.set(ControlMode.Position, elevator.rocketSideHigh *elevator.pulsesPerInch);
+		elevator.set(ControlMode.Position, elevator.rocketSideTop * elevator.pulsesPerInch);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

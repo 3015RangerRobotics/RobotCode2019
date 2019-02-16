@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 public class DriveWithGamepad extends CommandBase {
 	private double maxControllerChange = 0.0;
 	private double lastDriveValue = 0;
+
 	public DriveWithGamepad() {
 		requires(drive);
 	}

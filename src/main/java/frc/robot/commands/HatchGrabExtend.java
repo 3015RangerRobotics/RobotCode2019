@@ -18,7 +18,7 @@ public class HatchGrabExtend extends CommandBase {
 	@Override
 	protected void initialize() {
 		hatchMech.hatchGrabExtend();
-		//StatTracker.addHatchExtension();
+		// StatTracker.addHatchExtension();
 	}
 
 	// Called repeatedly when this Command is scheduled to run

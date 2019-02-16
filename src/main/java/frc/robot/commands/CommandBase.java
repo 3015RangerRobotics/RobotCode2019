@@ -19,6 +19,7 @@ public abstract class CommandBase extends Command {
 	public static IntakeAid intakeAid;
 	public static OurCompressor ourCompressor;
 	public static OI oi;
+
 	public static void init() {
 		drive = new Drive();
 		elevator = new Elevator();

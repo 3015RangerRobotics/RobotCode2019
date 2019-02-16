@@ -25,6 +25,7 @@ public class IntakeAid extends Subsystem {
 		// intakeAidSPLeft = new VictorSP(RobotMap.intakeAidSPLeft);
 		// intakeAidSPRight = new VictorSP(RobotMap.intakeAidSPRight);
 	}
+
 	@Override
 	public void initDefaultCommand() {
 

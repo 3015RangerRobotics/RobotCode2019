@@ -25,7 +25,7 @@ public class ElevatorToRocketSideLow extends CommandBase {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		elevator.set(ControlMode.Position, elevator.rocketSideLow *elevator.pulsesPerInch);
+		elevator.set(ControlMode.Position, elevator.rocketSideLow * elevator.pulsesPerInch);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

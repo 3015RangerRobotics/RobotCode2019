@@ -18,9 +18,9 @@ import frc.robot.StatTracker;
 import frc.robot.commands.DriveWithGamepad;
 
 public class Drive extends Subsystem {
-	public final double kDriveP = 1.0;//1.70;
+	public final double kDriveP = 1.0;// 1.70;
 	// public final double kDriveI = 0.0;
-	public final double kDriveD = 0.0;//0.09;
+	public final double kDriveD = 0.0;// 0.09;
 	// public final double kDriveF = 0.067;
 
 	public final double kVTurn = 0;

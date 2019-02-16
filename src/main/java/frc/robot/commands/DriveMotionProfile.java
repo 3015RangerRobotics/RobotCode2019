@@ -26,22 +26,22 @@ public class DriveMotionProfile extends CommandBase {
 	}
 
 	public DriveMotionProfile(double[][] motionProfile) {
-    	requires(drive);
-    	this.leftMotion = motionProfile;
-    	this.rightMotion = motionProfile;
+		requires(drive);
+		this.leftMotion = motionProfile;
+		this.rightMotion = motionProfile;
 	}
-	
+
 	public DriveMotionProfile(double[][] leftMotion, double[][] rightMotion) {
-    	requires(drive);
-    	this.leftMotion = leftMotion;
-    	this.rightMotion = rightMotion;
-    }
-    
-    public DriveMotionProfile(HashMap<Side, double[][]> profiles) {
-    	requires(drive);
-    	this.leftMotion = profiles.get(Side.kLeft);
-    	this.rightMotion = profiles.get(Side.kRight);
-    }
+		requires(drive);
+		this.leftMotion = leftMotion;
+		this.rightMotion = rightMotion;
+	}
+
+	public DriveMotionProfile(HashMap<Side, double[][]> profiles) {
+		requires(drive);
+		this.leftMotion = profiles.get(Side.kLeft);
+		this.rightMotion = profiles.get(Side.kRight);
+	}
 
 	public DriveMotionProfile(String filename, boolean mirrored) {
 		requires(drive);
@@ -89,13 +89,13 @@ public class DriveMotionProfile extends CommandBase {
 
 	protected synchronized void threadedExecute() {
 		// if (i == 24) {
-		// 	if (drive.getLeftDistance() == 0) {
-		// 		DriverStation.reportError("yo man left encoder is dead man", false);
-		// 		new DriveForTime(.5, 3).start();
-		// 	} else if (drive.getRightDistance() == 0) {
-		// 		DriverStation.reportError("aw dang right encoder is chooched", false);
-		// 		new DriveForTime(.5, 3).start();
-		// 	}
+		// if (drive.getLeftDistance() == 0) {
+		// DriverStation.reportError("yo man left encoder is dead man", false);
+		// new DriveForTime(.5, 3).start();
+		// } else if (drive.getRightDistance() == 0) {
+		// DriverStation.reportError("aw dang right encoder is chooched", false);
+		// new DriveForTime(.5, 3).start();
+		// }
 		// }
 
 		if (i < leftMotion.length) {
