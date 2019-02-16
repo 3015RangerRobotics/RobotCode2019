@@ -66,8 +66,7 @@ public class OI {
 		coDriverB2.whenPressed(new ElevatorToMiddle());
 		coDriverY4.whenPressed(new ElevatorToTop());
 
-		coDriverRB6.whenPressed(new ElevatorToWall());
-		coDriverLB5.whenPressed(new ElevatorToHatch());
+		driverRB6.whenPressed(new ElevatorToRocketSideLow());
 
 		// driverRB6.whenPressed(new DriveMotionProfile(MotionProfiles.generate1D(5, 8,
 		// 4, 100, false)));
