@@ -18,7 +18,7 @@ import frc.robot.StatTracker;
 import frc.robot.commands.DriveWithGamepad;
 
 public class Drive extends Subsystem {
-	public final double kDriveP = 1.0;//1.70;
+	public final double kDriveP = 1.3;//1.30;
 	// public final double kDriveI = 0.0;
 	public final double kDriveD = 0.0;//0.09;
 	// public final double kDriveF = 0.067;
@@ -72,6 +72,9 @@ public class Drive extends Subsystem {
 		rightFollower1.follow(rightMaster);
 		rightFollower2.follow(rightMaster);
 
+		// leftMaster.configNeutralDeadband(0.01);
+		// rightMaster.configNeutralDeadband(0.01);
+
 		rightMaster.setInverted(true);
 		rightFollower1.setInverted(true);
 		rightFollower2.setInverted(true);
@@ -91,6 +94,11 @@ public class Drive extends Subsystem {
 
 		rightMaster.setSensorPhase(true);
 		leftMaster.setSensorPhase(false);
+
+		// leftMaster.enableVoltageCompensation(true);
+		// leftMaster.configVoltageCompSaturation(12.5);
+		// rightMaster.enableVoltageCompensation(true);
+		// rightMaster.configVoltageCompSaturation(12.5);
 
 		imu = new AHRS(Port.kOnboard);
 
