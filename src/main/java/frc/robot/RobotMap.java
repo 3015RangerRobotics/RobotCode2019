@@ -19,10 +19,10 @@ public class RobotMap {
 	public static final int ballMechVictor = 2;
 	public static final int ballLimitSwitch = 11;
 
-	public static final int hatchGrabSolenoid1 = 0;
-	public static final int hatchGrabSolenoid2 = 1;
-	public static final int hatchEjectSolenoid1 = 2;
-	public static final int hatchEjectSolenoid2 = 3;
+	public static final int hatchGrabSolenoid1 = 2;
+	public static final int hatchGrabSolenoid2 = 3;
+	public static final int hatchEjectSolenoid1 = 0;
+	public static final int hatchEjectSolenoid2 = 1;
 
 	public static final int climberCenterJackTalonSRX = 19; 
 	public static final int climberLeftJackTalonSRX = 17; 
