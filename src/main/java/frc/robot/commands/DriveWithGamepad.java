@@ -3,7 +3,7 @@ package frc.robot.commands;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 public class DriveWithGamepad extends CommandBase {
-	private double maxControllerChange = 0.0;
+	private double maxControllerChange = 0.05;
 	private double lastDriveValue = 0;
 	public DriveWithGamepad() {
 		requires(drive);
@@ -18,9 +18,9 @@ public class DriveWithGamepad extends CommandBase {
 	protected void execute() {
 		double driveValue = oi.getDriverLeftStickY();
 		drive.arcadeDrive(driveValue, oi.getDriverLeftStickX() / 1.25, true);
-		climber.setCenterWheels(-driveValue);
+		// climber.setCenterWheels(-driveValue);
 		// System.out.println(oi.getDriverLeftStickX());
-		// System.out.println(drive.getRightVelocity());
+		System.out.println(drive.getRightDistance() + ", " + drive.getLeftDistance());
 
 		if (elevator.getDistance() > 25) {
 			if (driveValue > lastDriveValue + maxControllerChange) {
@@ -32,6 +32,8 @@ public class DriveWithGamepad extends CommandBase {
 				driveValue = oi.getDriverLeftStickY();
 			}
 		}
+
+		lastDriveValue = driveValue;
 	}
 
 	@Override

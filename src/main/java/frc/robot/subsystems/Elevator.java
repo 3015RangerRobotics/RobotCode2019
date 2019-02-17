@@ -27,6 +27,13 @@ public class Elevator extends Subsystem {
 	public final double kElevatorD = 0.2;
 	public final double kElevatorF = 0.005;
 
+	public final double elevatorHeightSideLow = 0.0;
+	public final double elevatorHeightSideMid = 0.0;
+	public final double elevatorHeightSideHigh = 0.0;
+	public final double elevatorHeightFrontLow = 0.0;
+	public final double elevatoHeightFrontMid = 0.0;
+	public final double elevatoHeightFrontHigh = 0.0;
+
 	public final double pulsesPerInch = 331;
 
 	private double lastDistance = 0.0;
@@ -80,7 +87,7 @@ public class Elevator extends Subsystem {
 			this.lastDistance = distance;
 		}
 
-		System.out.println(getDistance());
+		// System.out.println(getDistance());
 	}
 
 	/**

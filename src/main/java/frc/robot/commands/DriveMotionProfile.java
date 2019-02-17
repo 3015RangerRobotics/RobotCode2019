@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -58,6 +59,7 @@ public class DriveMotionProfile extends CommandBase {
 	@Override
 	protected void initialize() {
 		drive.resetEncoders();
+		// Timer.delay(.05);
 		SmartDashboard.putBoolean("PathRunning", true);
 		isFinished = false;
 		i = 0;
@@ -131,6 +133,8 @@ public class DriveMotionProfile extends CommandBase {
 
 			SmartDashboard.putNumber("TargetRight", goalPosR);
 			SmartDashboard.putNumber("ActualRight", drive.getRightDistance());
+
+			// NetworkTableInstance.getDefault().flush();
 
 			prevErrorL = errorL;
 			prevErrorR = errorR;

@@ -42,7 +42,22 @@ public class MotionProfiles {
 			Segment seg = trajectory.get(i);
 			profile[i][0] = (reverse) ? -seg.position : seg.position;
 			profile[i][1] = (reverse) ? -seg.velocity : seg.velocity;
-			profile[i][2] = (reverse) ? -seg.acceleration : seg.velocity;
+			profile[i][2] = (reverse) ? -seg.acceleration : seg.acceleration;
+		}
+		return profile;
+
+	}
+
+	public static double[][] generate1D2(double d, double maxV, double a, double jerk, boolean reverse){
+		Waypoint[] waypoints = new Waypoint[] {new Waypoint(0, 0, 0), new Waypoint(d, 0, 0)};
+		Trajectory.Config config = new Trajectory.Config(FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_FAST, RobotMap.kPeriod, maxV, a, jerk);
+		Trajectory trajectory = Pathfinder.generate(waypoints, config);
+		double[][] profile = new double[trajectory.length()][3];
+		for(int i = 0; i < trajectory.length(); i++) {
+			Segment seg = trajectory.get(i);
+			profile[i][0] = (reverse) ? -seg.position : seg.position;
+			profile[i][1] = (reverse) ? -seg.velocity : seg.velocity;
+			profile[i][2] = RobotMap.kPeriod * 1000;
 		}
 		return profile;
 
