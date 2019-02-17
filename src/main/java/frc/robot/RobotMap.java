@@ -10,6 +10,11 @@ public class RobotMap {
 	public static final int rightDriveMaster = 13;
 	public static final int rightDriveFollower1 = 14;
 	public static final int rightDriveFollower2 = 15;
+	public static final int leftDriveEncoder1 = 0;
+	public static final int leftDriveEncoder2 = 1;
+	public static final int rightDriveEncoder1 = 2;
+	public static final int rightDriveEncoder2 = 3;
+
 	public static final int elevatorTalonSRX = 16;
 	public static final int elevatorBottomLimit = 4;
 
