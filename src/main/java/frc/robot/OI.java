@@ -68,7 +68,7 @@ public class OI {
 
 		// coDriverLB5.whenPressed(new ElevatorToHatch());
 
-		// driverRB6.whenPressed(new DriveMotionProfile(MotionProfiles.generate1D(5, 8, 4, 100, false)));
+		// driverRB6.whenPressed(new DriveMotionProfile2(MotionProfiles.generate1D2(5, 8, 4, 100, false)));
 
 		// driverA1.whenPressed(new ClimberCenterPrepareLow());
 		// driverB2.whenPressed(new ClimberJackRetract());

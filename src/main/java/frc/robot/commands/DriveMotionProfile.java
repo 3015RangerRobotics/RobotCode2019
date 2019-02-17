@@ -59,7 +59,7 @@ public class DriveMotionProfile extends CommandBase {
 	@Override
 	protected void initialize() {
 		drive.resetEncoders();
-		Timer.delay(.05);
+		// Timer.delay(.05);
 		SmartDashboard.putBoolean("PathRunning", true);
 		isFinished = false;
 		i = 0;
@@ -128,11 +128,11 @@ public class DriveMotionProfile extends CommandBase {
 			double pwmL = (kP * errorL) + (kD * errorDerivL) + (kV * goalVelL) + (kA * goalAccL);
 			double pwmR = (kP * errorR) + (kD * errorDerivR) + (kV * goalVelR) + (kA * goalAccR);
 
-			SmartDashboard.putNumber("TargetLeft", goalVelL);
-			SmartDashboard.putNumber("ActualLeft", drive.getLeftVelocity());
+			SmartDashboard.putNumber("TargetLeft", goalPosL);
+			SmartDashboard.putNumber("ActualLeft", drive.getLeftDistance());
 
-			SmartDashboard.putNumber("TargetRight", goalVelR);
-			SmartDashboard.putNumber("ActualRight", drive.getRightVelocity());
+			SmartDashboard.putNumber("TargetRight", goalPosR);
+			SmartDashboard.putNumber("ActualRight", drive.getRightDistance());
 
 			// NetworkTableInstance.getDefault().flush();
 

@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motion.BufferedTrajectoryPointStream;
+import com.ctre.phoenix.motion.TrajectoryPoint;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -8,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,10 +21,13 @@ import frc.robot.StatTracker;
 import frc.robot.commands.DriveWithGamepad;
 
 public class Drive extends Subsystem {
-	public final double kDriveP = 1.3;//1.30;
-	// public final double kDriveI = 0.0;
-	public final double kDriveD = 0.0;//0.09;
-	// public final double kDriveF = 0.067;
+	public final double kV = 0.067;//0.67
+	public final double kA = 0.023;
+
+	public final double kDistancePerPulse = 0.00904774;
+
+	public final double kDriveP = 1.8;//5//1.40;
+	public final double kDriveD = 0.0;//0.0;
 
 	public final double kVTurn = 0;
 	public final double kATurn = 0;
@@ -30,11 +36,6 @@ public class Drive extends Subsystem {
 	public final double kTurnI = 0.0;// 0.0006
 	public final double kTurnD = 0.0;// 0.08
 
-	public final double kV = 0.067;
-	public final double kA = 0.023;
-
-	public final double kDistancePerPulse = 0.00904774 / 4;
-
 	private TalonSRX rightMaster;
 	private VictorSPX rightFollower1;
 	private VictorSPX rightFollower2;
@@ -42,6 +43,9 @@ public class Drive extends Subsystem {
 	private TalonSRX leftMaster;
 	private VictorSPX leftFollower1;
 	private VictorSPX leftFollower2;
+
+	private Encoder leftEncoder;
+	private Encoder rightEncoder;
 
 	public AHRS imu;
 
@@ -66,6 +70,17 @@ public class Drive extends Subsystem {
 		this.rightFollower1 = new VictorSPX(RobotMap.rightDriveFollower1);
 		this.rightFollower2 = new VictorSPX(RobotMap.rightDriveFollower2);
 
+		this.leftEncoder = new Encoder(RobotMap.leftDriveEncoder1, RobotMap.leftDriveEncoder2);
+		this.rightEncoder = new Encoder(RobotMap.rightDriveEncoder1, RobotMap.rightDriveEncoder2);
+
+		leftEncoder.setDistancePerPulse(kDistancePerPulse);
+		leftEncoder.setReverseDirection(false);
+		rightEncoder.setDistancePerPulse(kDistancePerPulse);
+		rightEncoder.setReverseDirection(false);
+
+		rightMaster.configFactoryDefault();
+		leftMaster.configFactoryDefault();
+
 		leftFollower1.follow(leftMaster);
 		leftFollower2.follow(leftMaster);
 
@@ -89,11 +104,20 @@ public class Drive extends Subsystem {
 		rightFollower1.setNeutralMode(NeutralMode.Brake);
 		rightFollower2.setNeutralMode(NeutralMode.Brake);
 
-		leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-		rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+		// leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+		// rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
 
-		rightMaster.setSensorPhase(true);
-		leftMaster.setSensorPhase(false);
+		// rightMaster.setSensorPhase(true);
+		// leftMaster.setSensorPhase(false);
+
+		// leftMaster.config_kP(0, kDriveP);
+		// leftMaster.config_kI(0, kDriveI);
+		// leftMaster.config_kD(0, kDriveD);
+		// leftMaster.config_kF(0, kDriveF);
+		// rightMaster.config_kP(0, kDriveP);
+		// rightMaster.config_kI(0, kDriveI);
+		// rightMaster.config_kD(0, kDriveD);
+		// rightMaster.config_kF(0, kDriveF);
 
 		// leftMaster.enableVoltageCompensation(true);
 		// leftMaster.configVoltageCompSaturation(12.5);
@@ -102,8 +126,8 @@ public class Drive extends Subsystem {
 
 		imu = new AHRS(Port.kOnboard);
 
-		SmartDashboard.putNumber("Left Encoder", leftMaster.getSelectedSensorPosition());
-		SmartDashboard.putNumber("Right Encoder", rightMaster.getSelectedSensorPosition());
+		SmartDashboard.putData("Left Encoder", leftEncoder);
+		SmartDashboard.putData("Right Encoder", rightEncoder);
 		SmartDashboard.putData("Gyro", imu);
 	}
 
@@ -115,8 +139,8 @@ public class Drive extends Subsystem {
 	@Override
 	public void periodic() {
 		if (DriverStation.getInstance().isEnabled()) {
-			double left = this.leftMaster.getSelectedSensorPosition() * this.kDistancePerPulse;
-			double right = this.rightMaster.getSelectedSensorPosition() * this.kDistancePerPulse;
+			double left = getLeftDistance();
+			double right = getRightDistance();
 			StatTracker.addDriveDistance(left - this.lastDistanceLeft, right - this.lastDistanceRight);
 			this.lastDistanceLeft = left;
 			this.lastDistanceRight = right;
@@ -124,8 +148,8 @@ public class Drive extends Subsystem {
 	}
 
 	public void resetEncoders() {
-		leftMaster.setSelectedSensorPosition(0);
-		rightMaster.setSelectedSensorPosition(0);
+		leftEncoder.reset();
+		rightEncoder.reset();
 	}
 
 	public void setMotorOutputs(ControlMode mode, double leftMotor, double rightMotor) {
@@ -139,19 +163,19 @@ public class Drive extends Subsystem {
 	}
 
 	public double getLeftDistance() {
-		return leftMaster.getSelectedSensorPosition() * kDistancePerPulse;
+		return leftEncoder.getDistance();
 	}
 
 	public double getRightDistance() {
-		return rightMaster.getSelectedSensorPosition() * kDistancePerPulse;
+		return rightEncoder.getDistance();
 	}
 
 	public double getLeftVelocity() {
-		return leftMaster.getSelectedSensorVelocity() * kDistancePerPulse * 10;
+		return leftEncoder.getRate();
 	}
 
 	public double getRightVelocity() {
-		return rightMaster.getSelectedSensorVelocity() * kDistancePerPulse * 10;
+		return rightEncoder.getRate();
 	}
 
 	public double getAngle() {
