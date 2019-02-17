@@ -89,7 +89,7 @@ public class Climber extends Subsystem {
 
 	@Override
 	public void initDefaultCommand() {
-		// setDefaultCommand(new ClimberTempFrontWheel());
+		setDefaultCommand(new ClimberTempFrontWheel());
 	}
 
 	public void setCenter(ControlMode mode, double value) {
