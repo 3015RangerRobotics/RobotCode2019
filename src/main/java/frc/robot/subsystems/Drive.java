@@ -36,6 +36,13 @@ public class Drive extends Subsystem {
 	public final double kTurnI = 0.000;// 0.0006
 	public final double kTurnD = 0.08;// 0.08
 
+	public final double kTurnPEncoder = 5.0;
+	//public final double kTurnIEncoder = 0.0;
+	public final double kTurnDEncoder = 0.035;
+	public final double kVEncoder = 0.067;
+	public final double kAEncoder = 0.025;
+
+
 	private TalonSRX rightMaster;
 	private VictorSPX rightFollower1;
 	private VictorSPX rightFollower2;
