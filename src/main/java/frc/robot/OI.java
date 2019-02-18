@@ -56,21 +56,33 @@ public class OI {
 		// driverLB5.whenPressed(new ClimberCenterPrepareLow());
 		// driverRB6.whenPressed(new ClimberCenterPrepareHigh());
 
-		driverRTrigger.whileHeld(new HatchGrabExtend());
-		driverRTrigger.whenReleased(new HatchGrabRetract());
-		driverLTrigger.whileHeld(new HatchEjectExtend());
-		driverLTrigger.whenReleased(new HatchEjectRetract());
+		// driverRTrigger.whileHeld(new HatchGrabExtend());
+		// driverRTrigger.whenReleased(new HatchGrabRetract());
+		// driverLTrigger.whileHeld(new HatchEjectExtend());
+		// driverLTrigger.whenReleased(new HatchEjectRetract());
+		//
+		// driverA1.whenPressed(new BallMechDownTilBall());
+		// driverB2.whenPressed(new BallMechUpTilBall());
+		// driverX3.whileHeld(new BallMechDown());
+		// driverY4.whileHeld(new BallMechUp());
+		//
+		// coDriverA1.whenPressed(new ElevatorToBottom());
+		//
+		// driverRB6.whenPressed(new ElevatorToRocketSideLow());
 
-		driverA1.whenPressed(new BallMechDownTilBall());
-		driverB2.whenPressed(new BallMechUpTilBall());
-		driverX3.whileHeld(new BallMechDown());
-		driverY4.whileHeld(new BallMechUp());
+		// driverRB6.whenPressed(new DriveMotionProfile(MotionProfiles.generate1D(5, 8,
+		// 4, 100, false)));
 
-		coDriverA1.whenPressed(new ElevatorToBottom());
-		coDriverB2.whenPressed(new ElevatorToMiddle());
-		coDriverY4.whenPressed(new ElevatorToTop());
-		coDriverX3.whenPressed(new ElevatorToHatch());
-		coDriverRB6.whenPressed(new ElevatorToCargoHeight());
+		// driverA1.whenPressed(new ClimberCenterPrepareLow());
+		// driverB2.whenPressed(new ClimberJackRetract());
+		// driverX3.whenPressed(new ClimberJackUpLow());
+		// driverY4.whenPressed(new ClimberJackUpHigh());
+
+		// driverRB6.whenPressed(new ElevatorToMiddle());
+		// driverLB5.whenPressed(new ElevatorToBottom());
+
+		// coDriverRB6.whileHeld(new BallMechUp());
+		// coDriverLB5.whileHeld(new BallMechDown());
 
 	}
 

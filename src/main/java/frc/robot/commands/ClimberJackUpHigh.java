@@ -15,17 +15,10 @@ public class ClimberJackUpHigh extends CommandBase {
 	boolean isCenterAtTarget = false;
 	boolean isLeftAtTarget = false;
 	boolean isRightAtTarget = false;
-  public ClimberJackUpHigh() {
-    requires(climber);
-  }
 
-  // Called just before this Command runs the first time
-  @Override
-  protected void initialize() {
-	  isCenterAtTarget = false;
-	  isLeftAtTarget = false;
-	  isRightAtTarget = false;
-  }
+	public ClimberJackUpHigh() {
+		requires(climber);
+	}
 
   // Called repeatedly when this Command is scheduled to run
   @Override
@@ -54,27 +47,30 @@ public class ClimberJackUpHigh extends CommandBase {
 		  isRightAtTarget = true;
 	  }
 
-	  System.out.println(climber.getCenterVelocity());
-  }
+		if (climber.getBackRightPosition() <= climber.backPosHigh && !isRightAtTarget) {
+			climber.setBackVelocityRight(3);
+		} else {
+			climber.setBackRight(ControlMode.PercentOutput, 0.1);
+			isRightAtTarget = true;
+		}
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
+		System.out.println(climber.getCenterVelocity());
+	}
 
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-	  climber.setCenter(ControlMode.PercentOutput, 0);
-	  climber.setBackLeft(ControlMode.PercentOutput, 0);
-	  climber.setBackRight(ControlMode.PercentOutput, 0);
-  }
+	@Override
+	protected boolean isFinished() {
+		return false;
+	}
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-	  end();
-  }
+	@Override
+	protected void end() {
+		climber.setCenter(ControlMode.PercentOutput, 0);
+		climber.setBackLeft(ControlMode.PercentOutput, 0);
+		climber.setBackRight(ControlMode.PercentOutput, 0);
+	}
+
+	@Override
+	protected void interrupted() {
+		end();
+	}
 }
