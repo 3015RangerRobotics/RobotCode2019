@@ -18,10 +18,16 @@ public class Elevator extends Subsystem {
 
 	public final double elevatorHeightBottom = 0;
 	public final double elevatorHeightHatch = 9;
+	public final double elevatorHeightCargo = 14;
 	public final double elevatorHeightWall = 18;
-	public final double elevatorHeightMiddle = 28.5; //27;
-	public final double elevatorHeightTop = 58;
+
 	public final double rocketSideLow = 0;
+	public final double rocketSideMiddle = 0;
+	public final double rocketSideTop = 0;
+	public final double rocketFrontLow = 0;
+	public final double rocketFrontMiddle = 28.5;
+	public final double rocketFrontTop = 58;
+
 	public final double kElevatorP = 0.6;
 	public final double kElevatorI = 0.0;
 	public final double kElevatorD = 0.2;
@@ -55,7 +61,7 @@ public class Elevator extends Subsystem {
 		elevatorTalonSRX.config_kD(0, kElevatorD, 10);
 		elevatorTalonSRX.config_kF(0, kElevatorF, 10);
 		elevatorTalonSRX.configPeakOutputForward(1.0, 10);
-		elevatorTalonSRX.configPeakOutputReverse(-0.2, 10);
+		elevatorTalonSRX.configPeakOutputReverse(-0.3, 10);
 
 		elevatorBottomLimit = new DigitalInput(RobotMap.elevatorBottomLimit);
 	}
@@ -76,7 +82,8 @@ public class Elevator extends Subsystem {
 			CommandBase.oi.coDriverRumble(0);
 		}
 
-		// System.out.println(getDistance() + ", " + elevatorTalonSRX.getOutputCurrent());
+		// System.out.println(getDistance() + ", " +
+		// elevatorTalonSRX.getOutputCurrent());
 
 		SmartDashboard.putNumber("Elevator Encoder", getDistance());
 		SmartDashboard.putBoolean("Elevator Bottom", isAtBottom());
@@ -88,11 +95,13 @@ public class Elevator extends Subsystem {
 		}
 
 		// System.out.println(getDistance());
+
+		System.out.println(isAtBottom());
 	}
 
 	/**
 	 * Set the elevator motor output
-	 * 
+	 *
 	 * @param mode  The control mode of the talon
 	 * @param value The value to set
 	 */

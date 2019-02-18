@@ -7,12 +7,13 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.IntakeAid;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 
-public class IntakeAidIn extends CommandBase {
-	public IntakeAidIn() {
-		requires(intakeAid);
+import edu.wpi.first.wpilibj.command.Command;
+
+public class ElevatorToRocketSideMiddle extends CommandBase {
+	public ElevatorToRocketSideMiddle() {
+		requires(elevator);
 	}
 
 	@Override
@@ -21,7 +22,7 @@ public class IntakeAidIn extends CommandBase {
 
 	@Override
 	protected void execute() {
-		intakeAid.intakeAidIntake();
+		elevator.set(ControlMode.Position, elevator.rocketSideMiddle * elevator.pulsesPerInch);
 	}
 
 	@Override
@@ -31,7 +32,7 @@ public class IntakeAidIn extends CommandBase {
 
 	@Override
 	protected void end() {
-		intakeAid.intakeAidStop();
+		elevator.set(ControlMode.PercentOutput, 0);
 	}
 
 	@Override

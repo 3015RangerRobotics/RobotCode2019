@@ -7,33 +7,41 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.IntakeAid;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 
-public class IntakeAidIn extends CommandBase {
-	public IntakeAidIn() {
-		requires(intakeAid);
+import edu.wpi.first.wpilibj.command.Command;
+
+public class ClimberCenterPrepareHigh extends CommandBase {
+	public ClimberCenterPrepareHigh() {
+		requires(climber);
 	}
 
+	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
 	}
 
+	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		intakeAid.intakeAidIntake();
+		climber.setCenter(ControlMode.PercentOutput, 0.39);
+		System.out.println(climber.getCenterPosition());
 	}
 
+	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return climber.getCenterPosition() >= climber.centerPosHigh;
 	}
 
+	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		intakeAid.intakeAidStop();
+		climber.setCenter(ControlMode.PercentOutput, 0);
 	}
 
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
 		end();

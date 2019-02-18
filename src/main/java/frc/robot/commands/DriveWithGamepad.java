@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 public class DriveWithGamepad extends CommandBase {
 	private double maxControllerChange = 0.05;
 	private double lastDriveValue = 0;
+
 	public DriveWithGamepad() {
 		requires(drive);
 	}
@@ -20,7 +21,7 @@ public class DriveWithGamepad extends CommandBase {
 		drive.arcadeDrive(driveValue, oi.getDriverLeftStickX() / 1.25, true);
 		// climber.setCenterWheels(-driveValue);
 		// System.out.println(oi.getDriverLeftStickX());
-		System.out.println(drive.getRightDistance() + ", " + drive.getLeftDistance());
+		// System.out.println(drive.getRightDistance() + ", " + drive.getLeftDistance());
 
 		if (elevator.getDistance() > 25) {
 			if (driveValue > lastDriveValue + maxControllerChange) {

@@ -27,22 +27,22 @@ public class DriveMotionProfile extends CommandBase {
 	}
 
 	public DriveMotionProfile(double[][] motionProfile) {
-    	requires(drive);
-    	this.leftMotion = motionProfile;
-    	this.rightMotion = motionProfile;
+		requires(drive);
+		this.leftMotion = motionProfile;
+		this.rightMotion = motionProfile;
 	}
-	
+
 	public DriveMotionProfile(double[][] leftMotion, double[][] rightMotion) {
-    	requires(drive);
-    	this.leftMotion = leftMotion;
-    	this.rightMotion = rightMotion;
-    }
-    
-    public DriveMotionProfile(HashMap<Side, double[][]> profiles) {
-    	requires(drive);
-    	this.leftMotion = profiles.get(Side.kLeft);
-    	this.rightMotion = profiles.get(Side.kRight);
-    }
+		requires(drive);
+		this.leftMotion = leftMotion;
+		this.rightMotion = rightMotion;
+	}
+
+	public DriveMotionProfile(HashMap<Side, double[][]> profiles) {
+		requires(drive);
+		this.leftMotion = profiles.get(Side.kLeft);
+		this.rightMotion = profiles.get(Side.kRight);
+	}
 
 	public DriveMotionProfile(String filename, boolean mirrored) {
 		requires(drive);
@@ -55,7 +55,6 @@ public class DriveMotionProfile extends CommandBase {
 		}
 	}
 
-	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
 		drive.resetEncoders();
@@ -91,13 +90,13 @@ public class DriveMotionProfile extends CommandBase {
 
 	protected synchronized void threadedExecute() {
 		// if (i == 24) {
-		// 	if (drive.getLeftDistance() == 0) {
-		// 		DriverStation.reportError("yo man left encoder is dead man", false);
-		// 		new DriveForTime(.5, 3).start();
-		// 	} else if (drive.getRightDistance() == 0) {
-		// 		DriverStation.reportError("aw dang right encoder is chooched", false);
-		// 		new DriveForTime(.5, 3).start();
-		// 	}
+		// if (drive.getLeftDistance() == 0) {
+		// DriverStation.reportError("yo man left encoder is dead man", false);
+		// new DriveForTime(.5, 3).start();
+		// } else if (drive.getRightDistance() == 0) {
+		// DriverStation.reportError("aw dang right encoder is chooched", false);
+		// new DriveForTime(.5, 3).start();
+		// }
 		// }
 
 		if (i < leftMotion.length) {
@@ -146,27 +145,22 @@ public class DriveMotionProfile extends CommandBase {
 		}
 	}
 
-	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
 
 	}
 
-	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
 		return isFinished;
 	}
 
-	// Called once after isFinished returns true
 	@Override
 	protected void end() {
 		SmartDashboard.putBoolean("PathRunning", false);
 		drive.setMotorOutputs(ControlMode.PercentOutput, 0, 0);
 	}
 
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
 		isFinished = true;

@@ -11,9 +11,6 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
-/**
- * Add your docs here.
- */
 public class IntakeAid extends Subsystem {
 	private VictorSP intakeAidSPLeft;
 	private VictorSP intakeAidSPRight;
@@ -25,6 +22,7 @@ public class IntakeAid extends Subsystem {
 		// intakeAidSPLeft = new VictorSP(RobotMap.intakeAidSPLeft);
 		// intakeAidSPRight = new VictorSP(RobotMap.intakeAidSPRight);
 	}
+
 	@Override
 	public void initDefaultCommand() {
 

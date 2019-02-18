@@ -17,45 +17,39 @@ public class ClimberJackRetract extends CommandBase {
 		requires(climber);
 	}
 
-	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
 		// climber.setBackPosition(climber.backPosRetract);
 		// climber.setCenterPosition(climber.centerPosRetract);
 	}
 
-	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		if(climber.getCenterPosition() >= .1){
+		if (climber.getCenterPosition() >= .1) {
 			climber.setCenter(ControlMode.PercentOutput, -.3);
-		}
-		else {
+		} else {
 			climber.setCenter(ControlMode.PercentOutput, 0);
 		}
 
-		if(climber.getBackLeftPosition() >= .1) {
+		if (climber.getBackLeftPosition() >= .1) {
 			climber.setBackLeft(ControlMode.PercentOutput, -.3);
-		}
-		else{
+		} else {
 			climber.setBackLeft(ControlMode.PercentOutput, 0);
 		}
 
-		if(climber.getBackRightPosition() >= .1) {
+		if (climber.getBackRightPosition() >= .1) {
 			climber.setBackRight(ControlMode.PercentOutput, -.3);
-		}
-		else{
+		} else {
 			climber.setBackRight(ControlMode.PercentOutput, 0);
 		}
 	}
 
-	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return climber.getCenterPosition() <= 0.1 && climber.getBackLeftPosition() <= 0.1 && climber.getBackRightPosition() <= 0.1;
+		return climber.getCenterPosition() <= 0.1 && climber.getBackLeftPosition() <= 0.1
+				&& climber.getBackRightPosition() <= 0.1;
 	}
 
-	// Called once after isFinished returns true
 	@Override
 	protected void end() {
 		climber.setCenter(ControlMode.PercentOutput, 0);
@@ -63,8 +57,6 @@ public class ClimberJackRetract extends CommandBase {
 		climber.setBackRight(ControlMode.PercentOutput, 0);
 	}
 
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
 		end();
