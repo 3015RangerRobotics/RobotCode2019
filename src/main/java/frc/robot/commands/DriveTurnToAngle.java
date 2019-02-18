@@ -23,7 +23,7 @@ public class DriveTurnToAngle extends CommandBase implements PIDOutput {
 		turnController = new PIDController(drive.kTurnP, drive.kTurnI, drive.kTurnD, drive.imu, this);
 		turnController.setInputRange(-180.0, 180.0);
 		turnController.setOutputRange(-1.0, 1.0);
-		turnController.setAbsoluteTolerance(5.0);
+		turnController.setAbsoluteTolerance(2.0);
 		turnController.setContinuous(true);
 	}
 

@@ -48,6 +48,8 @@ public class OI {
 	Button coDriverRTrigger = new TriggerButton(coDriver, Hand.kRight);
 
 	public OI() {
+		driverRB6.whenPressed(new DriveTurnToAngle(90));
+	
 		// driverA1.whenPressed(new HatchEjectExtend());
 		// driverB2.whenPressed(new HatchEjectRetract());
 		// driverX3.whenPressed(new HatchGrabExtend());
@@ -59,6 +61,7 @@ public class OI {
 		// driverB2.whileHeld(new BallMechUp());
 		// driverA1.whileHeld(new BallMechDown());
 
+
 		// coDriverRTrigger.whileHeld(new HatchEjectExtend());
 		// coDriverRTrigger.whenReleased(new HatchEjectRetract());
 
@@ -66,7 +69,7 @@ public class OI {
 		// coDriverB2.whenPressed(new ElevatorToMiddle());
 		// coDriverY4.whenPressed(new ElevatorToTop());
 
-		driverRB6.whenPressed(new ElevatorToRocketSideLow());
+		// driverRB6.whenPressed(new ElevatorToRocketSideLow());
 		// coDriverLB5.whenPressed(new ElevatorToHatch());
 
 		// driverRB6.whenPressed(new DriveMotionProfile2(MotionProfiles.generate1D2(5, 8, 4, 100, false)));
@@ -82,7 +85,7 @@ public class OI {
 		// coDriverRB6.whileHeld(new BallMechUp());
 		// coDriverLB5.whileHeld(new BallMechDown());
 
-		driverRB6.whenPressed(new AutoRocketFar());
+		// driverRB6.whenPressed(new AutoRocketFar());
 
 	}
 
