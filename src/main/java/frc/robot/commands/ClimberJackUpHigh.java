@@ -31,7 +31,7 @@ public class ClimberJackUpHigh extends CommandBase {
   @Override
   protected void execute() {
 	  if(climber.getCenterPosition() <= climber.centerPosJacked && !isCenterAtTarget) {
-		climber.setCenterVelocity(3);
+		climber.setCenterVelocity(5);
 	  }
 	  else {
 		  climber.setCenter(ControlMode.PercentOutput, 0.1);
@@ -39,7 +39,7 @@ public class ClimberJackUpHigh extends CommandBase {
 	  }
 
 	  if(climber.getBackLeftPosition() <= climber.backPosHigh && !isLeftAtTarget) {
-		  climber.setBackVelocityLeft(3);
+		  climber.setBackVelocityLeft(5);
 	  }
 	  else {
 		  climber.setBackLeft(ControlMode.PercentOutput, 0.1);
@@ -47,7 +47,7 @@ public class ClimberJackUpHigh extends CommandBase {
 	  }
 
 	  if(climber.getBackRightPosition() <= climber.backPosHigh && !isRightAtTarget) {
-		  climber.setBackVelocityRight(3);
+		  climber.setBackVelocityRight(5);
 	  }
 	  else {
 		  climber.setBackRight(ControlMode.PercentOutput, 0.1);

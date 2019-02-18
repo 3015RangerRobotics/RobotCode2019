@@ -48,41 +48,29 @@ public class OI {
 	Button coDriverRTrigger = new TriggerButton(coDriver, Hand.kRight);
 
 	public OI() {
-		// driverA1.whenPressed(new HatchEjectExtend());
-		// driverB2.whenPressed(new HatchEjectRetract());
-		// driverX3.whenPressed(new HatchGrabExtend());
-		// driverY4.whenPressed(new HatchGrabRetract());
+		// a retract, x jack up low, y jack up high, lb prepare low, rb prepare high
 
-		// driverRTrigger.whileHeld(new HatchGrabExtend());
-		// driverRTrigger.whenReleased(new HatchGrabRetract());
-
-		// driverB2.whileHeld(new BallMechUp());
-		// driverA1.whileHeld(new BallMechDown());
-
-		// coDriverRTrigger.whileHeld(new HatchEjectExtend());
-		// coDriverRTrigger.whenReleased(new HatchEjectRetract());
-
-		// coDriverA1.whenPressed(new ElevatorToBottom());
-		// coDriverB2.whenPressed(new ElevatorToMiddle());
-		// coDriverY4.whenPressed(new ElevatorToTop());
-
-		driverRB6.whenPressed(new ElevatorToRocketSideLow());
-		// coDriverLB5.whenPressed(new ElevatorToHatch());
-
-		// driverRB6.whenPressed(new DriveMotionProfile2(MotionProfiles.generate1D2(5, 8, 4, 100, false)));
-
-		// driverA1.whenPressed(new ClimberCenterPrepareLow());
-		// driverB2.whenPressed(new ClimberJackRetract());
+		// driverA1.whenPressed(new ClimberJackRetract());
 		// driverX3.whenPressed(new ClimberJackUpLow());
 		// driverY4.whenPressed(new ClimberJackUpHigh());
+		// driverLB5.whenPressed(new ClimberCenterPrepareLow());
+		// driverRB6.whenPressed(new ClimberCenterPrepareHigh());
 
-		// driverRB6.whenPressed(new ElevatorToMiddle());
-		// driverLB5.whenPressed(new ElevatorToBottom());
+		driverRTrigger.whileHeld(new HatchGrabExtend());
+		driverRTrigger.whenReleased(new HatchGrabRetract());
+		driverLTrigger.whileHeld(new HatchEjectExtend());
+		driverLTrigger.whenReleased(new HatchEjectRetract());
 
-		// coDriverRB6.whileHeld(new BallMechUp());
-		// coDriverLB5.whileHeld(new BallMechDown());
+		driverA1.whenPressed(new BallMechDownTilBall());
+		driverB2.whenPressed(new BallMechUpTilBall());
+		driverX3.whileHeld(new BallMechDown());
+		driverY4.whileHeld(new BallMechUp());
 
-		driverRB6.whenPressed(new AutoRocketFar());
+		coDriverA1.whenPressed(new ElevatorToBottom());
+		coDriverB2.whenPressed(new ElevatorToMiddle());
+		coDriverY4.whenPressed(new ElevatorToTop());
+		coDriverX3.whenPressed(new ElevatorToHatch());
+		coDriverRB6.whenPressed(new ElevatorToCargoHeight());
 
 	}
 

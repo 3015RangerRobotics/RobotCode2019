@@ -22,8 +22,13 @@ public class BallMech extends Subsystem {
 		
 	}
 
+	@Override
+	public void periodic() {
+		// System.out.println(isBallPresent());
+	} 
+
 	public boolean isBallPresent() {
-		return ballSensor.get();
+		return !ballSensor.get();
 	}
 
 	public void intakeUp() {

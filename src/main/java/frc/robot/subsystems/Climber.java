@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -41,7 +42,8 @@ public class Climber extends Subsystem {
 	public final double pulsesPerInchFront = 1000; //945
 
 	public final double centerPosJacked = 21;
-	public final double centerPosLow = 13;
+	public final double centerPosLow = 13; //10
+	public final double centerPosHigh = .5; //2
 	public final double backPosLow = 8;
 	public final double backPosHigh = 21;
 
@@ -52,9 +54,17 @@ public class Climber extends Subsystem {
 		this.centerWheelsVictorSP = new VictorSP(RobotMap.climberCenterWheelsVictorSP);
 		this.centerWheelsAnalogInput = new AnalogInput(RobotMap.climberCenterWheelsAnalogInput);
 
+		centerJackTalonSRX.configFactoryDefault();
+		leftJackTalonSRX.configFactoryDefault();
+		rightJackTalonSRX.configFactoryDefault();
+
 		centerJackTalonSRX.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
 		leftJackTalonSRX.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
 		rightJackTalonSRX.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+
+		centerJackTalonSRX.setNeutralMode(NeutralMode.Brake);
+		leftJackTalonSRX.setNeutralMode(NeutralMode.Brake);
+		rightJackTalonSRX.setNeutralMode(NeutralMode.Brake);
 
 		centerWheelsVictorSP.setInverted(true);
 		// centerJackTalonSRX.setInverted(true);
@@ -139,7 +149,7 @@ public class Climber extends Subsystem {
 	public void test() {
 		leftJackTalonSRX.set(ControlMode.PercentOutput, CommandBase.oi.getDriverRightStickY());
 		rightJackTalonSRX.set(ControlMode.PercentOutput, CommandBase.oi.getDriverRightStickY());
-		// centerJackTalonSRX.set(ControlMode.PercentOutput, CommandBase.oi.getDriverRightStickY());
+		centerJackTalonSRX.set(ControlMode.PercentOutput, CommandBase.oi.getDriverRightStickY());
 		System.out.println("Left: " + getBackLeftPosition() + ", Right: " + getBackRightPosition() + ", Center: " + getCenterPosition());
 	}
 }
