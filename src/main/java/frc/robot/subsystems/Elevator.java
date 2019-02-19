@@ -21,12 +21,20 @@ public class Elevator extends Subsystem {
 	public final double elevatorHeightCargo = 14;
 	public final double elevatorHeightWall = 18;
 
-	public final double rocketSideLow = 0;
-	public final double rocketSideMiddle = 0;
-	public final double rocketSideTop = 0;
-	public final double rocketFrontLow = 0;
-	public final double rocketFrontMiddle = 28.5;
-	public final double rocketFrontTop = 58;
+	// public final double rocketSideLow = 0;
+	// public final double rocketSideMiddle = 0;
+	// public final double rocketSideTop = 0;
+	// public final double rocketFrontLow = 0;
+	// public final double rocketFrontMiddle = 28.5;
+	// public final double rocketFrontTop = 58;
+
+	public final double ballLow = 0.17;
+	public final double ballMiddle = 27.5;
+	public final double ballTop = 55.1;
+
+	public final double hatchLow = 0.23; // Acquisition from wall
+	public final double hatchMiddle = 32;
+	public final double hatchTop = 55.1;
 
 	public final double kElevatorP = 0.6;
 	public final double kElevatorI = 0.0;
@@ -94,9 +102,9 @@ public class Elevator extends Subsystem {
 			this.lastDistance = distance;
 		}
 
-		// System.out.println(getDistance());
+		System.out.println(getDistance());
 
-		System.out.println(isAtBottom());
+		// System.out.println(isAtBottom());
 	}
 
 	/**

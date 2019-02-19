@@ -11,30 +11,38 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ElevatorToRocketFrontMiddle extends CommandBase {
-	public ElevatorToRocketFrontMiddle() {
+public class ElevatorToHatchTop extends CommandBase {
+	public ElevatorToHatchTop() {
 		requires(elevator);
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
 	}
 
+	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
 	}
 
+	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		elevator.set(ControlMode.Position, elevator.rocketFrontMiddle * elevator.pulsesPerInch);
+		elevator.set(ControlMode.Position, elevator.hatchTop * elevator.pulsesPerInch);
 	}
 
+	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
 		return false;
 	}
 
+	// Called once after isFinished returns true
 	@Override
 	protected void end() {
 		elevator.set(ControlMode.PercentOutput, 0);
 	}
 
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
 		end();
