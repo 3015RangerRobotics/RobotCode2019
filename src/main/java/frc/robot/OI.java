@@ -98,7 +98,8 @@ public class OI {
 		driverLTrigger.whileHeld(new HatchGrabExtend());
 		driverLTrigger.whenReleased(new HatchGrabRetract());
 		
-		driverRB6.whenPressed(new AutoRocketFar());
+		// driverRB6.whenPressed(new AutoRocketFar());
+		driverRB6.whenPressed(new AutoRocketNear());
 	}
 
 	public double getDriverLeftStickY() {

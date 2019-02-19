@@ -28,17 +28,17 @@ public class DriveTurnToAngleWithEncoders extends CommandBase {
 	private boolean isAbsolute;
 	private double angle;
 
-	public DriveTurnToAngleWithEncoders(double angle, boolean isAbsolute) {
+	public DriveTurnToAngleWithEncoders(double angle, double vel, double acc, boolean isAbsolute) {
 		requires(drive);
 		this.angle = angle;
 		this.isAbsolute = isAbsolute;
 		if (!isAbsolute) {
-			generateProfile(angle);
+			generateProfile(angle, vel, acc);
 		}
 	}
 
-	public DriveTurnToAngleWithEncoders(double angle) {
-		this(angle, false);
+	public DriveTurnToAngleWithEncoders(double angle, double vel, double acc) {
+		this(angle, vel, acc, false);
 	}
 
 	protected void initialize() {
@@ -150,11 +150,11 @@ public class DriveTurnToAngleWithEncoders extends CommandBase {
 		end();
 	}
 
-	private void generateProfile(double profileAngle) {
+	private void generateProfile(double profileAngle, double vel, double acc) {
 		double arcLength = (RobotMap.wheelBaseWidth * Math.PI) * (Math.abs(profileAngle) / 360);
 		arcLength *= 1.152;
 
-		double[][] profile = MotionProfiles.generate1D(arcLength, 14, 10, 100, false);
+		double[][] profile = MotionProfiles.generate1D(arcLength, vel, acc, 100, false);
 		leftMotion = new double[profile.length][3];
 		rightMotion = new double[profile.length][3];
 
