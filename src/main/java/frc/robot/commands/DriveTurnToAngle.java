@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.ControllerPower;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot;
 
 public class DriveTurnToAngle extends CommandBase implements PIDOutput {
 	PIDController turnController;
@@ -20,7 +21,7 @@ public class DriveTurnToAngle extends CommandBase implements PIDOutput {
 	public DriveTurnToAngle(double angle, boolean isAbsolute) {
 		requires(drive);
 		this.setpoint = angle;
-		turnController = new PIDController(drive.kTurnP, drive.kTurnI, drive.kTurnD, drive.imu, this);
+		turnController = new PIDController(drive.kTurnP, drive.kTurnI, drive.kTurnD, Robot.imu, this);
 		turnController.setInputRange(-180.0, 180.0);
 		turnController.setOutputRange(-1.0, 1.0);
 		turnController.setAbsoluteTolerance(2.0);
@@ -29,7 +30,7 @@ public class DriveTurnToAngle extends CommandBase implements PIDOutput {
 
 	@Override
 	protected void initialize() {
-		drive.resetGyro();
+		Robot.resetIMU();
 		turnController.setP(SmartDashboard.getNumber("kTurnP", 0));
 		turnController.setI(SmartDashboard.getNumber("kTurnI", 0));
 		turnController.setD(SmartDashboard.getNumber("kTurnD", 0));

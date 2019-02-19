@@ -7,32 +7,13 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class ClimberDrivePlatform extends CommandBase {
-	public ClimberDrivePlatform() {
-		requires(climber);
-	}
-
-	@Override
-	protected void initialize() {
-
-	}
-
-	@Override
-	protected void execute() {
-	}
-
-	@Override
-	protected boolean isFinished() {
-		return true;
-	}
-
-	@Override
-	protected void end() {
-	}
-
-	@Override
-	protected void interrupted() {
+public class ClimberLevel2 extends CommandGroup {
+	public ClimberLevel2() {
+		addSequential(new ClimberCenterPrepareLow());
+		addSequential(new ClimberJackUpLow()); 
+		addSequential(new ClimberHoldAndDrive());
+		addSequential(new ClimberJackRetract()); 
 	}
 }

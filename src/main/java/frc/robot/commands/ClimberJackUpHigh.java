@@ -20,41 +20,37 @@ public class ClimberJackUpHigh extends CommandBase {
 		requires(climber);
 	}
 
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-	  if(climber.getCenterPosition() <= climber.centerPosJacked && !isCenterAtTarget) {
-		climber.setCenterVelocity(5);
-	  }
-	  else {
-		  climber.setCenter(ControlMode.PercentOutput, 0.1);
-		  isCenterAtTarget = true;
-	  }
+	@Override
+	protected void initialize() {
+		isCenterAtTarget = false;
+		isLeftAtTarget = false;
+		isRightAtTarget = false;
+	}
 
-	  if(climber.getBackLeftPosition() <= climber.backPosHigh && !isLeftAtTarget) {
-		  climber.setBackVelocityLeft(5);
-	  }
-	  else {
-		  climber.setBackLeft(ControlMode.PercentOutput, 0.1);
-		  isLeftAtTarget = true;
-	  }
+	// Called repeatedly when this Command is scheduled to run
+	@Override
+	protected void execute() {
+		if (climber.getCenterPosition() <= climber.centerPosJacked && !isCenterAtTarget) {
+			climber.setCenterVelocity(climber.climbSpeed - climber.getPitchOffset());
+		} else {
+			climber.setCenter(ControlMode.PercentOutput, 0.1);
+			isCenterAtTarget = true;
+		}
 
-	  if(climber.getBackRightPosition() <= climber.backPosHigh && !isRightAtTarget) {
-		  climber.setBackVelocityRight(5);
-	  }
-	  else {
-		  climber.setBackRight(ControlMode.PercentOutput, 0.1);
-		  isRightAtTarget = true;
-	  }
+		if (climber.getBackLeftPosition() <= climber.backPosHigh && !isLeftAtTarget) {
+			climber.setBackVelocityLeft(climber.climbSpeed + climber.getPitchOffset() - climber.getRollOffset());
+		} else {
+			climber.setBackLeft(ControlMode.PercentOutput, 0.1);
+			isLeftAtTarget = true;
+		}
 
 		if (climber.getBackRightPosition() <= climber.backPosHigh && !isRightAtTarget) {
-			climber.setBackVelocityRight(3);
+			climber.setBackVelocityRight(climber.climbSpeed + climber.getPitchOffset() + climber.getRollOffset());
 		} else {
 			climber.setBackRight(ControlMode.PercentOutput, 0.1);
 			isRightAtTarget = true;
 		}
 
-		System.out.println(climber.getCenterVelocity());
 	}
 
 	@Override

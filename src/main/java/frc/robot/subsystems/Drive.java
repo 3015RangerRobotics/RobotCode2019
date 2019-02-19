@@ -54,8 +54,6 @@ public class Drive extends Subsystem {
 	private Encoder leftEncoder;
 	private Encoder rightEncoder;
 
-	public AHRS imu;
-
 	private double lastDistanceLeft = 0.0;
 	private double lastDistanceRight = 0.0;
 
@@ -131,11 +129,8 @@ public class Drive extends Subsystem {
 		// rightMaster.enableVoltageCompensation(true);
 		// rightMaster.configVoltageCompSaturation(12.5);
 
-		imu = new AHRS(Port.kOnboard);
-
 		SmartDashboard.putData("Left Encoder", leftEncoder);
 		SmartDashboard.putData("Right Encoder", rightEncoder);
-		SmartDashboard.putData("Gyro", imu);
 	}
 
 	@Override
@@ -185,11 +180,11 @@ public class Drive extends Subsystem {
 		return rightEncoder.getRate();
 	}
 
-	public double getAngle() {
-		return imu.getAngle();
-	}
+	// public double getAngle() {
+	// 	return imu.getAngle();
+	// }
 
-	public void resetGyro() {
-		imu.zeroYaw();
-	}
+	// public void resetGyro() {
+	// 	imu.zeroYaw();
+	// }
 }

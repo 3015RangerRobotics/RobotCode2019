@@ -1,7 +1,10 @@
 package frc.robot;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -12,12 +15,21 @@ public class Robot extends TimedRobot {
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
+	public static AHRS imu ;
+
+
 	@Override
 	public void robotInit() {
+		imu = new AHRS(Port.kOnboard);
+
 		// chooser.addOption("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 		StatTracker.init();
 		CommandBase.init();
+
+		SmartDashboard.putData("Gyro", imu);
+
+		resetIMU();
 	}
 
 	@Override
@@ -61,5 +73,25 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void testPeriodic() {
+	}
+
+	public static float getRoll() {
+		return imu.getRoll();
+	}
+
+	public static float getPitch() {
+		return imu.getPitch();
+	}
+
+	public static float getYaw() {
+		return imu.getYaw();
+	}
+
+	public static void resetIMU() {
+		imu.reset();
+	}
+
+	public static boolean isIMUConnected() {
+		return imu.isConnected();
 	}
 }
