@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.ControllerPower;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
@@ -108,7 +109,7 @@ public class Climber extends Subsystem {
 	@Override
 	public void periodic() {
 		// System.out.println("roll: " + Robot.getRoll() + ", pitch: " + Robot.getPitch() + ", yaw: " + Robot.getYaw());
-		System.out.println(leftJackTalonSRX.getMotorOutputPercent());
+		// System.out.println(getDistanceToWall());
 		
 	}
 
@@ -153,7 +154,7 @@ public class Climber extends Subsystem {
 	}
 
 	public double getDistanceToWall() {
-		return (distanceSensor.getValue()); 
+		return distanceSensor.getAverageVoltage() / ControllerPower.getInputVoltage() * 12.5;
 	}
 
 	public void setCenterWheels(double speed) {

@@ -102,7 +102,7 @@ public class Elevator extends Subsystem {
 			this.lastDistance = distance;
 		}
 
-		System.out.println(getDistance());
+		// System.out.println(getDistance());
 
 		// System.out.println(isAtBottom());
 	}

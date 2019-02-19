@@ -21,27 +21,26 @@ import frc.robot.StatTracker;
 import frc.robot.commands.DriveWithGamepad;
 
 public class Drive extends Subsystem {
-	public final double kV = 0.067;//0.67
+	public final double kV = 0.067;// 0.67
 	public final double kA = 0.023;
 
 	public final double kDistancePerPulse = 0.00904774;
 
-	public final double kDriveP = 1.8;//5//1.40;
-	public final double kDriveD = 0.0;//0.0;
+	public final double kDriveP = 1.8;// 5//1.40;
+	public final double kDriveD = 0.0;// 0.0;
 
 	public final double kVTurn = 0;
 	public final double kATurn = 0;
 
-	public final double kTurnP = 0.03; //65;// 0.005;//0.008
+	public final double kTurnP = 0.03; // 65;// 0.005;//0.008
 	public final double kTurnI = 0.000;// 0.0006
 	public final double kTurnD = 0.08;// 0.08
 
-	public final double kTurnPEncoder = 5.0;
-	//public final double kTurnIEncoder = 0.0;
-	public final double kTurnDEncoder = 0.035;
+	public final double kTurnPEncoder = 6.0;//6
+	// public final double kTurnIEncoder = 0.0;
+	public final double kTurnDEncoder = 0.035;//0.035
 	public final double kVEncoder = 0.067;
 	public final double kAEncoder = 0.025;
-
 
 	private TalonSRX rightMaster;
 	private VictorSPX rightFollower1;
@@ -81,7 +80,7 @@ public class Drive extends Subsystem {
 		leftEncoder.setDistancePerPulse(kDistancePerPulse);
 		leftEncoder.setReverseDirection(false);
 		rightEncoder.setDistancePerPulse(kDistancePerPulse);
-		rightEncoder.setReverseDirection(false);
+		rightEncoder.setReverseDirection(true);//false on practice
 
 		rightMaster.configFactoryDefault();
 		leftMaster.configFactoryDefault();
@@ -181,10 +180,10 @@ public class Drive extends Subsystem {
 	}
 
 	// public double getAngle() {
-	// 	return imu.getAngle();
+	// return imu.getAngle();
 	// }
 
 	// public void resetGyro() {
-	// 	imu.zeroYaw();
+	// imu.zeroYaw();
 	// }
 }

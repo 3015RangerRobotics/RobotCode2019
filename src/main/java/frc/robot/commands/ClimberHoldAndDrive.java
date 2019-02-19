@@ -16,7 +16,7 @@ public class ClimberHoldAndDrive extends CommandBase {
     // Use requires() here to declare subsystem dependencies
 	// eg. requires(chassis);\
 	requires (climber); 
-	requires (drive); 
+	requires (drive);
   }
 
   // Called just before this Command runs the first time
@@ -31,15 +31,15 @@ public class ClimberHoldAndDrive extends CommandBase {
 	climber.setBackLeft(ControlMode.PercentOutput, 0.1);
 	climber.setBackRight(ControlMode.PercentOutput, 0.1);
 	climber.setCenter(ControlMode.PercentOutput, 0.1);
-	drive.arcadeDrive(-0.4, 0, false);
-	climber.setCenterWheels(.2);
+	drive.arcadeDrive(-0.25, 0, false);
+	climber.setCenterWheels(.4);
+	System.out.println("Hi");
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    
-	return climber.getDistanceToWall() <= 100;
+	return climber.getDistanceToWall() <= 0.15;
   }
 
   // Called once after isFinished returns true

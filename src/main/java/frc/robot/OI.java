@@ -62,6 +62,7 @@ public class OI {
 		// driverRTrigger.whenReleased(new HatchGrabRetract());
 		// driverLTrigger.whileHeld(new HatchEjectExtend());
 		// driverLTrigger.whenReleased(new HatchEjectRetract());
+		// driverA1.whenPressed(new DriveTurnToAngleWithEncoders(90));
 		//
 		// driverA1.whenPressed(new BallMechDownTilBall());
 		// driverB2.whenPressed(new BallMechUpTilBall());
@@ -74,6 +75,7 @@ public class OI {
 
 		// driverRB6.whenPressed(new ElevatorToRocketSideLow());
 		// coDriverLB5.whenPressed(new ElevatorToHatch());
+		// coDriverRS10.whenPressed(new ElevatorManualControl());
 
 		// driverRB6.whenPressed(new DriveMotionProfile2(MotionProfiles.generate1D2(5, 8, 4, 100, false)));
 
@@ -90,6 +92,13 @@ public class OI {
 
 		// coDriverRB6.whileHeld(new BallMechUp());
 		// coDriverLB5.whileHeld(new BallMechDown());
+
+		driverRTrigger.whileHeld(new HatchEjectExtend());
+		driverRTrigger.whenReleased(new HatchEjectRetract());
+		driverLTrigger.whileHeld(new HatchGrabExtend());
+		driverLTrigger.whenReleased(new HatchGrabRetract());
+		
+		driverRB6.whenPressed(new AutoRocketFar());
 	}
 
 	public double getDriverLeftStickY() {

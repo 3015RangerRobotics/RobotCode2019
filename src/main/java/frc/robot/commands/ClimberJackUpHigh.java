@@ -55,7 +55,7 @@ public class ClimberJackUpHigh extends CommandBase {
 
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return isRightAtTarget && isCenterAtTarget && isLeftAtTarget;
 	}
 
 	@Override
