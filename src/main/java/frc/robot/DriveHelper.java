@@ -2,6 +2,9 @@ package frc.robot;
 
 public class DriveHelper {
 	private static final double kDeadband = 0.02;
+	private static final double kTurnSensitivity = 1.0;
+
+	private static double quickStopAccumulator = 0.0;
 
 	/**
 	 * Tank drive helper
@@ -62,6 +65,60 @@ public class DriveHelper {
 		}
 		return new DriveSignal(leftMotorSpeed, rightMotorSpeed);
 	}
+	public static DriveSignal curvatureDrive(double throttle, double turn, boolean isQuickTurn, boolean squaredInputs) {
+    	throttle = handleDeadzone(throttle, kDeadband);
+    	turn = handleDeadzone(turn, kDeadband);
+    	
+    	double overPower;
+    	double angularPower;
+    	
+    	if (squaredInputs) {
+            // square the inputs (while preserving the sign) to increase fine control
+            // while permitting full power
+          	if (throttle >= 0.0) {
+          		throttle = throttle * throttle;
+          	} else {
+          		throttle = -(throttle * throttle);
+  	        }
+          }
+    	
+    	if(isQuickTurn) {
+    		if(Math.abs(throttle) < 0.2) {
+    			double alpha = 0.1;
+    			quickStopAccumulator = (1 - alpha) * quickStopAccumulator + alpha * limit(turn, 1.0) * 2;
+    		}
+    		overPower = 1.0;
+    		angularPower = turn;
+    	}else {
+    		overPower = 0.0;
+    		angularPower = Math.abs(throttle) * turn * kTurnSensitivity - quickStopAccumulator;
+    		if(quickStopAccumulator > 1) {
+    			quickStopAccumulator -= 1;
+    		}else if(quickStopAccumulator < -1) {
+    			quickStopAccumulator += 1;
+    		}else {
+    			quickStopAccumulator = 0.0;
+    		}
+    	}
+    	
+    	double rightPwm = throttle - angularPower;
+    	double leftPwm = throttle + angularPower;
+    	if (leftPwm > 1.0) {
+            rightPwm -= overPower * (leftPwm - 1.0);
+            leftPwm = 1.0;
+        } else if (rightPwm > 1.0) {
+            leftPwm -= overPower * (rightPwm - 1.0);
+            rightPwm = 1.0;
+        } else if (leftPwm < -1.0) {
+            rightPwm += overPower * (-1.0 - leftPwm);
+            leftPwm = -1.0;
+        } else if (rightPwm < -1.0) {
+            leftPwm += overPower * (-1.0 - rightPwm);
+            rightPwm = -1.0;
+        }
+    	
+    	return new DriveSignal(leftPwm, rightPwm);
+    }
 
 	/**
 	 * Handles a deadzone
