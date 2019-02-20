@@ -48,6 +48,30 @@ public class OI {
 	Button coDriverRTrigger = new TriggerButton(coDriver, Hand.kRight);
 
 	public OI() {
+		// driverRB6.whenPressed(new DriveTurnToTarget());
+		// driverRB6.whileHeld(new DriveAlignWithTarget());
+		
+		driverLB5.whileHeld(new BallMechUp());
+		driverRB6.whileHeld(new BallMechDown());
+
+		driverA1.whenPressed(new ElevatorToBottom());
+		driverB2.whenPressed(new ElevatorToBallMiddle());
+		driverY4.whenPressed(new ElevatorToBallTop());
+	
+	// 	driverA1.whenPressed(new ElevatorToBallLow());
+	// 	driverB2.whenPressed(new ElevatorToBallMiddle());
+	// 	driverY4.whenPressed(new ElevatorToBallTop());
+	// 	driverDDown.whenPressed(new ElevatorToHatch());
+	// 	driverDRight.whenPressed(new ElevatorToCargoHeight());
+	// 	driverDUp.whenPressed(new ElevatorToHatchTop());
+	// 	driverLB5.whileHeld(new BallMechUp());
+	// 	driverRB6.whileHeld(new BallMechDown());
+
+	// 	driverRTrigger.whileHeld(new HatchEjectExtend());
+	// 	driverRTrigger.whenReleased(new HatchEjectRetract());
+	// 	driverLTrigger.whileHeld(new HatchGrabExtend());
+	// 	driverLTrigger.whenReleased(new HatchGrabRetract());
+		
 		// a retract, x jack up low, y jack up high, lb prepare low, rb prepare high
 
 		// driverA1.whenPressed(new ClimberJackRetract());
@@ -92,14 +116,9 @@ public class OI {
 
 		// coDriverRB6.whileHeld(new BallMechUp());
 		// coDriverLB5.whileHeld(new BallMechDown());
-
-		driverRTrigger.whileHeld(new HatchEjectExtend());
-		driverRTrigger.whenReleased(new HatchEjectRetract());
-		driverLTrigger.whileHeld(new HatchGrabExtend());
-		driverLTrigger.whenReleased(new HatchGrabRetract());
 		
 		// driverRB6.whenPressed(new AutoRocketFar());
-		driverRB6.whenPressed(new AutoRocketNear());
+		//driverRB6.whenPressed(new AutoRocketNear());
 	}
 
 	public double getDriverLeftStickY() {

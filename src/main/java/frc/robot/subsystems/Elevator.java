@@ -29,8 +29,8 @@ public class Elevator extends Subsystem {
 	// public final double rocketFrontTop = 58;
 
 	public final double ballLow = 0.17;
-	public final double ballMiddle = 27.5;
-	public final double ballTop = 55.1;
+	public final double ballMiddle = 29.5;
+	public final double ballTop = 56.1;
 
 	public final double hatchLow = 0.23; // Acquisition from wall
 	public final double hatchMiddle = 32;
@@ -41,14 +41,8 @@ public class Elevator extends Subsystem {
 	public final double kElevatorD = 0.2;
 	public final double kElevatorF = 0.005;
 
-	public final double elevatorHeightSideLow = 0.0;
-	public final double elevatorHeightSideMid = 0.0;
-	public final double elevatorHeightSideHigh = 0.0;
-	public final double elevatorHeightFrontLow = 0.0;
-	public final double elevatoHeightFrontMid = 0.0;
-	public final double elevatoHeightFrontHigh = 0.0;
-
 	public final double pulsesPerInch = 331;
+
 
 	private double lastDistance = 0.0;
 
@@ -102,7 +96,7 @@ public class Elevator extends Subsystem {
 			this.lastDistance = distance;
 		}
 
-		// System.out.println(getDistance());
+		// System.out.println(SmartDashboard.getNumber("TargetXAngle", -1));
 
 		// System.out.println(isAtBottom());
 	}

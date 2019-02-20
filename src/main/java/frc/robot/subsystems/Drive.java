@@ -32,9 +32,9 @@ public class Drive extends Subsystem {
 	public final double kVTurn = 0;
 	public final double kATurn = 0;
 
-	public final double kTurnP = 0.03; // 65;// 0.005;//0.008
-	public final double kTurnI = 0.000;// 0.0006
-	public final double kTurnD = 0.08;// 0.08
+	public final double kTurnP = 0.006;//15;//.03; // 65;// 0.005;//0.008
+	public final double kTurnI = 0.00;// 0.0006
+	public final double kTurnD = 0.01;//.03// 0.08
 
 	public final double kTurnPEncoder = 6.0;//6
 	// public final double kTurnIEncoder = 0.0;
@@ -80,7 +80,7 @@ public class Drive extends Subsystem {
 		leftEncoder.setDistancePerPulse(kDistancePerPulse);
 		leftEncoder.setReverseDirection(false);
 		rightEncoder.setDistancePerPulse(kDistancePerPulse);
-		rightEncoder.setReverseDirection(true);//false on practice
+		rightEncoder.setReverseDirection(false);//false on practice
 
 		rightMaster.configFactoryDefault();
 		leftMaster.configFactoryDefault();
@@ -123,10 +123,10 @@ public class Drive extends Subsystem {
 		// rightMaster.config_kD(0, kDriveD);
 		// rightMaster.config_kF(0, kDriveF);
 
-		// leftMaster.enableVoltageCompensation(true);
-		// leftMaster.configVoltageCompSaturation(12.5);
-		// rightMaster.enableVoltageCompensation(true);
-		// rightMaster.configVoltageCompSaturation(12.5);
+		leftMaster.enableVoltageCompensation(true);
+		leftMaster.configVoltageCompSaturation(12.5);
+		rightMaster.enableVoltageCompensation(true);
+		rightMaster.configVoltageCompSaturation(12.5);
 
 		SmartDashboard.putData("Left Encoder", leftEncoder);
 		SmartDashboard.putData("Right Encoder", rightEncoder);
