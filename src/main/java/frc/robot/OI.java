@@ -130,6 +130,9 @@ public class OI {
 		
 		// driverRB6.whenPressed(new AutoRocketFar());
 		// driverRB6.whenPressed(new AutoRocketNear());
+		
+		// driverRB6.whenPressed(new AutoRocketFar());
+		//driverRB6.whenPressed(new AutoRocketNear());
 	}
 
 	public double getDriverLeftStickY() {

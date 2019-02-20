@@ -95,16 +95,33 @@ public class Robot extends TimedRobot {
 		return imu.isConnected();
 	}
 
-	public static float getXPos(){
-		return imu.getDisplacementX();
+	public static double getTargetXAngle() {
+		double rawXAngle = SmartDashboard.getNumber("TargetXAngle", -1);
+		double targetDistance = SmartDashboard.getNumber("TargetDistance", -1);
+		double angleInRadians = Math.toRadians(rawXAngle);
+		if(targetDistance < 0){
+			System.out.println("Target Distance < 0");
+			return -1;
+		}else{
+			double a = getTargetDistance();
+			System.out.println(a);
+			double correctedAngle = Math.toDegrees(Math.asin((targetDistance * Math.sin(angleInRadians)) / a));
+			return correctedAngle;
+		}
 	}
 
-	public static float getYPos(){
-		return imu.getDisplacementY();
+	public static double getTargetDistance() {
+		double rawXAngle = SmartDashboard.getNumber("TargetXAngle", -1);
+		double targetDistance = SmartDashboard.getNumber("TargetDistance", -1);
+		double angleInRadians = Math.toRadians(rawXAngle);
+		if(targetDistance < 0) {
+			System.out.println("Target Distance < 0");
+			return -1;
+		}else{
+			double correctedDistance = Math.sqrt((RobotMap.tapeCameraOffset * RobotMap.tapeCameraOffset) + 
+				(targetDistance * targetDistance) - (2 * RobotMap.tapeCameraOffset * targetDistance
+				* Math.cos(angleInRadians)));
+			return correctedDistance;
+		}
 	}
-
-	public static float getZPos(){
-		return imu.getDisplacementZ(); 
-	}
-
 }

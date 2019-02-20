@@ -3,6 +3,7 @@ package frc.robot;
 public class RobotMap {
 	public static final double kPeriod = 0.01;
 	public static final double wheelBaseWidth = 2;
+	public static final double tapeCameraOffset = -8.75;
 
 	public static final int leftDriveMaster = 10; // Left Drive Master
 	public static final int leftDriveFollower1 = 11; // Front Left Drive
@@ -24,10 +25,10 @@ public class RobotMap {
 	public static final int ballMechVictor = 3; 
 	public static final int ballLimitSwitch = 4;
 
-	public static final int hatchGrabSolenoid1 = 1;//3;
-	public static final int hatchGrabSolenoid2 = 0;//2;
-	public static final int hatchEjectSolenoid1 = 3;//1;
-	public static final int hatchEjectSolenoid2 = 2;//0;
+	public static final int hatchGrabSolenoid1 = 2;//3;
+	public static final int hatchGrabSolenoid2 = 3;//2;
+	public static final int hatchEjectSolenoid1 = 0;//1;
+	public static final int hatchEjectSolenoid2 = 1;//0;
 
 	public static final int climberCenterJackTalonSRX = 19; // Rear Jack 
 	public static final int climberLeftJackTalonSRX = 17; // Left Jack 

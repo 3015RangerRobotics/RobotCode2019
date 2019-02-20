@@ -6,7 +6,13 @@ public class DriveTurnToTarget extends CommandBase {
 
 	@Override
 	protected void initialize() {
-		new DriveTurnToAngle((SmartDashboard.getNumber("TargetXAngle", 0)), false).start();
+		double targetXAngle = SmartDashboard.getNumber("TargetXAngle", -1);
+		double targetYAngle = SmartDashboard.getNumber("TargetYAngle", -1);
+		if(targetXAngle == -1 && targetYAngle == -1){
+			System.out.println("No target");
+		}else {
+			new DriveTurnToAngleWithEncoders(targetXAngle, 14, 10).start();
+		}
 	}
 
 	@Override
@@ -24,5 +30,6 @@ public class DriveTurnToTarget extends CommandBase {
 
 	@Override
 	protected void interrupted() {
+		end();
 	}
 }

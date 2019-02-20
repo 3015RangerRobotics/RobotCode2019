@@ -1,3 +1,10 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
 package frc.robot.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -5,52 +12,52 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.ControllerPower;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
-public class DriveTurnToAngle extends CommandBase implements PIDOutput {
+public class DriveAlignWithTarget extends CommandBase implements PIDOutput {
 	PIDController turnController;
 	double setpoint = 0;
-	int onTargetCount = 0;
-	double minTurn = 0.18;//.2;
+	double targetY = 0;
+	double targetX = 0;
+	double minTurn = 0.25;// 18;//.2;
 
-	public DriveTurnToAngle(double angle) {
-		this(angle, false);
-	}
-
-	public DriveTurnToAngle(double angle, boolean isAbsolute) {
+	public DriveAlignWithTarget() {
 		requires(drive);
-		this.setpoint = angle;
 		turnController = new PIDController(drive.kTurnP, drive.kTurnI, drive.kTurnD, Robot.imu, this);
 		turnController.setInputRange(-180.0, 180.0);
 		turnController.setOutputRange(-1.0, 1.0);
-		turnController.setAbsoluteTolerance(1.0);
+		turnController.setAbsoluteTolerance(2.0);
 		turnController.setContinuous(true);
 	}
 
 	@Override
 	protected void initialize() {
+		double targetDistance = SmartDashboard.getNumber("TargetDistance", -1);
+		if (targetDistance < 0) {
+			System.out.println("oopsies");
+			this.cancel();
+		}
+
+		this.setpoint = Robot.getTargetXAngle();
 		Robot.resetIMU();
 		turnController.setP(SmartDashboard.getNumber("kTurnP", 0));
 		turnController.setI(SmartDashboard.getNumber("kTurnI", 0));
 		turnController.setD(SmartDashboard.getNumber("kTurnD", 0));
 		turnController.setSetpoint(setpoint);
 		turnController.enable();
-		onTargetCount = 0;
+
+		System.out.println(this.setpoint);
 	}
 
 	@Override
 	protected void execute() {
-		if (turnController.onTarget()) {
-			onTargetCount++;
-		} else {
-			onTargetCount = 0;
-		}
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return onTargetCount >= 10;
+		return false;
 	}
 
 	@Override
@@ -75,6 +82,7 @@ public class DriveTurnToAngle extends CommandBase implements PIDOutput {
 				output = minTurn;
 			}
 		}
-		drive.arcadeDrive(0, (output * 12.5 / ControllerPower.getInputVoltage()), false);
+
+		drive.arcadeDrive(oi.getDriverLeftStickY(), turnController.onTarget() ? 0 : output, false);
 	}
 }

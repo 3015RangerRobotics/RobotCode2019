@@ -46,6 +46,7 @@ public class Elevator extends Subsystem {
 
 	public final double pulsesPerInch = 331;
 
+
 	private double lastDistance = 0.0;
 
 	public Elevator() {
@@ -98,7 +99,7 @@ public class Elevator extends Subsystem {
 			this.lastDistance = distance;
 		}
 
-		// System.out.println(getDistance());
+		// System.out.println(SmartDashboard.getNumber("TargetXAngle", -1));
 
 		// System.out.println(isAtBottom());
 	}
