@@ -48,6 +48,36 @@ public class OI {
 	Button coDriverRTrigger = new TriggerButton(coDriver, Hand.kRight);
 
 	public OI() {
+		driverA1.whileHeld(new BallMechDown());
+		driverB2.whileHeld(new BallMechUp());
+		driverRTrigger.whenPressed(new HatchGrabExtend());
+		driverRTrigger.whenReleased(new HatchGrabRetract());
+		driverLTrigger.whenPressed(new HatchEjectExtend());
+		driverLTrigger.whenReleased(new HatchEjectRetract());
+		driverDDown.whenPressed(new ClimberLevel2());
+		driverDUp.whenPressed(new ClimberLevel3());
+		
+		coDriverA1.whenPressed(new ElevatorToBottom());
+		coDriverB2.whenPressed(new ElevatorToBallMiddle());
+		coDriverY4.whenPressed(new ElevatorToBallTop());
+		coDriverDDown.whenPressed(new ElevatorToHatch());
+		coDriverDLeft.whenPressed(new ElevatorToHatchMiddle());
+		// create the hatch midd
+		coDriverDUp.whenPressed(new ElevatorToHatchTop());
+		coDriverRB6.whileHeld(new HatchEjectExtend());
+		coDriverRB6.whenReleased(new HatchEjectRetract());
+		coDriverLB5.whenPressed(new ElevatorToAllianceWall());
+
+		
+		
+
+		//driver - A: BallMechDownTilBall, B: BallMechUpTilBall, X: BallMechDown
+		// Y:  BallMechUp, DPAD down: climb mid, DPADUp up: climb top
+
+		//codriver - a: elevatortobottom, b:elevatormidball, y: ball top height,
+		//dpad down: hatch bottom, dpad left hatch mid, dpad up hatch top,
+		//left bump: hatch low height, 
+
 		// a retract, x jack up low, y jack up high, lb prepare low, rb prepare high
 
 		// driverA1.whenPressed(new ClimberJackRetract());
@@ -55,9 +85,9 @@ public class OI {
 		// driverY4.whenPressed(new ClimberJackUpHigh());
 		// driverLB5.whenPressed(new ClimberCenterPrepareLow());
 		// driverRB6.whenPressed(new ClimberCenterPrepareHigh());
-		
 		// driverDDown.whenPressed(new ClimberLevel2());
 		// driverDUp.whenPressed(new ClimberLevel3());
+	
 		// driverRTrigger.whileHeld(new HatchGrabExtend());
 		// driverRTrigger.whenReleased(new HatchGrabRetract());
 		// driverLTrigger.whileHeld(new HatchEjectExtend());
@@ -93,13 +123,13 @@ public class OI {
 		// coDriverRB6.whileHeld(new BallMechUp());
 		// coDriverLB5.whileHeld(new BallMechDown());
 
-		driverRTrigger.whileHeld(new HatchEjectExtend());
-		driverRTrigger.whenReleased(new HatchEjectRetract());
-		driverLTrigger.whileHeld(new HatchGrabExtend());
-		driverLTrigger.whenReleased(new HatchGrabRetract());
+		// driverRTrigger.whileHeld(new HatchEjectExtend());
+		// driverRTrigger.whenReleased(new HatchEjectRetract());
+		// driverLTrigger.whileHeld(new HatchGrabExtend());
+		// driverLTrigger.whenReleased(new HatchGrabRetract());
 		
 		// driverRB6.whenPressed(new AutoRocketFar());
-		driverRB6.whenPressed(new AutoRocketNear());
+		// driverRB6.whenPressed(new AutoRocketNear());
 	}
 
 	public double getDriverLeftStickY() {

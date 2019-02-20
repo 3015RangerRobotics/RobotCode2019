@@ -3,6 +3,7 @@ package frc.robot.commands;
 import frc.robot.StatTracker;
 
 public class BallMechUpTilBall extends CommandBase {
+	// boolean ballAtBegin;
 
 	public BallMechUpTilBall() {
 		requires(ballMech);
@@ -10,6 +11,8 @@ public class BallMechUpTilBall extends CommandBase {
 
 	@Override
 	protected void initialize() {
+		setTimeout(3);
+		// ballAtBegin = ballMech.isBallPresent();
 	}
 
 	@Override
@@ -19,10 +22,10 @@ public class BallMechUpTilBall extends CommandBase {
 
 	@Override
 	protected boolean isFinished() {
-		if (ballMech.isBallPresent()) {
+		if (ballMech.isBallPresent()  && isTimedOut()) {
 			StatTracker.addCargoHandled();
 		}
-		return ballMech.isBallPresent();
+		return ballMech.isBallPresent()  && isTimedOut();
 	}
 
 	@Override

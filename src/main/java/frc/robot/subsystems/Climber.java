@@ -110,7 +110,7 @@ public class Climber extends Subsystem {
 	public void periodic() {
 		// System.out.println("roll: " + Robot.getRoll() + ", pitch: " + Robot.getPitch() + ", yaw: " + Robot.getYaw());
 		// System.out.println(getDistanceToWall());
-		
+		// System.out.println("X: " + Robot.getXPos() + ", Y: " + Robot.getYPos() + ", Z: " + Robot.getZPos()); 
 	}
 
 	public void setCenter(ControlMode mode, double value) {

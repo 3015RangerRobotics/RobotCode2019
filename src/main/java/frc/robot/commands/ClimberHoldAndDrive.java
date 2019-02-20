@@ -10,6 +10,7 @@ package frc.robot.commands;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
 
 public class ClimberHoldAndDrive extends CommandBase {
   public ClimberHoldAndDrive() {
@@ -22,7 +23,7 @@ public class ClimberHoldAndDrive extends CommandBase {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-	  
+	this.setTimeout(1);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -31,15 +32,15 @@ public class ClimberHoldAndDrive extends CommandBase {
 	climber.setBackLeft(ControlMode.PercentOutput, 0.1);
 	climber.setBackRight(ControlMode.PercentOutput, 0.1);
 	climber.setCenter(ControlMode.PercentOutput, 0.1);
-	drive.arcadeDrive(-0.25, 0, false);
-	climber.setCenterWheels(.4);
-	System.out.println("Hi");
+	drive.arcadeDrive(-0.5, 0, false);
+	climber.setCenterWheels(1);
+	System.out.println("Hi Michael you look nice today!");
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-	return climber.getDistanceToWall() <= 0.15;
+	return this.isTimedOut();
   }
 
   // Called once after isFinished returns true

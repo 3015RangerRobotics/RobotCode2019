@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.OI;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.Climber;
@@ -25,6 +26,7 @@ public abstract class CommandBase extends Command {
 		elevator = new Elevator();
 		climber = new Climber();
 		ballMech = new BallMech();
+		SmartDashboard.putData("ballmech",ballMech);
 		hatchMech = new HatchMech();
 		intakeAid = new IntakeAid();
 		ourCompressor = new OurCompressor();

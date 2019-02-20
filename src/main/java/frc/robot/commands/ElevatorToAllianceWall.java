@@ -7,38 +7,40 @@
 
 package frc.robot.commands;
 
-import frc.robot.StatTracker;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 
-public class BallMechDownTilBall extends CommandBase {
-	boolean ballAtBegin;
-	public BallMechDownTilBall() {
-		requires(ballMech);
+import edu.wpi.first.wpilibj.command.Command;
+
+public class ElevatorToAllianceWall extends CommandBase {
+	public ElevatorToAllianceWall() {
+		requires(elevator);
 	}
 
+	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		setTimeout(3);
-		// ballAtBegin = ballMech.isBallPresent();
 	}
 
+	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		ballMech.intakeDown();
+		elevator.set(ControlMode.Position, elevator.allianceWall * elevator.pulsesPerInch);
 	}
 
+	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		if (ballMech.isBallPresent() && !isTimedOut()) {
-			StatTracker.addCargoHandled();
-		}
-		return ballMech.isBallPresent() && !isTimedOut();
+		return false;
 	}
 
+	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		ballMech.intakeStop();
+		elevator.set(ControlMode.PercentOutput, 0);
 	}
 
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
 		end();

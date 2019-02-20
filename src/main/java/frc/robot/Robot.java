@@ -94,4 +94,17 @@ public class Robot extends TimedRobot {
 	public static boolean isIMUConnected() {
 		return imu.isConnected();
 	}
+
+	public static float getXPos(){
+		return imu.getDisplacementX();
+	}
+
+	public static float getYPos(){
+		return imu.getDisplacementY();
+	}
+
+	public static float getZPos(){
+		return imu.getDisplacementZ(); 
+	}
+
 }
