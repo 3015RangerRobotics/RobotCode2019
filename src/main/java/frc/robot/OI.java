@@ -56,83 +56,16 @@ public class OI {
 		driverLTrigger.whenReleased(new HatchEjectRetract());
 		driverDDown.whenPressed(new ClimberLevel2());
 		driverDUp.whenPressed(new ClimberLevel3());
-		
+
 		coDriverA1.whenPressed(new ElevatorToBottom());
 		coDriverB2.whenPressed(new ElevatorToBallMiddle());
 		coDriverY4.whenPressed(new ElevatorToBallTop());
 		coDriverDDown.whenPressed(new ElevatorToHatch());
 		coDriverDLeft.whenPressed(new ElevatorToHatchMiddle());
-		// create the hatch midd
 		coDriverDUp.whenPressed(new ElevatorToHatchTop());
 		coDriverRB6.whileHeld(new HatchEjectExtend());
 		coDriverRB6.whenReleased(new HatchEjectRetract());
 		coDriverLB5.whenPressed(new ElevatorToAllianceWall());
-
-		
-		
-
-		//driver - A: BallMechDownTilBall, B: BallMechUpTilBall, X: BallMechDown
-		// Y:  BallMechUp, DPAD down: climb mid, DPADUp up: climb top
-
-		//codriver - a: elevatortobottom, b:elevatormidball, y: ball top height,
-		//dpad down: hatch bottom, dpad left hatch mid, dpad up hatch top,
-		//left bump: hatch low height, 
-
-		// a retract, x jack up low, y jack up high, lb prepare low, rb prepare high
-
-		// driverA1.whenPressed(new ClimberJackRetract());
-		// driverX3.whenPressed(new ClimberJackUpLow());
-		// driverY4.whenPressed(new ClimberJackUpHigh());
-		// driverLB5.whenPressed(new ClimberCenterPrepareLow());
-		// driverRB6.whenPressed(new ClimberCenterPrepareHigh());
-		// driverDDown.whenPressed(new ClimberLevel2());
-		// driverDUp.whenPressed(new ClimberLevel3());
-	
-		// driverRTrigger.whileHeld(new HatchGrabExtend());
-		// driverRTrigger.whenReleased(new HatchGrabRetract());
-		// driverLTrigger.whileHeld(new HatchEjectExtend());
-		// driverLTrigger.whenReleased(new HatchEjectRetract());
-		// driverA1.whenPressed(new DriveTurnToAngleWithEncoders(90));
-		//
-		// driverA1.whenPressed(new BallMechDownTilBall());
-		// driverB2.whenPressed(new BallMechUpTilBall());
-		// driverX3.whileHeld(new BallMechDown());
-		// driverY4.whileHeld(new BallMechUp());
-		//
-		// coDriverA1.whenPressed(new ElevatorToBottom());
-		//
-		// driverRB6.whenPressed(new ElevatorToRocketSideLow());
-
-		// driverRB6.whenPressed(new ElevatorToRocketSideLow());
-		// coDriverLB5.whenPressed(new ElevatorToHatch());
-		// coDriverRS10.whenPressed(new ElevatorManualControl());
-
-		// driverRB6.whenPressed(new DriveMotionProfile2(MotionProfiles.generate1D2(5, 8, 4, 100, false)));
-
-		// driverRB6.whenPressed(new DriveMotionProfile(MotionProfiles.generate1D(5, 8,
-		// 4, 100, false)));
-
-		// driverA1.whenPressed(new ClimberCenterPrepareLow());
-		// driverB2.whenPressed(new ClimberJackRetract());
-		// driverX3.whenPressed(new ClimberJackUpLow());
-		// driverY4.whenPressed(new ClimberJackUpHigh());
-
-		// driverRB6.whenPressed(new ElevatorToMiddle());
-		// driverLB5.whenPressed(new ElevatorToBottom());
-
-		// coDriverRB6.whileHeld(new BallMechUp());
-		// coDriverLB5.whileHeld(new BallMechDown());
-
-		// driverRTrigger.whileHeld(new HatchEjectExtend());
-		// driverRTrigger.whenReleased(new HatchEjectRetract());
-		// driverLTrigger.whileHeld(new HatchGrabExtend());
-		// driverLTrigger.whenReleased(new HatchGrabRetract());
-		
-		// driverRB6.whenPressed(new AutoRocketFar());
-		// driverRB6.whenPressed(new AutoRocketNear());
-		
-		// driverRB6.whenPressed(new AutoRocketFar());
-		//driverRB6.whenPressed(new AutoRocketNear());
 	}
 
 	public double getDriverLeftStickY() {

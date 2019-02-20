@@ -40,7 +40,7 @@ public class Climber extends Subsystem {
 
 	public final double centerPosJacked = 21;
 	public final double centerPosLow = 13; //10
-	public final double centerPosHigh = .5; //2
+	public final double centerPosHigh = 1; //2
 	public final double backPosLow = 7;
 	public final double backPosHigh = 20;
 
