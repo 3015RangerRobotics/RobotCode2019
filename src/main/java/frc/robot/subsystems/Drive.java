@@ -162,6 +162,10 @@ public class Drive extends Subsystem {
 		DriveSignal ds = DriveHelper.arcadeDrive(moveValue, rotateValue, squaredInputs);
 		setMotorOutputs(ControlMode.PercentOutput, ds.leftSignal, ds.rightSignal);
 	}
+	public void curvatureDrive(double throttle, double turn, boolean isQuickTurn, boolean squaredInputs) {
+    	DriveSignal ds = DriveHelper.curvatureDrive(throttle, turn, isQuickTurn, squaredInputs);
+		setMotorOutputs(ControlMode.PercentOutput,ds.leftSignal, ds.rightSignal);
+	}
 
 	public double getLeftDistance() {
 		return leftEncoder.getDistance();
