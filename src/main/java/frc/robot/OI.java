@@ -92,6 +92,13 @@ public class OI {
 		}
 	}
 
+	public double getDriverRightStickX() {
+		if (Math.abs(driver.getX(Hand.kRight)) > 0.05) {
+			return driver.getX(Hand.kRight);
+		} else {
+			return 0;
+		}
+	}
 	public void coDriverRumble(double d) {
 		coDriver.setRumble(RumbleType.kRightRumble, d);
 		coDriver.setRumble(RumbleType.kLeftRumble, d);

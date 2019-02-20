@@ -18,10 +18,6 @@ public class DriveWithGamepad extends CommandBase {
 	@Override
 	protected void execute() {
 		double driveValue = oi.getDriverLeftStickY();
-		drive.arcadeDrive(driveValue, oi.getDriverLeftStickX() / 1.25, true);
-		// climber.setCenterWheels(-driveValue);
-		// System.out.println(oi.getDriverLeftStickX());
-		// System.out.println(drive.getRightDistance() + ", " + drive.getLeftDistance());
 
 		if (elevator.getDistance() > 25) {
 			if (driveValue > lastDriveValue + maxControllerChange) {
@@ -34,6 +30,12 @@ public class DriveWithGamepad extends CommandBase {
 			}
 		}
 
+		if (Math.abs(oi.getDriverRightStickX()) >= 0.1) {
+			drive.curvatureDrive(driveValue, oi.getDriverRightStickX() / 1.25, false, true);
+		} else {
+			drive.arcadeDrive(driveValue, oi.getDriverLeftStickX() / 1.25, true);
+		}
+		
 		lastDriveValue = driveValue;
 	}
 
