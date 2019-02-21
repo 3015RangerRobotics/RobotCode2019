@@ -34,8 +34,8 @@ public class DriveAlignWithTarget extends CommandBase implements PIDOutput {
 
 	@Override
 	protected void initialize() {
-		double targetDistance = SmartDashboard.getNumber("TargetDistance", -1);
-		if (targetDistance < 0) {
+		double targetDistance = Robot.getTargetDistance();
+		if (targetDistance < 0 || !Robot.isIMUConnected()) {
 			System.out.println("oopsies");
 			this.cancel();
 		}

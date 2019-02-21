@@ -2,6 +2,9 @@ package frc.robot;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoMode.PixelFormat;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.I2C.Port;
@@ -21,6 +24,10 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		imu = new AHRS(Port.kOnboard);
+		// UsbCamera camera = new UsbCamera("USB Camera", 0);
+		// camera.setResolution(640, 360);
+		// camera.setFPS(30);
+		CameraServer.getInstance().startAutomaticCapture(0);
 
 		// chooser.addOption("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
@@ -96,32 +103,34 @@ public class Robot extends TimedRobot {
 	}
 
 	public static double getTargetXAngle() {
-		double rawXAngle = SmartDashboard.getNumber("TargetXAngle", -1);
-		double targetDistance = SmartDashboard.getNumber("TargetDistance", -1);
-		double angleInRadians = Math.toRadians(rawXAngle);
-		if(targetDistance < 0){
-			System.out.println("Target Distance < 0");
-			return -1;
-		}else{
-			double a = getTargetDistance();
-			System.out.println(a);
-			double correctedAngle = Math.toDegrees(Math.asin((targetDistance * Math.sin(angleInRadians)) / a));
-			return correctedAngle;
-		}
+		return SmartDashboard.getNumber("TargetXAngle", -1);
+		// double rawXAngle = SmartDashboard.getNumber("TargetXAngle", -1);
+		// double targetDistance = SmartDashboard.getNumber("TargetDistance", -1);
+		// double angleInRadians = Math.toRadians(rawXAngle);
+		// if(targetDistance < 0){
+		// 	System.out.println("Target Distance < 0");
+		// 	return -1;
+		// }else{
+		// 	double a = getTargetDistance();
+		// 	System.out.println(a);
+		// 	double correctedAngle = Math.toDegrees(Math.asin((targetDistance * Math.sin(angleInRadians)) / a));
+		// 	return correctedAngle;
+		// }
 	}
 
 	public static double getTargetDistance() {
-		double rawXAngle = SmartDashboard.getNumber("TargetXAngle", -1);
-		double targetDistance = SmartDashboard.getNumber("TargetDistance", -1);
-		double angleInRadians = Math.toRadians(rawXAngle);
-		if(targetDistance < 0) {
-			System.out.println("Target Distance < 0");
-			return -1;
-		}else{
-			double correctedDistance = Math.sqrt((RobotMap.tapeCameraOffset * RobotMap.tapeCameraOffset) + 
-				(targetDistance * targetDistance) - (2 * RobotMap.tapeCameraOffset * targetDistance
-				* Math.cos(angleInRadians)));
-			return correctedDistance;
-		}
+		return SmartDashboard.getNumber("TargetDistance", -1);
+	// 	double rawXAngle = SmartDashboard.getNumber("TargetXAngle", -1);
+	// 	double targetDistance = SmartDashboard.getNumber("TargetDistance", -1);
+	// 	double angleInRadians = Math.toRadians(rawXAngle);
+	// 	if(targetDistance < 0) {
+	// 		System.out.println("Target Distance < 0");
+	// 		return -1;
+	// 	}else{
+	// 		double correctedDistance = Math.sqrt((RobotMap.tapeCameraOffset * RobotMap.tapeCameraOffset) + 
+	// 			(targetDistance * targetDistance) - (2 * RobotMap.tapeCameraOffset * targetDistance
+	// 			* Math.cos(angleInRadians)));
+	// 		return correctedDistance;
+	// 	}
 	}
 }
