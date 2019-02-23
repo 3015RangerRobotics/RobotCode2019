@@ -51,6 +51,7 @@ public class StatTracker implements Runnable {
 				Scanner s = new Scanner(file);
 				if (s.hasNextLine()) {
 					JSONObject contents = new JSONObject(s.nextLine());
+					System.out.println(contents.toString());
 					driveDistanceLeft = contents.getDouble("driveDistanceLeft");
 					driveDistanceRight = contents.getDouble("driveDistanceRight");
 					elevatorDistance = contents.getDouble("elevatorDistance");

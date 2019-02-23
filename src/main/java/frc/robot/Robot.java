@@ -23,7 +23,7 @@ public class Robot extends TimedRobot {
 		// UsbCamera camera = new UsbCamera("USB Camera", 0);
 		// camera.setResolution(640, 360);
 		// camera.setFPS(30);
-		CameraServer.getInstance().startAutomaticCapture(0);
+		// CameraServer.getInstance().startAutomaticCapture(0);
 
 		// chooser.addOption("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
