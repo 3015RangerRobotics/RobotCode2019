@@ -1,17 +1,12 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motion.BufferedTrajectoryPointStream;
-import com.ctre.phoenix.motion.TrajectoryPoint;
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.DriveHelper;
@@ -32,13 +27,13 @@ public class Drive extends Subsystem {
 	public final double kVTurn = 0;
 	public final double kATurn = 0;
 
-	public final double kTurnP = 0.006;//15;//.03; // 65;// 0.005;//0.008
+	public final double kTurnP = 0.006;// 15;//.03; // 65;// 0.005;//0.008
 	public final double kTurnI = 0.00;// 0.0006
-	public final double kTurnD = 0.01;//.03// 0.08
+	public final double kTurnD = 0.01;// .03// 0.08
 
-	public final double kTurnPEncoder = 6.0;//6
+	public final double kTurnPEncoder = 6.0;// 6
 	// public final double kTurnIEncoder = 0.0;
-	public final double kTurnDEncoder = 0.035;//0.035
+	public final double kTurnDEncoder = 0.035;// 0.035
 	public final double kVEncoder = 0.067;
 	public final double kAEncoder = 0.025;
 
@@ -80,7 +75,7 @@ public class Drive extends Subsystem {
 		leftEncoder.setDistancePerPulse(kDistancePerPulse);
 		leftEncoder.setReverseDirection(false);
 		rightEncoder.setDistancePerPulse(kDistancePerPulse);
-		rightEncoder.setReverseDirection(false);//false on practice
+		rightEncoder.setReverseDirection(false);// false on practice
 
 		rightMaster.configFactoryDefault();
 		leftMaster.configFactoryDefault();
@@ -164,9 +159,10 @@ public class Drive extends Subsystem {
 		DriveSignal ds = DriveHelper.arcadeDrive(moveValue, rotateValue, squaredInputs);
 		setMotorOutputs(ControlMode.PercentOutput, ds.leftSignal, ds.rightSignal);
 	}
+
 	public void curvatureDrive(double throttle, double turn, boolean isQuickTurn, boolean squaredInputs) {
-    	DriveSignal ds = DriveHelper.curvatureDrive(throttle, turn, isQuickTurn, squaredInputs);
-		setMotorOutputs(ControlMode.PercentOutput,ds.leftSignal, ds.rightSignal);
+		DriveSignal ds = DriveHelper.curvatureDrive(throttle, turn, isQuickTurn, squaredInputs);
+		setMotorOutputs(ControlMode.PercentOutput, ds.leftSignal, ds.rightSignal);
 	}
 
 	public double getLeftDistance() {

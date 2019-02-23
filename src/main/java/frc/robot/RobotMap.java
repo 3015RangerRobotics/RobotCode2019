@@ -11,7 +11,7 @@ public class RobotMap {
 	public static final int rightDriveMaster = 13; // Right Drive Master
 	public static final int rightDriveFollower1 = 14; // Front Right Drive
 	public static final int rightDriveFollower2 = 15; // Back Right Drive
-	public static final int leftDriveEncoder1 = 0; 
+	public static final int leftDriveEncoder1 = 0;
 	public static final int leftDriveEncoder2 = 1;
 	public static final int rightDriveEncoder1 = 2;
 	public static final int rightDriveEncoder2 = 3;
@@ -22,22 +22,21 @@ public class RobotMap {
 	public static final int intakeAidSPLeft = 0;
 	public static final int intakeAidSPRight = 0;
 
-	public static final int ballMechVictor = 3; 
+	public static final int ballMechVictor = 3;
 	public static final int ballLimitSwitch = 4;
 
-	public static final int hatchGrabSolenoid1 = 2;//3;
-	public static final int hatchGrabSolenoid2 = 3;//2;
-	public static final int hatchEjectSolenoid1 = 0;//1;
-	public static final int hatchEjectSolenoid2 = 1;//0;
+	public static final int hatchGrabSolenoid1 = 2;// 3;
+	public static final int hatchGrabSolenoid2 = 3;// 2;
+	public static final int hatchEjectSolenoid1 = 0;// 1;
+	public static final int hatchEjectSolenoid2 = 1;// 0;
 
-	public static final int climberCenterJackTalonSRX = 19; // Rear Jack 
-	public static final int climberLeftJackTalonSRX = 17; // Left Jack 
+	public static final int climberCenterJackTalonSRX = 19; // Rear Jack
+	public static final int climberLeftJackTalonSRX = 17; // Left Jack
 	public static final int climberRightJackTalonSRX = 18; // Right Jack
 	public static final int climberCenterWheelsVictorSP = 4;
 	public static final int climberDistanceSensor = 1;
-  
-	public enum Side{
-		kLeft,
-		kRight
+
+	public enum Side {
+		kLeft, kRight
 	}
 }

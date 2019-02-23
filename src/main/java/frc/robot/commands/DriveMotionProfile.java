@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

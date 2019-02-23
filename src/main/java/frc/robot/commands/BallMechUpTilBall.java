@@ -22,10 +22,10 @@ public class BallMechUpTilBall extends CommandBase {
 
 	@Override
 	protected boolean isFinished() {
-		if (ballMech.isBallPresent()  && isTimedOut()) {
+		if (ballMech.isBallPresent() && isTimedOut()) {
 			StatTracker.addCargoHandled();
 		}
-		return ballMech.isBallPresent()  && isTimedOut();
+		return ballMech.isBallPresent() && isTimedOut();
 	}
 
 	@Override

@@ -21,14 +21,6 @@ public class Elevator extends Subsystem {
 	public final double elevatorHeightCargo = 14;
 	public final double elevatorHeightWall = 18;
 
-	// public final double rocketSideLow = 0;
-	// public final double rocketSideMiddle = 0;
-	// public final double rocketSideTop = 0;
-	// public final double rocketFrontLow = 0;
-	// public final double rocketFrontMiddle = 28.5;
-	// public final double rocketFrontTop = 58;
-
-
 	public final double allianceWall = 17.75;
 
 	public final double ballLow = 0.17;
@@ -39,10 +31,10 @@ public class Elevator extends Subsystem {
 	public final double hatchMiddle = 36.1;
 	public final double hatchTop = 61;
 
-	public final double kElevatorP = 7.5;//0.6;
+	public final double kElevatorP = 7.5;// 0.6;
 	public final double kElevatorI = 0.0;
-	public final double kElevatorD = 0.0;//0.2;
-	public final double kElevatorF = 1023 / 3000;//0.005;
+	public final double kElevatorD = 0.0;// 0.2;
+	public final double kElevatorF = 1023 / 3000;// 0.005;
 
 	public final double pulsesPerInch = 331;
 

@@ -19,8 +19,8 @@ public class DriveWithGamepad extends CommandBase {
 
 		if (elevator.getDistance() > 40) {
 			driveValue *= 0.5;
-			drive.setRampRate(0);//.7);
-		}else if(elevator.getDistance() > 20) {
+			drive.setRampRate(0);// .7);
+		} else if (elevator.getDistance() > 20) {
 			driveValue *= 0.75;
 			drive.setRampRate(0);
 		}

@@ -43,11 +43,11 @@ public class StatTracker implements Runnable {
 
 	@Override
 	public void run() {
-		try{
+		try {
 			File file = new File("/home/lvuser/stats.json");
-			if(file.exists()){
+			if (file.exists()) {
 				Scanner s = new Scanner(file);
-				if(s.hasNextLine()){
+				if (s.hasNextLine()) {
 					JSONObject contents = new JSONObject(s.nextLine());
 					driveDistanceLeft = contents.getDouble("driveDistanceLeft");
 					driveDistanceRight = contents.getDouble("driveDistanceRight");
@@ -58,21 +58,21 @@ public class StatTracker implements Runnable {
 				}
 				s.close();
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		while (true) {
 			Timer.delay(1.0);
 			try (PrintWriter writer = new PrintWriter("/home/lvuser/stats.json")) {
-					JSONObject json = new JSONObject();
-					json.put("driveDistanceLeft", driveDistanceLeft);
-					json.put("driveDistanceRight", driveDistanceRight);
-					json.put("elevatorDistance", elevatorDistance);
-					json.put("cargoHandled", cargoHandled);
-					json.put("hatchExtensions", hatchExtensions);
-					json.put("climbDistance", climbDistance);
-					writer.print(json.toString());
+				JSONObject json = new JSONObject();
+				json.put("driveDistanceLeft", driveDistanceLeft);
+				json.put("driveDistanceRight", driveDistanceRight);
+				json.put("elevatorDistance", elevatorDistance);
+				json.put("cargoHandled", cargoHandled);
+				json.put("hatchExtensions", hatchExtensions);
+				json.put("climbDistance", climbDistance);
+				writer.print(json.toString());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -1,23 +1,15 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 
-/**
- * Add your docs here.
- */
 public class DoubleButton extends Button {
 	Button button1;
 	Button button2;
 
 	/**
-	 * Creates a double button, which is a button that returns true when 2 buttons are pressed
+	 * Creates a double button, which is a button that returns true when 2 buttons
+	 * are pressed
+	 * 
 	 * @param button1 Button 1
 	 * @param button2 Button 2
 	 */
@@ -25,7 +17,7 @@ public class DoubleButton extends Button {
 		this.button1 = button1;
 		this.button2 = button2;
 	}
-	
+
 	/**
 	 * 
 	 * @return if button1 and button2 are both present

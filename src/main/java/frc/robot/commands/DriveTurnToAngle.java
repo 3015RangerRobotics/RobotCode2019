@@ -12,7 +12,7 @@ public class DriveTurnToAngle extends CommandBase implements PIDOutput {
 	PIDController turnController;
 	double setpoint = 0;
 	int onTargetCount = 0;
-	double minTurn = 0.18;//.2;
+	double minTurn = 0.18;// .2;
 
 	public DriveTurnToAngle(double angle) {
 		this(angle, false);

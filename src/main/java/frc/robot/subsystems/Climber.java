@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -19,7 +12,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.CommandBase;
-import frc.robot.commands.ClimberTempFrontWheel;
 
 public class Climber extends Subsystem {
 	private TalonSRX centerJackTalonSRX;
@@ -39,8 +31,8 @@ public class Climber extends Subsystem {
 	public final double pulsesPerInchFront = 1000; // 945
 
 	public final double centerPosJacked = 21;
-	public final double centerPosLow = 13; //10
-	public final double centerPosHigh = 1; //2
+	public final double centerPosLow = 13; // 10
+	public final double centerPosHigh = 1; // 2
 	public final double backPosLow = 7;
 	public final double backPosHigh = 20;
 
@@ -108,9 +100,11 @@ public class Climber extends Subsystem {
 
 	@Override
 	public void periodic() {
-		// System.out.println("roll: " + Robot.getRoll() + ", pitch: " + Robot.getPitch() + ", yaw: " + Robot.getYaw());
+		// System.out.println("roll: " + Robot.getRoll() + ", pitch: " +
+		// Robot.getPitch() + ", yaw: " + Robot.getYaw());
 		// System.out.println(getDistanceToWall());
-		// System.out.println("X: " + Robot.getXPos() + ", Y: " + Robot.getYPos() + ", Z: " + Robot.getZPos()); 
+		// System.out.println("X: " + Robot.getXPos() + ", Y: " + Robot.getYPos() + ",
+		// Z: " + Robot.getZPos());
 	}
 
 	public void setCenter(ControlMode mode, double value) {
@@ -165,33 +159,34 @@ public class Climber extends Subsystem {
 		leftJackTalonSRX.set(ControlMode.PercentOutput, CommandBase.oi.getDriverRightStickY());
 		rightJackTalonSRX.set(ControlMode.PercentOutput, CommandBase.oi.getDriverRightStickY());
 		centerJackTalonSRX.set(ControlMode.PercentOutput, CommandBase.oi.getDriverRightStickY());
-		System.out.println("Left: " + getBackLeftPosition() + ", Right: " + getBackRightPosition() + ", Center: " + getCenterPosition());
+		System.out.println("Left: " + getBackLeftPosition() + ", Right: " + getBackRightPosition() + ", Center: "
+				+ getCenterPosition());
 	}
 
 	public double getRollOffset() {
-		if(!Robot.isIMUConnected()) return 0;
+		if (!Robot.isIMUConnected())
+			return 0;
 
 		double offset = 0;
 
-		if(Math.abs(Robot.getRoll()) >= 2){
+		if (Math.abs(Robot.getRoll()) >= 2) {
 			offset = (Robot.getRoll() < 0) ? -0.5 : 0.5;
-		}
-		else if(Math.abs(Robot.getRoll()) >= 5) {
+		} else if (Math.abs(Robot.getRoll()) >= 5) {
 			offset = (Robot.getRoll() < 0) ? -1.0 : 1.0;
 		}
-		
-		return offset;																																																					
+
+		return offset;
 	}
 
 	public double getPitchOffset() {
-		if(!Robot.isIMUConnected()) return 0;
+		if (!Robot.isIMUConnected())
+			return 0;
 
 		double offset = 0;
 
-		if(Math.abs(Robot.getPitch()) >= 2) {
+		if (Math.abs(Robot.getPitch()) >= 2) {
 			offset = (Robot.getPitch() < 0) ? -0.5 : 0.5;
-		}
-		else if(Math.abs(Robot.getPitch()) >= 5) {
+		} else if (Math.abs(Robot.getPitch()) >= 5) {
 			offset = (Robot.getPitch() < 0) ? -1.0 : 1.0;
 		}
 
