@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
+import frc.robot.StatTracker;
 
 public class HatchMech extends Subsystem {
 	private DoubleSolenoid hatchSolenoid;
@@ -19,6 +20,7 @@ public class HatchMech extends Subsystem {
 
 	public void hatchNubbinsExtend() {
 		hatchSolenoid.set(Value.kForward);
+		StatTracker.addHatchExtension();
 	}
 
 	public void hatchNubbinsRetract() {

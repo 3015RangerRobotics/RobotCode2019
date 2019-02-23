@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import frc.robot.StatTracker;
 import frc.robot.commands.CommandBase;
 
 public class Climber extends Subsystem {
@@ -37,6 +38,8 @@ public class Climber extends Subsystem {
 	public final double backPosHigh = 20;
 
 	public final double climbSpeed = 10;
+
+	private double lastDistance = 0;
 
 	// +roll = lean right
 	// -roll = lean left
@@ -99,6 +102,9 @@ public class Climber extends Subsystem {
 
 	@Override
 	public void periodic() {
+		double d = Math.max(this.getBackLeftPosition(), this.getBackRightPosition());
+		StatTracker.addClimbDistance(d - lastDistance);
+		lastDistance = d;
 		// System.out.println("roll: " + Robot.getRoll() + ", pitch: " +
 		// Robot.getPitch() + ", yaw: " + Robot.getYaw());
 		// System.out.println(getDistanceToWall());

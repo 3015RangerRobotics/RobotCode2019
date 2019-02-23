@@ -1,6 +1,8 @@
 package frc.robot;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Scanner;
@@ -42,25 +44,36 @@ public class StatTracker implements Runnable {
 		climbDistance += distance;
 	}
 
+	private static String readFile(File file) {
+		String ret = "";
+		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+			StringBuilder sb = new StringBuilder();
+			String line = "";
+			while ((line = reader.readLine()) != null) {
+				sb.append(line);
+			}
+			ret = sb.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+
 	@Override
 	public void run() {
-		File file = new File("/home/lvuser/stats.json");
+		File file = new File("/home/lvuser", "stats.json");
 		file.mkdirs();
 		try {
 			if (!file.createNewFile()) {
-				Scanner s = new Scanner(file);
-				if (s.hasNextLine()) {
-					JSONObject contents = new JSONObject(s.nextLine());
-					System.out.println(contents.toString());
-					driveDistanceLeft = contents.getDouble("driveDistanceLeft");
-					driveDistanceRight = contents.getDouble("driveDistanceRight");
-					elevatorDistance = contents.getDouble("elevatorDistance");
-					cargoHandled = contents.getInt("cargoHandled");
-					hatchExtensions = contents.getInt("hatchExtensions");
-					climbDistance = contents.getDouble("climbDistance");
-					System.out.println("STATS: " + driveDistanceLeft);
-				}
-				s.close();
+				JSONObject contents = new JSONObject(readFile(file));
+				System.out.println("STATS: " + contents.toString());
+				driveDistanceLeft = contents.getDouble("driveDistanceLeft");
+				System.out.println("STATS: " + driveDistanceLeft);
+				driveDistanceRight = contents.getDouble("driveDistanceRight");
+				elevatorDistance = contents.getDouble("elevatorDistance");
+				cargoHandled = contents.getInt("cargoHandled");
+				hatchExtensions = contents.getInt("hatchExtensions");
+				climbDistance = contents.getDouble("climbDistance");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -70,7 +83,6 @@ public class StatTracker implements Runnable {
 			Timer.delay(1.0);
 			try (FileWriter writer = new FileWriter(file)) {
 				JSONObject json = new JSONObject();
-				System.out.println("STATS: " + driveDistanceLeft);
 				json.put("driveDistanceLeft", driveDistanceLeft);
 				json.put("driveDistanceRight", driveDistanceRight);
 				json.put("elevatorDistance", elevatorDistance);
