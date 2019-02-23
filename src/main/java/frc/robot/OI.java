@@ -56,24 +56,21 @@ public class OI {
 		// driverY4.whenPressed(new ElevatorToBallTop());
 		// driverStartSelect.whenPressed(new CancelCommand());
 
-		// driverA1.whenPressed(new HatchGrabRetract());
-		// driverB2.whenPressed(new HatchGrabExtend());
+		// Current Control Set: 
+		// To Do: Put climbing wheel prep on coDriver DPAD Left
 
 		driverA1.whileHeld(new BallMechDown());
 		driverB2.whileHeld(new BallMechUp());
 		driverX3.whileHeld(new DriveAlignWithTarget());
-		driverRTrigger.whenPressed(new HatchMechLock());
-
+		driverRB6.whenPressed(new HatchMechToggle());
 		driverStartSelect.whenPressed(new CancelCommand());
 		
 		coDriverA1.whenPressed(new ElevatorToBottom());
 		coDriverB2.whenPressed(new ElevatorToBallMiddle());
 		coDriverY4.whenPressed(new ElevatorToBallTop());
 		coDriverLB5.whenPressed(new ElevatorToAllianceWall());
-		// coDriverDLeft.whenPressed(new);
 		coDriverDDown.whenPressed(new ClimberLevel2());
 		coDriverDUp.whenPressed(new ClimberLevel3());
-
 		coDriverStartSelect.whenPressed(new CancelCommand());
 	}
 
@@ -112,6 +109,11 @@ public class OI {
 	public void coDriverRumble(double d) {
 		coDriver.setRumble(RumbleType.kRightRumble, d);
 		coDriver.setRumble(RumbleType.kLeftRumble, d);
+	}
+
+	public void driverRumble(double d) {
+		driver.setRumble(RumbleType.kRightRumble, d);
+		driver.setRumble(RumbleType.kLeftRumble, d);
 	}
 
 	public double getCoDriverSumTriggers() {

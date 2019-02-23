@@ -1,13 +1,13 @@
 package frc.robot.commands;
 
-public class HatchEjectExtend extends CommandBase {
-	public HatchEjectExtend() {
+public class HatchNubbinsExtend extends CommandBase {
+	public HatchNubbinsExtend() {
 		requires(hatchMech);
 	}
 
 	@Override
 	protected void initialize() {
-		hatchMech.hatchEjectExtend();
+		hatchMech.hatchNubbinsExtend();
 	}
 
 	@Override

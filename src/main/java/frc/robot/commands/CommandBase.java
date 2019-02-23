@@ -26,7 +26,6 @@ public abstract class CommandBase extends Command {
 		elevator = new Elevator();
 		climber = new Climber();
 		ballMech = new BallMech();
-		SmartDashboard.putData("ballmech", ballMech);
 		hatchMech = new HatchMech();
 		intakeAid = new IntakeAid();
 		ourCompressor = new OurCompressor();

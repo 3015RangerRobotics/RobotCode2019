@@ -1,7 +1,7 @@
 package frc.robot.commands;
 
-public class HatchMechLock extends CommandBase {
-	public HatchMechLock() {
+public class HatchMechToggle extends CommandBase {
+	public HatchMechToggle() {
 		requires(hatchMech);
 	}
 
@@ -9,10 +9,12 @@ public class HatchMechLock extends CommandBase {
 	protected void initialize() {
 		// System.out.println(hatchMech.isExtended());
 		if(hatchMech.isExtended()){
-			hatchMech.hatchGrabRetract();
+			hatchMech.hatchNubbinsRetract();
 		}else{
-			hatchMech.hatchGrabExtend();
+			hatchMech.hatchNubbinsExtend();
 		}
+		
+		
 	}
 
 	@Override

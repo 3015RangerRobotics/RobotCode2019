@@ -6,12 +6,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 public class HatchMech extends Subsystem {
-	private DoubleSolenoid hatchGrabSolenoid;
-	private DoubleSolenoid hatchEjectSolenoid;
+	private DoubleSolenoid hatchSolenoid;
 
 	public HatchMech() {
-		hatchGrabSolenoid = new DoubleSolenoid(RobotMap.hatchGrabSolenoid1, RobotMap.hatchGrabSolenoid2);
-		hatchEjectSolenoid = new DoubleSolenoid(RobotMap.hatchEjectSolenoid1, RobotMap.hatchEjectSolenoid2);
+		hatchSolenoid = new DoubleSolenoid(RobotMap.hatchSolenoid1, RobotMap.hatchSolenoid2);
 	}
 
 	@Override
@@ -19,24 +17,16 @@ public class HatchMech extends Subsystem {
 
 	}
 
-	public void hatchGrabExtend() {
-		hatchGrabSolenoid.set(Value.kForward);
+	public void hatchNubbinsExtend() {
+		hatchSolenoid.set(Value.kForward);
 	}
 
-	public void hatchGrabRetract() {
-		hatchGrabSolenoid.set(Value.kReverse);
-	}
-
-	public void hatchEjectExtend() {
-		hatchEjectSolenoid.set(Value.kForward);
-	}
-
-	public void hatchEjectRetract() {
-		hatchEjectSolenoid.set(Value.kReverse);
+	public void hatchNubbinsRetract() {
+		hatchSolenoid.set(Value.kReverse);
 	}
 
 	public boolean isExtended() {
-		if(hatchGrabSolenoid.get() == Value.kForward){
+		if(hatchSolenoid.get() == Value.kForward){
 			return true;
 		}else{
 			return false;
