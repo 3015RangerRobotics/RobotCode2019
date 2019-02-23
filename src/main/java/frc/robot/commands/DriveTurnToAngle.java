@@ -2,9 +2,9 @@ package frc.robot.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import edu.wpi.first.wpilibj.ControllerPower;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
@@ -75,6 +75,6 @@ public class DriveTurnToAngle extends CommandBase implements PIDOutput {
 				output = minTurn;
 			}
 		}
-		drive.arcadeDrive(0, (output * 12.5 / ControllerPower.getInputVoltage()), false);
+		drive.arcadeDrive(0, (output * 12.5 / RobotController.getInputVoltage()) , false);
 	}
 }

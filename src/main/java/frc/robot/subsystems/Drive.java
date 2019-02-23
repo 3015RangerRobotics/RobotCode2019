@@ -16,26 +16,28 @@ import frc.robot.StatTracker;
 import frc.robot.commands.DriveWithGamepad;
 
 public class Drive extends Subsystem {
-	public final double kV = 0.067;// 0.67
+	public final double kV = 0.067;
 	public final double kA = 0.023;
 
 	public final double kDistancePerPulse = 0.00904774;
 
-	public final double kDriveP = 1.8;// 5//1.40;
-	public final double kDriveD = 0.0;// 0.0;
+	public final double kDriveP = 1.8;
+	public final double kDriveD = 0.0;
 
 	public final double kVTurn = 0;
 	public final double kATurn = 0;
 
-	public final double kTurnP = 0.006;// 15;//.03; // 65;// 0.005;//0.008
-	public final double kTurnI = 0.00;// 0.0006
-	public final double kTurnD = 0.01;// .03// 0.08
+	public final double kTurnP = 0.006;
+	public final double kTurnI = 0.0;
+	public final double kTurnD = 0.01;
 
-	public final double kTurnPEncoder = 6.0;// 6
-	// public final double kTurnIEncoder = 0.0;
-	public final double kTurnDEncoder = 0.035;// 0.035
+	public final double kTurnPEncoder = 6.0;
+	public final double kTurnDEncoder = 0.035;
 	public final double kVEncoder = 0.067;
 	public final double kAEncoder = 0.025;
+
+	public final double rampRateTopHeight = 0.5;
+	public final double rampRateMidHeight = 0.75;
 
 	private TalonSRX rightMaster;
 	private VictorSPX rightFollower1;

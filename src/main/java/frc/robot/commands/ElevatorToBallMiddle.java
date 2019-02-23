@@ -14,7 +14,6 @@ public class ElevatorToBallMiddle extends CommandBase {
 	@Override
 	protected void execute() {
 		elevator.set(ControlMode.MotionMagic, (elevator.ballMiddle * elevator.pulsesPerInch));
-		System.out.println(elevator.getDistance());
 	}
 
 	@Override

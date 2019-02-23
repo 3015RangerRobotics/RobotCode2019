@@ -34,4 +34,12 @@ public class HatchMech extends Subsystem {
 	public void hatchEjectRetract() {
 		hatchEjectSolenoid.set(Value.kReverse);
 	}
+
+	public boolean isExtended() {
+		if(hatchGrabSolenoid.get() == Value.kForward){
+			return true;
+		}else{
+			return false;
+		}
+	}	
 }

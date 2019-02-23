@@ -6,7 +6,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.ControllerPower;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
@@ -20,19 +20,19 @@ public class Climber extends Subsystem {
 	private VictorSP centerWheelsVictorSP;
 	private AnalogInput distanceSensor;
 
-	private double backP = 0.7; // 2.0
+	private double backP = 0.7;
 	private double backD = 0;
 	private double backF = 1.2;
-	private double centerP = 0.9; // 2.0
+	private double centerP = 0.9;
 	private double centerD = 0;
 	private double centerF = 1.3;
 
 	public final double pulsesPerInchCenter = 1000;
-	public final double pulsesPerInchFront = 1000; // 945
+	public final double pulsesPerInchFront = 1000;
 
 	public final double centerPosJacked = 21;
-	public final double centerPosLow = 13; // 10
-	public final double centerPosHigh = 1; // 2
+	public final double centerPosLow = 13;
+	public final double centerPosHigh = 1;
 	public final double backPosLow = 7;
 	public final double backPosHigh = 20;
 
@@ -95,7 +95,6 @@ public class Climber extends Subsystem {
 
 	@Override
 	public void initDefaultCommand() {
-		// setDefaultCommand(new ClimberTempFrontWheel());
 	}
 
 	@Override
@@ -148,7 +147,7 @@ public class Climber extends Subsystem {
 	}
 
 	public double getDistanceToWall() {
-		return distanceSensor.getAverageVoltage() / ControllerPower.getInputVoltage() * 12.5;
+		return distanceSensor.getAverageVoltage() / RobotController.getInputVoltage() * 12.5;
 	}
 
 	public void setCenterWheels(double speed) {

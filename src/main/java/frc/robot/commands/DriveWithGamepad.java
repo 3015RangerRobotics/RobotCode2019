@@ -18,10 +18,10 @@ public class DriveWithGamepad extends CommandBase {
 		double driveValue = oi.getDriverLeftStickY();
 
 		if (elevator.getDistance() > 40) {
-			driveValue *= 0.5;
+			driveValue *= drive.rampRateTopHeight;
 			drive.setRampRate(0);// .7);
 		} else if (elevator.getDistance() > 20) {
-			driveValue *= 0.75;
+			driveValue *= drive.rampRateMidHeight;
 			drive.setRampRate(0);
 		}
 

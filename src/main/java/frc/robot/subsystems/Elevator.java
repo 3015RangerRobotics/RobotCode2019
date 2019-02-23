@@ -31,10 +31,10 @@ public class Elevator extends Subsystem {
 	public final double hatchMiddle = 36.1;
 	public final double hatchTop = 61;
 
-	public final double kElevatorP = 7.5;// 0.6;
+	public final double kElevatorP = 7.5;
 	public final double kElevatorI = 0.0;
-	public final double kElevatorD = 0.0;// 0.2;
-	public final double kElevatorF = 1023 / 3000;// 0.005;
+	public final double kElevatorD = 0.0;
+	public final double kElevatorF = 1023 / 3000;
 
 	public final double pulsesPerInch = 331;
 
@@ -77,9 +77,6 @@ public class Elevator extends Subsystem {
 			CommandBase.oi.coDriverRumble(0);
 		}
 
-		// System.out.println(getDistance() + ", " +
-		// elevatorTalonSRX.getOutputCurrent());
-
 		SmartDashboard.putNumber("Elevator Encoder", getDistance());
 		SmartDashboard.putBoolean("Elevator Bottom", isAtBottom());
 
@@ -88,10 +85,6 @@ public class Elevator extends Subsystem {
 			StatTracker.addElevatorDistance(distance - lastDistance);
 			this.lastDistance = distance;
 		}
-
-		// System.out.println(SmartDashboard.getNumber("TargetXAngle", -1));
-
-		// System.out.println(isAtBottom());
 	}
 
 	/**
