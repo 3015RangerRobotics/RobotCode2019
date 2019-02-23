@@ -9,16 +9,11 @@ package frc.robot.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import edu.wpi.first.wpilibj.command.Command;
-
 public class ElevatorToBallLow extends CommandBase {
 	public ElevatorToBallLow() {
 		requires(elevator);
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
 	}
 
-	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
 	}
@@ -26,7 +21,7 @@ public class ElevatorToBallLow extends CommandBase {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		elevator.set(ControlMode.Position, elevator.ballLow *elevator.pulsesPerInch);
+		elevator.set(ControlMode.MotionMagic, elevator.ballLow *elevator.pulsesPerInch);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

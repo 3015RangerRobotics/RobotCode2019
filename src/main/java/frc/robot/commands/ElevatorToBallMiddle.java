@@ -26,7 +26,9 @@ public class ElevatorToBallMiddle extends CommandBase {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		elevator.set(ControlMode.Position, elevator.ballMiddle * elevator.pulsesPerInch);
+		// elevator.set(ControlMode.Position, elevator.ballMiddle * elevator.pulsesPerInch);
+		elevator.set(ControlMode.MotionMagic, (elevator.ballMiddle * elevator.pulsesPerInch));
+		System.out.println(elevator.getDistance());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

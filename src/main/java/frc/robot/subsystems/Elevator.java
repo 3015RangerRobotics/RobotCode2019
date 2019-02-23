@@ -39,13 +39,12 @@ public class Elevator extends Subsystem {
 	public final double hatchMiddle = 36.1;
 	public final double hatchTop = 61;
 
-	public final double kElevatorP = 0.6;
+	public final double kElevatorP = 7.5;//0.6;
 	public final double kElevatorI = 0.0;
-	public final double kElevatorD = 0.2;
-	public final double kElevatorF = 0.005;
+	public final double kElevatorD = 0.0;//0.2;
+	public final double kElevatorF = 1023 / 3000;//0.005;
 
 	public final double pulsesPerInch = 331;
-
 
 	private double lastDistance = 0.0;
 
@@ -68,6 +67,9 @@ public class Elevator extends Subsystem {
 		elevatorTalonSRX.configPeakOutputForward(1.0, 10);
 		elevatorTalonSRX.configPeakOutputReverse(-0.3, 10);
 
+		elevatorTalonSRX.configMotionCruiseVelocity((int) (75 * pulsesPerInch / 10));
+		elevatorTalonSRX.configMotionAcceleration((int) (125 * pulsesPerInch / 10));
+
 		elevatorBottomLimit = new DigitalInput(RobotMap.elevatorBottomLimit);
 	}
 
@@ -76,10 +78,6 @@ public class Elevator extends Subsystem {
 	}
 
 	public void periodic() {
-		// if (isAtBottom() && elevatorTalonSRX.getSelectedSensorPosition(0) < 65) {
-		// elevatorTalonSRX.setSelectedSensorPosition(0, 0, 0);
-		// }
-
 		if (Math.abs(elevatorTalonSRX.getMotorOutputVoltage()) >= 4
 				&& Math.abs(elevatorTalonSRX.getSelectedSensorVelocity(0) / pulsesPerInch) < 0.25) {
 			CommandBase.oi.coDriverRumble(1.0);
@@ -128,10 +126,18 @@ public class Elevator extends Subsystem {
 		return elevatorTalonSRX.getSelectedSensorPosition(0);
 	}
 
+	public double getVelocity() {
+		return elevatorTalonSRX.getSelectedSensorVelocity();
+	}
+
 	/**
 	 * @return Is the elevator at the bottom limit
 	 */
 	public boolean isAtBottom() {
 		return !elevatorBottomLimit.get();
+	}
+
+	public void resetEncoderPosition() {
+		elevatorTalonSRX.setSelectedSensorPosition(0);
 	}
 }

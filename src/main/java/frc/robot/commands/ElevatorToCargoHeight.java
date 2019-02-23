@@ -24,7 +24,7 @@ public class ElevatorToCargoHeight extends CommandBase {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		elevator.set(ControlMode.Position, elevator.elevatorHeightCargo * elevator.pulsesPerInch);
+		elevator.set(ControlMode.MotionMagic, elevator.elevatorHeightCargo * elevator.pulsesPerInch);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

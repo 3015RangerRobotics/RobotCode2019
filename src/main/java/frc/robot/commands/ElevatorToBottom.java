@@ -16,7 +16,7 @@ public class ElevatorToBottom extends CommandBase {
 
 	@Override
 	protected void execute() {
-		elevator.set(ControlMode.Position, elevator.elevatorHeightBottom * elevator.pulsesPerInch);
+		elevator.set(ControlMode.MotionMagic, elevator.elevatorHeightBottom * elevator.pulsesPerInch);
 		if(elevator.isAtBottom()){
 			this.elevatorAtBottomCount++;	 
 		}else{
@@ -32,6 +32,9 @@ public class ElevatorToBottom extends CommandBase {
 	@Override
 	protected void end() {
 		elevator.set(ControlMode.PercentOutput, 0);
+		if(elevator.isAtBottom()){
+			elevator.resetEncoderPosition();
+		}
 	}
 
 	@Override

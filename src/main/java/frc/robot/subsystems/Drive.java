@@ -130,6 +130,8 @@ public class Drive extends Subsystem {
 
 		SmartDashboard.putData("Left Encoder", leftEncoder);
 		SmartDashboard.putData("Right Encoder", rightEncoder);
+
+		this.setRampRate(0);
 	}
 
 	@Override
@@ -183,11 +185,8 @@ public class Drive extends Subsystem {
 		return rightEncoder.getRate();
 	}
 
-	// public double getAngle() {
-	// return imu.getAngle();
-	// }
-
-	// public void resetGyro() {
-	// imu.zeroYaw();
-	// }
+	public void setRampRate(double rampRate) {
+		leftMaster.configOpenloopRamp(rampRate);
+		rightMaster.configOpenloopRamp(rampRate);
+	}
 }

@@ -3,8 +3,6 @@ package frc.robot.commands;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 public class DriveWithGamepad extends CommandBase {
-	private double maxControllerChange = 0.05;
-	private double lastDriveValue = 0;
 
 	public DriveWithGamepad() {
 		requires(drive);
@@ -12,22 +10,19 @@ public class DriveWithGamepad extends CommandBase {
 
 	@Override
 	protected void initialize() {
-		lastDriveValue = 0;
+		drive.setRampRate(0);
 	}
 
 	@Override
 	protected void execute() {
 		double driveValue = oi.getDriverLeftStickY();
 
-		if (elevator.getDistance() > 25) {
-			if (driveValue > lastDriveValue + maxControllerChange) {
-				driveValue = lastDriveValue + maxControllerChange;
-			} else if (driveValue < lastDriveValue - maxControllerChange) {
-				driveValue = lastDriveValue - maxControllerChange;
-			}
-			if (Math.abs(oi.getDriverLeftStickY()) <= 0.1) {
-				driveValue = oi.getDriverLeftStickY();
-			}
+		if (elevator.getDistance() > 40) {
+			driveValue *= 0.5;
+			drive.setRampRate(0);//.7);
+		}else if(elevator.getDistance() > 20) {
+			driveValue *= 0.75;
+			drive.setRampRate(0);
 		}
 
 		if (Math.abs(oi.getDriverRightStickX()) >= 0.1) {
@@ -35,8 +30,6 @@ public class DriveWithGamepad extends CommandBase {
 		} else {
 			drive.arcadeDrive(driveValue, oi.getDriverLeftStickX() / 1.25, true);
 		}
-		
-		lastDriveValue = driveValue;
 	}
 
 	@Override
@@ -47,6 +40,7 @@ public class DriveWithGamepad extends CommandBase {
 	@Override
 	protected void end() {
 		drive.setMotorOutputs(ControlMode.PercentOutput, 0, 0);
+		drive.setRampRate(0);
 	}
 
 	@Override

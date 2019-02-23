@@ -22,7 +22,7 @@ public class ElevatorToHatch extends CommandBase {
 
 	@Override
 	protected void execute() {
-		elevator.set(ControlMode.Position, elevator.elevatorHeightHatch * elevator.pulsesPerInch);
+		elevator.set(ControlMode.MotionMagic, elevator.elevatorHeightHatch * elevator.pulsesPerInch);
 	}
 
 	@Override

@@ -11,11 +11,9 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ElevatorToHatchTop extends CommandBase {
-	public ElevatorToHatchTop() {
+public class ElevatorRightStick extends CommandBase {
+	public ElevatorRightStick() {
 		requires(elevator);
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
 	}
 
 	// Called just before this Command runs the first time
@@ -26,7 +24,8 @@ public class ElevatorToHatchTop extends CommandBase {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		elevator.set(ControlMode.MotionMagic, elevator.hatchTop * elevator.pulsesPerInch);
+		elevator.set(ControlMode.PercentOutput, oi.getDriverRightStickY());
+		System.out.println(elevator.getVelocity());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

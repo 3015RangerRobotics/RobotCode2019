@@ -27,6 +27,7 @@ public class OI {
 	Button driverDRight = new DPadButton(driver, DPadButton.Value.kDPadRight);
 	Button driverLTrigger = new TriggerButton(driver, Hand.kLeft);
 	Button driverRTrigger = new TriggerButton(driver, Hand.kRight);
+	Button driverStartSelect = new DoubleButton(driverSEL7, driverSTART8);
 
 	// Buttons for coDriver
 	XboxController coDriver = new XboxController(1);
@@ -46,26 +47,35 @@ public class OI {
 	Button coDriverDRight = new DPadButton(coDriver, DPadButton.Value.kDPadRight);
 	Button coDriverLTrigger = new TriggerButton(coDriver, Hand.kLeft);
 	Button coDriverRTrigger = new TriggerButton(coDriver, Hand.kRight);
+	Button coDriverStartSelect = new DoubleButton(coDriverSEL7, coDriverSTART8);
 
 	public OI() {
-		driverA1.whileHeld(new BallMechDown());
-		driverB2.whileHeld(new BallMechUp());
-		driverRTrigger.whenPressed(new HatchGrabExtend());
-		driverRTrigger.whenReleased(new HatchGrabRetract());
-		driverLTrigger.whenPressed(new HatchEjectExtend());
-		driverLTrigger.whenReleased(new HatchEjectRetract());
-		driverDDown.whenPressed(new ClimberLevel2());
-		driverDUp.whenPressed(new ClimberLevel3());
+		driverLB5.whileHeld(new BallMechDown());
+		driverRB6.whileHeld(new BallMechUp());
+		driverA1.whenPressed(new ElevatorToBottom());
+		driverB2.whenPressed(new ElevatorToBallMiddle());
+		driverY4.whenPressed(new ElevatorToBallTop());
 
-		coDriverA1.whenPressed(new ElevatorToBottom());
-		coDriverB2.whenPressed(new ElevatorToBallMiddle());
-		coDriverY4.whenPressed(new ElevatorToBallTop());
-		coDriverDDown.whenPressed(new ElevatorToHatch());
-		coDriverDLeft.whenPressed(new ElevatorToHatchMiddle());
-		coDriverDUp.whenPressed(new ElevatorToHatchTop());
-		coDriverRB6.whileHeld(new HatchEjectExtend());
-		coDriverRB6.whenReleased(new HatchEjectRetract());
-		coDriverLB5.whenPressed(new ElevatorToAllianceWall());
+		// driverA1.whileHeld(new BallMechDown());
+		// driverB2.whileHeld(new BallMechUp());
+		// driverRTrigger.whenPressed(new HatchGrabExtend());
+		// driverRTrigger.whenReleased(new HatchGrabRetract());
+		// driverLTrigger.whenPressed(new HatchEjectExtend());
+		// driverLTrigger.whenReleased(new HatchEjectRetract());
+		// driverDDown.whenPressed(new ClimberLevel2());
+		// driverDUp.whenPressed(new ClimberLevel3());
+		// driverStartSelect.whenPressed(new CancelCommand());
+
+		// coDriverA1.whenPressed(new ElevatorToBottom());
+		// coDriverB2.whenPressed(new ElevatorToBallMiddle());
+		// coDriverY4.whenPressed(new ElevatorToBallTop());
+		// coDriverDDown.whenPressed(new ElevatorToHatch());
+		// coDriverDLeft.whenPressed(new ElevatorToHatchMiddle());
+		// coDriverDUp.whenPressed(new ElevatorToHatchTop());
+		// coDriverRB6.whileHeld(new HatchEjectExtend());
+		// coDriverRB6.whenReleased(new HatchEjectRetract());
+		// coDriverLB5.whenPressed(new ElevatorToAllianceWall());
+		// coDriverStartSelect.whenPressed(new CancelCommand());
 	}
 
 	public double getDriverLeftStickY() {
