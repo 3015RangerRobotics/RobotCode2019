@@ -1,30 +1,30 @@
 package frc.robot.commands;
 
-import frc.robot.StatTracker;
-
-public class BallMechDownTilBall extends CommandBase {
-
-	public BallMechDownTilBall() {
-		requires(ballMech);
+public class HatchArmToggle extends CommandBase {
+	public HatchArmToggle() {
+		requires(hatchMech);
 	}
 
 	@Override
 	protected void initialize() {
+		if(hatchMech.isArmExtended()){
+			hatchMech.hatchArmRetract();
+		}else{
+			hatchMech.hatchArmExtend();
+		}	
 	}
 
 	@Override
 	protected void execute() {
-		ballMech.intakeDown();
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return ballMech.isBallPresent();
+		return true;
 	}
 
 	@Override
 	protected void end() {
-		ballMech.intakeStop();
 	}
 
 	@Override

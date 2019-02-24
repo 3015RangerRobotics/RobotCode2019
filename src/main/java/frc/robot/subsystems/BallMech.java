@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 public class BallMech extends Subsystem {
-	private VictorSP intakeMotor1;
+	public VictorSP intakeMotor1;
 	private DigitalInput ballSensor;
 
 	private final double INTAKE_SPEED = 1;

@@ -25,8 +25,10 @@ public class RobotMap {
 	public static final int ballMechVictor = 3;
 	public static final int ballLimitSwitch = 4;
 
-	public static final int hatchSolenoid1 = 3;// 3;
-	public static final int hatchSolenoid2 = 2;// 2;
+	public static final int hatchGrabber1 = 3;// 3;
+	public static final int hatchGrabber2 = 2;// 2;
+	public static final int hatchArm1 = 6;
+	public static final int hatchArm2 = 7;
 
 	public static final int climberCenterJackTalonSRX = 19; // Rear Jack
 	public static final int climberLeftJackTalonSRX = 17; // Left Jack

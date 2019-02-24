@@ -1,13 +1,13 @@
 package frc.robot.commands;
 
-public class HatchNubbinsRetract extends CommandBase {
-	public HatchNubbinsRetract() {
+public class HatchGrabberRetract extends CommandBase {
+	public HatchGrabberRetract() {
 		requires(hatchMech);
 	}
 
 	@Override
 	protected void initialize() {
-		hatchMech.hatchNubbinsRetract();
+		hatchMech.hatchGrabberRetract();
 	}
 
 	@Override

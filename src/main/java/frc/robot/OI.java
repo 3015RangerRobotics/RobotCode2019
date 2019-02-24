@@ -59,10 +59,11 @@ public class OI {
 		// Current Control Set: 
 		// To Do: Put climbing wheel prep on coDriver DPAD Left
 
-		driverA1.whileHeld(new BallMechDown());
-		driverB2.whileHeld(new BallMechUp());
-		driverX3.whileHeld(new DriveAlignWithTarget());
-		driverRB6.whenPressed(new HatchMechToggle());
+		driverA1.whileHeld(new BallMechControlDown());
+		driverB2.whileHeld(new BallMechControlUp());
+		driverRB6.whileHeld(new DriveAlignWithTarget());
+		driverRTrigger.whenPressed(new HatchGrabberToggle());
+		driverLTrigger.whenPressed(new HatchArmToggle());
 		driverStartSelect.whenPressed(new CancelCommand());
 		
 		coDriverA1.whenPressed(new ElevatorToBottom());

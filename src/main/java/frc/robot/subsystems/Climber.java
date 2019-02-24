@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -102,9 +103,11 @@ public class Climber extends Subsystem {
 
 	@Override
 	public void periodic() {
-		double d = Math.max(this.getBackLeftPosition(), this.getBackRightPosition());
-		StatTracker.addClimbDistance(d - lastDistance);
-		lastDistance = d;
+		if(DriverStation.getInstance().isEnabled()){
+			double d = Math.max(this.getBackLeftPosition() / 12, this.getBackRightPosition() / 12);
+			StatTracker.addClimbDistance(Math.abs(d - lastDistance));
+			lastDistance = d;
+		}
 		// System.out.println("roll: " + Robot.getRoll() + ", pitch: " +
 		// Robot.getPitch() + ", yaw: " + Robot.getYaw());
 		// System.out.println(getDistanceToWall());

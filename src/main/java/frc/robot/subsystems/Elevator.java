@@ -40,6 +40,8 @@ public class Elevator extends Subsystem {
 
 	private double lastDistance = 0.0;
 
+	private boolean lastLimit = false;
+
 	public Elevator() {
 		elevatorTalonSRX = new TalonSRX(RobotMap.elevatorTalonSRX);
 		elevatorTalonSRX.configVoltageCompSaturation(13, 10);
@@ -70,6 +72,11 @@ public class Elevator extends Subsystem {
 	}
 
 	public void periodic() {
+		if(!lastLimit && isAtBottom()){
+			resetEncoderPosition();
+		}
+		lastLimit = isAtBottom();
+
 		if (Math.abs(elevatorTalonSRX.getMotorOutputVoltage()) >= 4
 				&& Math.abs(elevatorTalonSRX.getSelectedSensorVelocity(0) / pulsesPerInch) < 0.25) {
 			CommandBase.oi.coDriverRumble(1.0);
@@ -81,7 +88,7 @@ public class Elevator extends Subsystem {
 		SmartDashboard.putBoolean("Elevator Bottom", isAtBottom());
 
 		if (DriverStation.getInstance().isEnabled()) {
-			double distance = this.elevatorTalonSRX.getSelectedSensorPosition() / this.pulsesPerInch;
+			double distance = this.elevatorTalonSRX.getSelectedSensorPosition() / this.pulsesPerInch / 12;
 			StatTracker.addElevatorDistance(distance - lastDistance);
 			this.lastDistance = distance;
 		}

@@ -1,13 +1,18 @@
 package frc.robot.commands;
 
-public class HatchNubbinsExtend extends CommandBase {
-	public HatchNubbinsExtend() {
+public class HatchGrabberToggle extends CommandBase {
+	public HatchGrabberToggle() {
 		requires(hatchMech);
 	}
 
 	@Override
 	protected void initialize() {
-		hatchMech.hatchNubbinsExtend();
+		// System.out.println(hatchMech.isExtended());
+		if(hatchMech.isGrabberExtended()){
+			hatchMech.hatchGrabberRetract();
+		}else{
+			hatchMech.hatchGrabberExtend();
+		}	
 	}
 
 	@Override

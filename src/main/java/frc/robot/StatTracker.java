@@ -18,7 +18,7 @@ public class StatTracker implements Runnable {
 	private static volatile double climbDistance = 0.0;
 
 	public static void init() {
-		// new Thread(new StatTracker()).start();
+		new Thread(new StatTracker()).start();
 	}
 
 	public static void addDriveDistance(double left, double right) {
@@ -60,13 +60,12 @@ public class StatTracker implements Runnable {
 	@Override
 	public void run() {
 		File file = new File("/home/lvuser", "stats.json");
-		file.mkdirs();
+		Timer.delay(10);
+		
 		try {
-			if (!file.createNewFile()) {
+			if (file.exists()) {
 				JSONObject contents = new JSONObject(readFile(file));
-				System.out.println("STATS: " + contents.toString());
 				driveDistanceLeft = contents.getDouble("driveDistanceLeft");
-				System.out.println("STATS: " + driveDistanceLeft);
 				driveDistanceRight = contents.getDouble("driveDistanceRight");
 				elevatorDistance = contents.getDouble("elevatorDistance");
 				cargoHandled = contents.getInt("cargoHandled");

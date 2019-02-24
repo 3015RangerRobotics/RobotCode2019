@@ -7,10 +7,12 @@ import frc.robot.RobotMap;
 import frc.robot.StatTracker;
 
 public class HatchMech extends Subsystem {
-	private DoubleSolenoid hatchSolenoid;
+	private DoubleSolenoid hatchGrabber;
+	private DoubleSolenoid hatchArm;
 
 	public HatchMech() {
-		hatchSolenoid = new DoubleSolenoid(RobotMap.hatchSolenoid1, RobotMap.hatchSolenoid2);
+		hatchGrabber = new DoubleSolenoid(RobotMap.hatchGrabber1, RobotMap.hatchGrabber2);
+		hatchArm = new DoubleSolenoid(RobotMap.hatchArm1, RobotMap.hatchArm2);
 	}
 
 	@Override
@@ -18,20 +20,28 @@ public class HatchMech extends Subsystem {
 
 	}
 
-	public void hatchNubbinsExtend() {
-		hatchSolenoid.set(Value.kForward);
+	public void hatchGrabberExtend() {
+		hatchGrabber.set(Value.kForward);
 		StatTracker.addHatchExtension();
 	}
 
-	public void hatchNubbinsRetract() {
-		hatchSolenoid.set(Value.kReverse);
+	public void hatchGrabberRetract() {
+		hatchGrabber.set(Value.kReverse);
 	}
 
-	public boolean isExtended() {
-		if(hatchSolenoid.get() == Value.kForward){
-			return true;
-		}else{
-			return false;
-		}
-	}	
+	public boolean isGrabberExtended() {
+		return (hatchGrabber.get() == Value.kForward);
+	}
+
+	public void hatchArmExtend() {
+		hatchArm.set(Value.kForward);
+	}
+
+	public void hatchArmRetract() {
+		hatchArm.set(Value.kReverse);
+	}
+
+	public boolean isArmExtended() {
+		return (hatchArm.get() == Value.kForward);
+	}
 }
