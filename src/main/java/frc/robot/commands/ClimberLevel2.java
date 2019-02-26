@@ -11,6 +11,6 @@ public class ClimberLevel2 extends CommandGroup {
 		addSequential(new ClimberJackUpLow());
 		addSequential(new ClimberHoldAndDrive());
 		addSequential(new ClimberJackRetract());
-		addSequential(new DriveMotionProfile(MotionProfiles.generate1D(1, 7, 4, 100, true)));
+		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(1, 7, 4, 100, true)));
 	}
 }

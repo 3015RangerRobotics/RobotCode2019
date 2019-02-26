@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.Filesystem;
+import frc.motionProfiles.generate.MPGenerator;
 import frc.robot.RobotMap;
 import frc.robot.RobotMap.Side;
 import jaci.pathfinder.Pathfinder;
@@ -17,6 +18,14 @@ import jaci.pathfinder.Trajectory.Segment;
 import jaci.pathfinder.modifiers.TankModifier;
 
 public class MotionProfiles {
+	public static double[][] generate1D(double d, double maxV, double a, boolean reverse){
+		return MPGenerator.generate1D(d, maxV, a, reverse);
+	}
+
+	public static HashMap<Side, double[][]> generate2DToTarget(double zDist, double xDist, double angle1, double angle2, double maxVel, double maxAcc){
+		return MPGenerator.generate2DToTarget(zDist, xDist, angle1, angle2, maxVel, maxAcc);
+	}
+
 	/**
 	 * Generate a one-dimensional motion profile
 	 * 
@@ -27,7 +36,7 @@ public class MotionProfiles {
 	 * @param reverse Drive backwards
 	 * @return A motion profile to apply to both sides of the drive
 	 */
-	public static double[][] generate1D(double d, double maxV, double a, double jerk, boolean reverse) {
+	public static double[][] generate1DPF(double d, double maxV, double a, double jerk, boolean reverse) {
 		Waypoint[] waypoints = new Waypoint[] { new Waypoint(0, 0, 0), new Waypoint(d, 0, 0) };
 		Trajectory.Config config = new Trajectory.Config(FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_FAST,
 				RobotMap.kPeriod, maxV, a, jerk);
@@ -38,22 +47,6 @@ public class MotionProfiles {
 			profile[i][0] = (reverse) ? -seg.position : seg.position;
 			profile[i][1] = (reverse) ? -seg.velocity : seg.velocity;
 			profile[i][2] = (reverse) ? -seg.acceleration : seg.acceleration;
-		}
-		return profile;
-
-	}
-
-	public static double[][] generate1D2(double d, double maxV, double a, double jerk, boolean reverse) {
-		Waypoint[] waypoints = new Waypoint[] { new Waypoint(0, 0, 0), new Waypoint(d, 0, 0) };
-		Trajectory.Config config = new Trajectory.Config(FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_FAST,
-				RobotMap.kPeriod, maxV, a, jerk);
-		Trajectory trajectory = Pathfinder.generate(waypoints, config);
-		double[][] profile = new double[trajectory.length()][3];
-		for (int i = 0; i < trajectory.length(); i++) {
-			Segment seg = trajectory.get(i);
-			profile[i][0] = (reverse) ? -seg.position : seg.position;
-			profile[i][1] = (reverse) ? -seg.velocity : seg.velocity;
-			profile[i][2] = RobotMap.kPeriod * 1000;
 		}
 		return profile;
 
@@ -71,7 +64,7 @@ public class MotionProfiles {
 	 * @param reversed Drive backwards
 	 * @return A hash map containing a motion profile for the left and right side
 	 */
-	public static HashMap<Side, double[][]> generate2D(double dx, double dy, double endAngle, double maxV, double a,
+	public static HashMap<Side, double[][]> generate2DPF(double dx, double dy, double endAngle, double maxV, double a,
 			double jerk, boolean reversed) {
 		Waypoint[] waypoints = new Waypoint[] { new Waypoint(0, 0, 0), new Waypoint(dx, dy, Pathfinder.d2r(endAngle)) };
 		Trajectory.Config config = new Trajectory.Config(FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_LOW,
