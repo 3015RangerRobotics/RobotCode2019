@@ -13,7 +13,6 @@ import frc.robot.commands.CommandBase;
 public class Robot extends TimedRobot {
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
-	String processingMode = new String("");
 
 	public static AHRS imu;
 
@@ -27,7 +26,6 @@ public class Robot extends TimedRobot {
 
 		// chooser.addOption("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
-		SmartDashboard.putString("ProcessingMode", processingMode);
 		
 		StatTracker.init();
 		CommandBase.init();
@@ -136,15 +134,15 @@ public class Robot extends TimedRobot {
 	}
 
 	public void setVisionModeTape() {
-		processingMode = "tape";
+		SmartDashboard.putString("ProcessingMode", "tape");
 	}
 
 	public void setVisionModeCargo() {
-		processingMode = "cargo";
+		SmartDashboard.putString("ProcessingMode", "cargo");
 	}
 
 	public void setVisionModeDriver() {
-		processingMode = "driver";
+		SmartDashboard.putString("ProcessingMode", "driver");
 	}
 
 	public double getVisionAngle1() {
