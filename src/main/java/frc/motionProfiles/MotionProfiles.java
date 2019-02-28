@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.Filesystem;
+import frc.motionProfiles.generate.MPGenerator;
 import frc.robot.RobotMap;
 import frc.robot.RobotMap.Side;
 import jaci.pathfinder.Pathfinder;
