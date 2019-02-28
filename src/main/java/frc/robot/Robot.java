@@ -13,12 +13,14 @@ import frc.robot.commands.CommandBase;
 public class Robot extends TimedRobot {
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
+	String processingMode;
 
 	public static AHRS imu;
 
 	@Override
 	public void robotInit() {
 		imu = new AHRS(Port.kOnboard);
+		processingMode = new String("None");
 		// UsbCamera camera = new UsbCamera("USB Camera", 0);
 		// camera.setResolution(640, 360);
 		// camera.setFPS(30);
@@ -26,6 +28,7 @@ public class Robot extends TimedRobot {
 
 		// chooser.addOption("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
+		SmartDashboard.putString("ProcessingMode", processingMode);
 		
 		StatTracker.init();
 		CommandBase.init();
@@ -131,5 +134,9 @@ public class Robot extends TimedRobot {
 		// * Math.cos(angleInRadians)));
 		// return correctedDistance;
 		// }
+	}
+
+	public void setProcessingMode(String mode) {
+		processingMode = mode;
 	}
 }
