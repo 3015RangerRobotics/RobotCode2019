@@ -13,14 +13,13 @@ import frc.robot.commands.CommandBase;
 public class Robot extends TimedRobot {
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
-	String processingMode;
+	String processingMode = new String("");
 
 	public static AHRS imu;
 
 	@Override
 	public void robotInit() {
 		imu = new AHRS(Port.kOnboard);
-		processingMode = new String("None");
 		// UsbCamera camera = new UsbCamera("USB Camera", 0);
 		// camera.setResolution(640, 360);
 		// camera.setFPS(30);
@@ -136,7 +135,35 @@ public class Robot extends TimedRobot {
 		// }
 	}
 
-	public void setProcessingMode(String mode) {
-		processingMode = mode;
+	public void setVisionModeTape() {
+		processingMode = "tape";
+	}
+
+	public void setVisionModeCargo() {
+		processingMode = "cargo";
+	}
+
+	public void setVisionModeDriver() {
+		processingMode = "driver";
+	}
+
+	public double getVisionAngle1() {
+		return SmartDashboard.getNumber("Angle1", 0);
+	}
+
+	public double getVisionAngle2() {
+		return SmartDashboard.getNumber("Angle2", 0);
+	}
+
+	public double getVisionDistance() {
+		return SmartDashboard.getNumber("Distance", -1);
+	}
+
+	public double getVisionZDistance() {
+		return SmartDashboard.getNumber("zDistance", -1);
+	}
+
+	public double getVisionXDistance() {
+		return SmartDashboard.getNumber("xDistance", -1);
 	}
 }
