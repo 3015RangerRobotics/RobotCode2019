@@ -7,7 +7,7 @@ public class HatchArmRetract extends CommandBase {
 
 	@Override
 	protected void initialize() {
-		hatchMech.hatchGrabberRetract();
+		hatchMech.hatchArmRetract();
 	}
 
 	@Override

@@ -35,10 +35,12 @@ public class HatchMech extends Subsystem {
 
 	public void hatchArmExtend() {
 		hatchArm.set(Value.kForward);
+		System.out.println("Extending Arm");
 	}
 
 	public void hatchArmRetract() {
 		hatchArm.set(Value.kReverse);
+		System.out.println("Retracting arm");
 	}
 
 	public boolean isArmExtended() {

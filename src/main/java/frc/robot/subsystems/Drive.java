@@ -36,7 +36,7 @@ public class Drive extends Subsystem {
 	public final double kVEncoder = 0.067;
 	public final double kAEncoder = 0.025;
 
-	public final double speedModTopHeight = 0.5;
+	public final double speedModTopHeight = 0.75; // 0.5;
 	public final double speedModMidHeight = 0.75;
 	public final double turnModTopHeight = 0.75;
 
