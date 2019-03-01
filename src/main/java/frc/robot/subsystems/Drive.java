@@ -17,12 +17,12 @@ import frc.robot.commands.DriveWithGamepad;
 
 public class Drive extends Subsystem {
 	public final double kV = 0.067;
-	public final double kA = 0.023;
+	public final double kA = 0.04;
 
 	public final double kDistancePerPulse = 0.00904774;
 
-	public final double kDriveP = 1.8;
-	public final double kDriveD = 0.0;
+	public final double kDriveP = 2.3;
+	public final double kDriveD = 0.1;
 
 	public final double kVTurn = 0;
 	public final double kATurn = 0;

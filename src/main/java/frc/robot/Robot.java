@@ -133,35 +133,35 @@ public class Robot extends TimedRobot {
 		// }
 	}
 
-	public void setVisionModeTape() {
+	public static void setVisionModeTape() {
 		SmartDashboard.putString("ProcessingMode", "tape");
 	}
 
-	public void setVisionModeCargo() {
+	public static void setVisionModeCargo() {
 		SmartDashboard.putString("ProcessingMode", "cargo");
 	}
 
-	public void setVisionModeDriver() {
+	public static void setVisionModeDriver() {
 		SmartDashboard.putString("ProcessingMode", "driver");
 	}
 
-	public double getVisionAngle1() {
-		return SmartDashboard.getNumber("Angle1", 0);
+	public static double getVisionAngle1() {
+		return SmartDashboard.getNumber("TargetAngle1", 0);
 	}
 
-	public double getVisionAngle2() {
-		return SmartDashboard.getNumber("Angle2", 0);
+	public static double getVisionAngle2() {
+		return SmartDashboard.getNumber("TargetAngle2", 0);
 	}
 
-	public double getVisionDistance() {
-		return SmartDashboard.getNumber("Distance", -1);
+	public static double getVisionDistance() {
+		return SmartDashboard.getNumber("TargetDistance", -1);
 	}
 
-	public double getVisionZDistance() {
-		return SmartDashboard.getNumber("zDistance", -1);
+	public static double getVisionZDistance() {
+		return SmartDashboard.getNumber("TargetZDistance", -1);
 	}
 
-	public double getVisionXDistance() {
-		return SmartDashboard.getNumber("xDistance", -1);
+	public static double getVisionXDistance() {
+		return SmartDashboard.getNumber("TargetXDistance", -1);
 	}
 }

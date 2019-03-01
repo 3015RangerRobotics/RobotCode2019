@@ -60,6 +60,7 @@ public class OI {
 		// To Do: Put climbing wheel prep on coDriver DPAD Left
 
 		driverRB6.whenPressed(new AutoRocketFar());
+		// driverLB5.whenPressed(new TakePic());
 		driverA1.whenPressed(new HatchGrabberExtend());
 		driverB2.whenPressed(new HatchGrabberRetract());
 		driverX3.whenPressed(new HatchArmExtend());
