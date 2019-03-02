@@ -18,14 +18,17 @@ public class DriveWithGamepad extends CommandBase {
 		double driveValue = oi.getDriverLeftStickY();
 		double turnValue = oi.getDriverLeftStickX() / 1.25;
 
-		if (elevator.getDistance() > 40) {
-			driveValue *= drive.speedModTopHeight;
-			turnValue *= drive.turnModTopHeight;
-			drive.setRampRate(0);// .7);
-		} else if (elevator.getDistance() > 20) {
-			driveValue *= drive.speedModMidHeight;
-			drive.setRampRate(0);
+		if(oi.isDriverRightStickPressed()){
+			driveValue *= drive.fineAdjustDrive;
+			turnValue *= drive.fineAdjustTurn;
 		}
+
+		// if (elevator.getDistance() > 40) {
+		// 	driveValue *= drive.speedModTopHeight;
+		// 	turnValue *= drive.turnModTopHeight;
+		// } else if (elevator.getDistance() > 20) {
+		// 	driveValue *= drive.speedModMidHeight;
+		// }
 
 		if (Math.abs(oi.getDriverRightStickX()) >= 0.1) {
 			drive.curvatureDrive(driveValue, oi.getDriverRightStickX() / 1.25, false, true);

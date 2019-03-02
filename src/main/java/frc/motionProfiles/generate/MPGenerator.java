@@ -13,7 +13,7 @@ public class MPGenerator {
     public static HashMap<Side, double[][]> generate2DToTarget(double zDist, double xDist, double angle1, double angle2, double maxVel, double maxAcc){
         Vector2 a0 = new Vector2(0, 0);
         Vector2 a1 = new Vector2(zDist, xDist);
-        double endAngle = -angle2;
+        double endAngle = angle1 + angle2;
         double h = Vector2.subtract(a1, a0).magnitude / 2;
         double theta = Math.toRadians(endAngle);
         double o = Math.sin(theta) * h;

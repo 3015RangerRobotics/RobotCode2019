@@ -17,12 +17,12 @@ import frc.robot.commands.DriveWithGamepad;
 
 public class Drive extends Subsystem {
 	public final double kV = 0.067;
-	public final double kA = 0.04;
+	public final double kA = 0.04;//0.023;
 
 	public final double kDistancePerPulse = 0.00904774;
 
-	public final double kDriveP = 2.3;
-	public final double kDriveD = 0.1;
+	public final double kDriveP = 2.3; //2.0;
+	public final double kDriveD = .1;//0.02;
 
 	public final double kVTurn = 0;
 	public final double kATurn = 0;
@@ -39,6 +39,9 @@ public class Drive extends Subsystem {
 	public final double speedModTopHeight = 0.75; // 0.5;
 	public final double speedModMidHeight = 0.75;
 	public final double turnModTopHeight = 0.75;
+
+	public final double fineAdjustDrive = 0.0;
+	public final double fineAdjustTurn = 0.0;
 
 	private TalonSRX rightMaster;
 	private VictorSPX rightFollower1;
