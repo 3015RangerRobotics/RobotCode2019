@@ -40,8 +40,8 @@ public class Drive extends Subsystem {
 	public final double speedModMidHeight = 0.75;
 	public final double turnModTopHeight = 0.75;
 
-	public final double fineAdjustDrive = 0.0;
-	public final double fineAdjustTurn = 0.0;
+	public final double fineAdjustDrive = 0.75;
+	public final double fineAdjustTurn = 0.8;
 
 	private TalonSRX rightMaster;
 	private VictorSPX rightFollower1;

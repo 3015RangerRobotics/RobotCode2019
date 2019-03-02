@@ -14,6 +14,7 @@ public class ElevatorToBallTop extends CommandBase {
 	@Override
 	protected void execute() {
 		elevator.set(ControlMode.MotionMagic, elevator.ballTop * elevator.pulsesPerInch);
+		// elevator.set(ControlMode.Position, elevator.ballTop * elevator.pulsesPerInch);
 	}
 
 	@Override

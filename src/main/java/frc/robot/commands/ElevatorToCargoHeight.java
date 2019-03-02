@@ -14,6 +14,7 @@ public class ElevatorToCargoHeight extends CommandBase {
 	@Override
 	protected void execute() {
 		elevator.set(ControlMode.MotionMagic, elevator.elevatorHeightCargo * elevator.pulsesPerInch);
+		// elevator.set(ControlMode.Position, elevator.elevatorHeightCargo * elevator.pulsesPerInch);
 	}
 
 	@Override
