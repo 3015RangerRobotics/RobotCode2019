@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutoCargoSide;
+import frc.robot.commands.AutoRocketNear;
 import frc.robot.commands.CommandBase;
 
 public class Robot extends TimedRobot {
@@ -19,7 +20,7 @@ public class Robot extends TimedRobot {
 
 	public static AHRS imu;
 
-	AutoCargoSide autoCargoSide;
+	Command autoTest;
 
 	@Override
 	public void robotInit() {
@@ -35,7 +36,7 @@ public class Robot extends TimedRobot {
 		StatTracker.init();
 		CommandBase.init();
 
-		autoCargoSide = new AutoCargoSide();
+		autoTest = new AutoCargoSide();
 
 		SmartDashboard.putData("Gyro", imu);
 
@@ -63,7 +64,7 @@ public class Robot extends TimedRobot {
 			m_autonomousCommand.start();
 		}
 
-		autoCargoSide.start();
+		autoTest.start();
 
 	}
 
@@ -77,7 +78,7 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
-		autoCargoSide.cancel();
+		autoTest.cancel();
 	}
 
 	@Override
