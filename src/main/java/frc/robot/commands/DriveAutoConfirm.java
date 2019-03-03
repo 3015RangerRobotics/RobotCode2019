@@ -16,7 +16,7 @@ public class DriveAutoConfirm extends CommandBase {
 	@Override
 	protected void execute() {
 		double driveValue = oi.getDriverLeftStickY() * 0.5;
-		double turnValue = oi.getDriverLeftStickX() / 1.75;
+		double turnValue = oi.getDriverLeftStickX() / 1.5;
 
 		if(oi.isDriverRightStickPressed()){
 			driveValue *= drive.fineAdjustDrive;

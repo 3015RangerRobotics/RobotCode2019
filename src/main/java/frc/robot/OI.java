@@ -62,9 +62,9 @@ public class OI {
 		// driverY4.whenPressed(new ElevatorToBallTop());
 		// driverStartSelect.whenPressed(new CancelCommand());
 
+		driverRB6.whenPressed(new AutoCenterCargo());
 		// driverRB6.whenPressed(new AutoRocketNear());
-		driverRB6.whenPressed(new AutoCargoSide());
-		// driverRB6.whenPressed(new AutoDriveTest());
+		// driverRB6.whenPressed(new AutoCargoSide());
 		// driverRB6.whenPressed(new AutoCargoSideSegmented());
 		driverLB5.whenPressed(new DriveTurnToAngleWithEncoders(90, 12, 8));
 		driverA1.whenPressed(new HatchGrabberExtend());

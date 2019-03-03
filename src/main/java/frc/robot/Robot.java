@@ -60,7 +60,7 @@ public class Robot extends TimedRobot {
 		StatTracker.init();
 		CommandBase.init();
 
-		autoTest = new AutoCargoSide();
+		autoTest = new AutoRocketNear();
 
 		SmartDashboard.putData("Gyro", imu);
 
