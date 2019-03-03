@@ -10,13 +10,15 @@ public class AutoRocketNear extends CommandGroup {
 	public AutoRocketNear() {
 		addParallel(new HatchGrabberExtend());
 		addParallel(new HatchArmExtendDelayed(1));
-		addSequential(new DriveMotionProfile("platform_to_rocket_near"));
+		addSequential(new DriveMotionProfile("platform_to_rocket_near_with_new_wheels"));
 		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(2, 12, 8, 100, false)));
+		addSequential(new DriveAutoConfirm());
 		addSequential(new HatchGrabberRetract());
 		addSequential(new WaitCommand(.25));
 		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(2, 12, 8, 100, true)));
-		addSequential(new DriveTurnToAngleWithEncoders(-158, 14, 10));
+		addSequential(new DriveTurnToAngleWithEncoders(-155, 14, 10)); // was -160 before test
 		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(12.3, 12, 8, 100, false)));
+		addSequential(new DriveAutoConfirm());
 		addParallel(new HatchGrabberExtend());
 		addSequential(new WaitCommand(0.25));
 
