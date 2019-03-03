@@ -2,12 +2,15 @@ package frc.robot;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.AutoCargoSide;
 import frc.robot.commands.CommandBase;
 
 public class Robot extends TimedRobot {
@@ -15,6 +18,8 @@ public class Robot extends TimedRobot {
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 	public static AHRS imu;
+
+	AutoCargoSide autoCargoSide;
 
 	@Override
 	public void robotInit() {
@@ -26,9 +31,11 @@ public class Robot extends TimedRobot {
 
 		// chooser.addOption("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
-		
+
 		StatTracker.init();
 		CommandBase.init();
+
+		autoCargoSide = new AutoCargoSide();
 
 		SmartDashboard.putData("Gyro", imu);
 
@@ -55,6 +62,9 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
+
+		autoCargoSide.start();
+
 	}
 
 	@Override
@@ -67,6 +77,7 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
+		autoCargoSide.cancel();
 	}
 
 	@Override
