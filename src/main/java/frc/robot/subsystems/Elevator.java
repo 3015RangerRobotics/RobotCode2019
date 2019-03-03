@@ -33,7 +33,7 @@ public class Elevator extends Subsystem {
 
 	public final double kElevatorP = 7.5;
 	public final double kElevatorI = 0.0;
-	public final double kElevatorD = 0.0;
+	public final double kElevatorD = 0.0; //0.3;
 	public final double kElevatorF = 1023 / 3000;
 
 	public final double pulsesPerInch = 331;
@@ -69,6 +69,7 @@ public class Elevator extends Subsystem {
 
 	@Override
 	public void initDefaultCommand() {
+		// setDefaultCommand(new ElevatorRightStick());
 	}
 
 	public void periodic() {
@@ -80,6 +81,7 @@ public class Elevator extends Subsystem {
 		if (Math.abs(elevatorTalonSRX.getMotorOutputVoltage()) >= 4
 				&& Math.abs(elevatorTalonSRX.getSelectedSensorVelocity(0) / pulsesPerInch) < 0.25) {
 			CommandBase.oi.coDriverRumble(1.0);
+			System.out.println("uh oh spaghettio");
 		} else {
 			CommandBase.oi.coDriverRumble(0);
 		}
@@ -92,6 +94,8 @@ public class Elevator extends Subsystem {
 			StatTracker.addElevatorDistance(distance - lastDistance);
 			this.lastDistance = distance;
 		}
+
+		// System.out.println(isAtBottom());\[\]
 	}
 
 	/**

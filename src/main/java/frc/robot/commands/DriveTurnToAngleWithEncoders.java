@@ -17,6 +17,7 @@ public class DriveTurnToAngleWithEncoders extends CommandBase {
 	private double prevErrorL = 0;
 	private double prevErrorR = 0;
 	private boolean isAbsolute;
+	public double absoluteCurrent = 0;
 
 	public DriveTurnToAngleWithEncoders(double angle, double vel, double acc, boolean isAbsolute) {
 		requires(drive);

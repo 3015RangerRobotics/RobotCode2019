@@ -14,6 +14,7 @@ public class ElevatorToAllianceWall extends CommandBase {
 	@Override
 	protected void execute() {
 		elevator.set(ControlMode.MotionMagic, elevator.allianceWall * elevator.pulsesPerInch);
+		// elevator.set(ControlMode.Position, elevator.allianceWall * elevator.pulsesPerInch);
 	}
 
 	@Override

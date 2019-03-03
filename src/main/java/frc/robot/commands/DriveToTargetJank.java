@@ -16,9 +16,9 @@ public class DriveToTargetJank extends CommandGroup {
    */
   public DriveToTargetJank(double angle1, double angle2, double distance) {
 	  addSequential(new DriveTurnToAngleWithEncoders(angle1, 12, 8));
-	  addSequential(new DriveMotionProfile(MotionProfiles.generate2DPF(distance, 0, -angle2, 8, 4, 100, false)));
-	//   addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(distance, 8, 4, 100, false)));
-	//   addSequential(new DriveTurnToAngleWithEncoders(angle2, 12, 8));
+	//   addSequential(new DriveMotionProfile(MotionProfiles.generate2DPF(distance, 0, -angle2, 8, 4, 100, false)));
+	  addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(distance, 8, 4, 100, false)));
+	  addSequential(new DriveTurnToAngleWithEncoders(angle2, 12, 8));
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
