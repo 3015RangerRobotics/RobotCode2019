@@ -113,6 +113,8 @@ public class Climber extends Subsystem {
 		// System.out.println(getDistanceToWall());
 		// System.out.println("X: " + Robot.getXPos() + ", Y: " + Robot.getYPos() + ",
 		// Z: " + Robot.getZPos());
+
+		// System.out.println(getCenterPosition());
 	}
 
 	public void setCenter(ControlMode mode, double value) {

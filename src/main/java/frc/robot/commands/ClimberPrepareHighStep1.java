@@ -2,8 +2,8 @@ package frc.robot.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-public class ClimberCenterPrepareHigh extends CommandBase {
-	public ClimberCenterPrepareHigh() {
+public class ClimberPrepareHighStep1 extends CommandBase {
+	public ClimberPrepareHighStep1() {
 		requires(climber);
 	}
 
@@ -19,7 +19,7 @@ public class ClimberCenterPrepareHigh extends CommandBase {
 
 	@Override
 	protected boolean isFinished() {
-		return climber.getCenterPosition() >= climber.centerPosHigh;
+		return climber.getCenterPosition() >= climber.centerPosHigh + 1;
 	}
 
 	@Override

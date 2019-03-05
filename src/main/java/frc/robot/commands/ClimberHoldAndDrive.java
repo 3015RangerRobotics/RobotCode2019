@@ -10,7 +10,7 @@ public class ClimberHoldAndDrive extends CommandBase {
 
 	@Override
 	protected void initialize() {
-		this.setTimeout(1);
+		this.setTimeout(1.1);
 	}
 
 	@Override
@@ -20,7 +20,7 @@ public class ClimberHoldAndDrive extends CommandBase {
 		climber.setCenter(ControlMode.PercentOutput, 0.1);
 		drive.arcadeDrive(-0.5, 0, false);
 		climber.setCenterWheels(1);
-		System.out.println("Hi Michael you look nice today!");
+		// System.out.println("Hi Michael you look nice today!");
 	}
 
 	@Override
