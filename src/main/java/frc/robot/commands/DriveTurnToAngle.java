@@ -12,7 +12,7 @@ public class DriveTurnToAngle extends CommandBase implements PIDOutput {
 	PIDController turnController;
 	double setpoint = 0;
 	int onTargetCount = 0;
-	double minTurn = 0.18;// .2;
+	double minTurn = 0.2; //0.2;
 
 	public DriveTurnToAngle(double angle) {
 		this(angle, false);
@@ -24,7 +24,7 @@ public class DriveTurnToAngle extends CommandBase implements PIDOutput {
 		turnController = new PIDController(drive.kTurnP, drive.kTurnI, drive.kTurnD, Robot.imu, this);
 		turnController.setInputRange(-180.0, 180.0);
 		turnController.setOutputRange(-1.0, 1.0);
-		turnController.setAbsoluteTolerance(1.0);
+		turnController.setAbsoluteTolerance(2.0);
 		turnController.setContinuous(true);
 	}
 
@@ -50,7 +50,7 @@ public class DriveTurnToAngle extends CommandBase implements PIDOutput {
 
 	@Override
 	protected boolean isFinished() {
-		return onTargetCount >= 10;
+		return onTargetCount >= 5;
 	}
 
 	@Override

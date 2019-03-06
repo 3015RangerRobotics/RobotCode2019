@@ -16,25 +16,25 @@ import frc.robot.StatTracker;
 import frc.robot.commands.DriveWithGamepad;
 
 public class Drive extends Subsystem {
-	public final double kV = 0.067;
-	public final double kA = 0.04;//0.023;
+	public final double kV = 1 / 14; //0.071;//0.067;
+	public final double kA = 0.04; //0.04;//0.023;
 
 	public final double kDistancePerPulse = 0.00904774;
 
-	public final double kDriveP = 2.3; //2.0;
-	public final double kDriveD = .1;//0.02;
+	public final double kDriveP = 2.75;//2.3; //2.0;
+	public final double kDriveD = 0.05; //0.1;//0.02;
 
 	public final double kVTurn = 0;
 	public final double kATurn = 0;
 
-	public final double kTurnP = 0.006;
+	public final double kTurnP = 0.014;//0.006;
 	public final double kTurnI = 0.0;
-	public final double kTurnD = 0.01;
+	public final double kTurnD = 0.034;
 
-	public final double kTurnPEncoder = 6.0;
-	public final double kTurnDEncoder = 0.035;
-	public final double kVEncoder = 0.067;
-	public final double kAEncoder = 0.025;
+	public final double kTurnPEncoder = 5.5; //4.8;//6.0;
+	public final double kTurnDEncoder = 0.05;//0.035;
+	public final double kVEncoder = 0.14;//0.067;
+	public final double kAEncoder = 0.033; //0.025;
 
 	public final double speedModTopHeight = 0.75; // 0.5;
 	public final double speedModMidHeight = 0.75;
@@ -149,6 +149,8 @@ public class Drive extends Subsystem {
 			this.lastDistanceLeft = left;
 			this.lastDistanceRight = right;
 		}
+
+		// System.out.println(getLeftVelocity());
 	}
 
 	public void resetEncoders() {

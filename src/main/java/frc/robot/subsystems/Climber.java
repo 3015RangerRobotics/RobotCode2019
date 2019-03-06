@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.StatTracker;
+import frc.robot.commands.ClimberTest;
 import frc.robot.commands.CommandBase;
 
 public class Climber extends Subsystem {
@@ -99,6 +100,7 @@ public class Climber extends Subsystem {
 
 	@Override
 	public void initDefaultCommand() {
+		// setDefaultCommand(new ClimberTest());
 	}
 
 	@Override

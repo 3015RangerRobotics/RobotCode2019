@@ -157,11 +157,15 @@ public class Robot extends TimedRobot {
 			m_autonomousCommand.cancel();
 		}
 		autoTest.cancel();
+		resetIMU();
+
 	}
 
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Gyro1", imu.getAngle());
+		// System.out.println(imu.getAngle());
 	}
 
 	@Override

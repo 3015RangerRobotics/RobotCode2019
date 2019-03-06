@@ -62,11 +62,15 @@ public class OI {
 		// driverY4.whenPressed(new ElevatorToBallTop());
 		// driverStartSelect.whenPressed(new CancelCommand());
 
-		// driverRB6.whenPressed(new AutoCenterCargo());
-		// driverRB6.whenPressed(new AutoRocketNear());
-		// driverRB6.whenPressed(new AutoCargoSide());
-		// // driverRB6.whenPressed(new AutoCargoSideSegmented());
-		// driverLB5.whenPressed(new DriveTurnToAngleWithEncoders(90, 12, 8));
+		// // driverRB6.whenPressed(new AutoCenterCargo());
+		// driverRB6.whenPressed(new DriveMotionProfile("traction_config"));
+		// driverLB5.whenPressed(new DriveForTime(0.3, 5));
+		// // driverRB6.whenPressed(new AutoRocketNear());
+		// // driverRB6.whenPressed(new AutoCargoSide());
+		// // // driverRB6.whenPressed(new AutoCargoSideSegmented());
+		// driverLB5.whenPressed(new DriveTurnToAngleWithEncoders(90, 14, 10));
+		// driverRB6.whenPressed(new DriveTurnToAngleWithEncoders(90, 14, 10));
+		// driverRB6.whenPressed(new DriveTurnToAngle(90));
 		// driverA1.whenPressed(new HatchGrabberExtend());
 		// driverB2.whenPressed(new HatchGrabberRetract());
 		// driverX3.whenPressed(new HatchArmExtend());
@@ -74,10 +78,11 @@ public class OI {
 
 		driverA1.whileHeld(new BallMechControlDown());
 		driverB2.whileHeld(new BallMechControlUp());
-		driverRB6.whileHeld(new DriveAlignWithTarget());
 		driverRTrigger.whenPressed(new HatchGrabberToggle());
 		driverLTrigger.whenPressed(new HatchArmToggle());
 		driverStartSelect.whenPressed(new CancelCommand());
+
+		driverRB6.whenPressed(new DriveTurnToAngle(90));
 
 		coDriverA1.whenPressed(new ElevatorToBottom());
 		coDriverB2.whenPressed(new ElevatorToBallMiddle());

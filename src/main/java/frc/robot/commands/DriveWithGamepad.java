@@ -35,6 +35,8 @@ public class DriveWithGamepad extends CommandBase {
 		} else {
 			drive.arcadeDrive(driveValue, turnValue, true);
 		}
+
+		// System.out.println(turnValue);
 	}
 
 	@Override

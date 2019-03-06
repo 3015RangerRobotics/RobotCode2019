@@ -142,7 +142,7 @@ public class DriveTurnToAngleWithEncoders extends CommandBase {
 
 	private void generateProfile(double profileAngle, double vel, double acc) {
 		double arcLength = (RobotMap.wheelBaseWidth * Math.PI) * (Math.abs(profileAngle) / 360);
-		arcLength *= 1.152;
+		arcLength *= 1.18; //1.152;
 
 		double[][] profile = MotionProfiles.generate1DPF(arcLength, vel, acc, 100, false);
 		leftMotion = new double[profile.length][3];
