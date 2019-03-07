@@ -32,7 +32,7 @@ public class DriveTurnToAngleWithEncoders extends CommandBase {
 	}
 
 	protected void initialize() {
-		Robot.resetIMU();
+		// Robot.resetIMU();
 		drive.resetEncoders();
 		isFinished = false;
 		i = 0;

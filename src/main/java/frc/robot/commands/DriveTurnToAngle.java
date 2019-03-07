@@ -10,9 +10,10 @@ import frc.robot.Robot;
 
 public class DriveTurnToAngle extends CommandBase implements PIDOutput {
 	PIDController turnController;
-	double setpoint = 0;
+	double angle = 0;
 	int onTargetCount = 0;
 	double minTurn = 0.2; //0.2;
+	boolean isAbsolute = false;
 
 	public DriveTurnToAngle(double angle) {
 		this(angle, false);
@@ -20,20 +21,28 @@ public class DriveTurnToAngle extends CommandBase implements PIDOutput {
 
 	public DriveTurnToAngle(double angle, boolean isAbsolute) {
 		requires(drive);
-		this.setpoint = angle;
+		this.angle = angle;
+		this.isAbsolute = isAbsolute;
 		turnController = new PIDController(drive.kTurnP, drive.kTurnI, drive.kTurnD, Robot.imu, this);
 		turnController.setInputRange(-180.0, 180.0);
 		turnController.setOutputRange(-1.0, 1.0);
-		turnController.setAbsoluteTolerance(2.0);
+		turnController.setAbsoluteTolerance(1.75);
 		turnController.setContinuous(true);
 	}
 
 	@Override
 	protected void initialize() {
-		Robot.resetIMU();
-		turnController.setP(SmartDashboard.getNumber("kTurnP", 0));
-		turnController.setI(SmartDashboard.getNumber("kTurnI", 0));
-		turnController.setD(SmartDashboard.getNumber("kTurnD", 0));
+		double setpoint = 0;
+		if(isAbsolute) {
+			setpoint = this.angle;
+		}else{
+			setpoint = Robot.getYaw() + this.angle;
+			if(setpoint > 180){
+				setpoint -= 360;
+			}else if(setpoint < -180){
+				setpoint += 360;
+			}
+		}
 		turnController.setSetpoint(setpoint);
 		turnController.enable();
 		onTargetCount = 0;
@@ -50,7 +59,7 @@ public class DriveTurnToAngle extends CommandBase implements PIDOutput {
 
 	@Override
 	protected boolean isFinished() {
-		return onTargetCount >= 5;
+		return onTargetCount >= 8;
 	}
 
 	@Override

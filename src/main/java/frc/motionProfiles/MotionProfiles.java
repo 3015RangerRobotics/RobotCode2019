@@ -64,9 +64,9 @@ public class MotionProfiles {
 	 * @param reversed Drive backwards
 	 * @return A hash map containing a motion profile for the left and right side
 	 */
-	public static HashMap<Side, double[][]> generate2DPF(double dx, double dy, double endAngle, double maxV, double a,
+	public static HashMap<Side, double[][]> generate2DPF(double dx, double dy, double startAngle, double endAngle, double maxV, double a,
 			double jerk, boolean reversed) {
-		Waypoint[] waypoints = new Waypoint[] { new Waypoint(0, 0, 0), new Waypoint(dx, dy, Pathfinder.d2r(endAngle)) };
+		Waypoint[] waypoints = new Waypoint[] { new Waypoint(0, 0, Pathfinder.d2r(startAngle)), new Waypoint(dx, dy, Pathfinder.d2r(endAngle)) };
 		Trajectory.Config config = new Trajectory.Config(FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_LOW,
 				RobotMap.kPeriod, maxV, a, jerk);
 		Trajectory trajectory = Pathfinder.generate(waypoints, config);

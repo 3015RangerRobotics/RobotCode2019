@@ -60,7 +60,7 @@ public class Robot extends TimedRobot {
 		StatTracker.init();
 		CommandBase.init();
 
-		autoTest = new AutoRocketNear();
+		autoTest = new AutoCargoSide(true);
 
 		SmartDashboard.putData("Gyro", imu);
 
@@ -141,9 +141,8 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
-
+		resetIMU();
 		autoTest.start();
-
 	}
 
 	@Override
@@ -157,7 +156,7 @@ public class Robot extends TimedRobot {
 			m_autonomousCommand.cancel();
 		}
 		autoTest.cancel();
-		resetIMU();
+		// resetIMU();
 
 	}
 
