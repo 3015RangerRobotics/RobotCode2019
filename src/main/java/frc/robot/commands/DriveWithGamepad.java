@@ -2,6 +2,8 @@ package frc.robot.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import frc.robot.Robot;
+
 public class DriveWithGamepad extends CommandBase {
 
 	public DriveWithGamepad() {
@@ -30,13 +32,15 @@ public class DriveWithGamepad extends CommandBase {
 		// 	driveValue *= drive.speedModMidHeight;
 		// }
 
-		if (Math.abs(oi.getDriverRightStickX()) >= 0.1) {
+		if (Math.abs(oi.getDriverRightStickX()) >= 0.1 && !oi.isDriverRightStickPressed()) {
 			drive.curvatureDrive(driveValue, oi.getDriverRightStickX() / 1.25, false, true);
 		} else {
 			drive.arcadeDrive(driveValue, turnValue, true);
+		
 		}
 
-		// System.out.println(turnValue);
+		// System.out.println(Robot.getRotationalVelocity());
+
 	}
 
 	@Override

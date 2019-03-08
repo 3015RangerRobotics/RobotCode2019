@@ -113,15 +113,15 @@ public class DriveMotionProfile extends CommandBase {
 			double errorR = goalPosR - drive.getRightDistance();
 			double errorDerivR = ((errorR - prevErrorR) / RobotMap.kPeriod) - goalVelR;
 
-			// double kP = drive.kDriveP;
-			// double kD = drive.kDriveD;
-			// double kV = drive.kV;
-			// double kA = drive.kA;
+			double kP = drive.kDriveP;
+			double kD = drive.kDriveD;
+			double kV = drive.kV;
+			double kA = drive.kA;
 
-			double kP = SmartDashboard.getNumber("kDriveP", 0);
-			double kD = SmartDashboard.getNumber("kDriveD", 0);
-			double kV = SmartDashboard.getNumber("kV", 0);
-			double kA = SmartDashboard.getNumber("kA", 0);
+			// double kP = SmartDashboard.getNumber("kDriveP", 0);
+			// double kD = SmartDashboard.getNumber("kDriveD", 0);
+			// double kV = SmartDashboard.getNumber("kV", 0);
+			// double kA = SmartDashboard.getNumber("kA", 0);
 
 			double pwmL = (kP * errorL) + (kD * errorDerivL) + (kV * goalVelL) + (kA * goalAccL);
 			double pwmR = (kP * errorR) + (kD * errorDerivR) + (kV * goalVelR) + (kA * goalAccR);

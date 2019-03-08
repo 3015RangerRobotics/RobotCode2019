@@ -183,6 +183,10 @@ public class Robot extends TimedRobot {
 		return imu.getYaw();
 	}
 
+	public static double getRotationalVelocity() {
+		return Math.toDegrees(imu.getRate());
+	}
+
 	public static void resetIMU() {
 		imu.reset();
 	}
