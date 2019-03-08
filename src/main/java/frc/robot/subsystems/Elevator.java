@@ -95,7 +95,8 @@ public class Elevator extends Subsystem {
 			this.lastDistance = distance;
 		}
 
-		// System.out.println(isAtBottom());\[\]
+		// System.out.println(isAtBottom());
+		System.out.println(elevatorTalonSRX.getOutputCurrent());
 	}
 
 	/**
