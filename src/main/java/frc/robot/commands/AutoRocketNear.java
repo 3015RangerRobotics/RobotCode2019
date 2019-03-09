@@ -8,17 +8,19 @@ import frc.robot.Robot;
 
 public class AutoRocketNear extends CommandGroup {
 	public AutoRocketNear(boolean mirrored) {
+		// boolean Mirrored for other auto
 		addParallel(new HatchGrabberExtend());
 		addParallel(new HatchArmExtendDelayed(1));
-		addSequential(new DriveMotionProfile("platform_to_rocket_near_k", mirrored));
+		addSequential(new DriveMotionProfile("platform_to_rocket_test", mirrored));
 		addSequential(new DriveAutoConfirm());
 		addSequential(new HatchGrabberRetract());
+		addSequential(new WaitCommand(0.5));
 		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(0.5, 12, 8, 100, true)));
-		addSequential(new DriveTurnToAngleWithEncoders(mirrored ? 136 : -136, 12, 8));
-		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(16, 3, 2, 100, false)));
+		addSequential(new DriveTurnToAngleWithEncoders(mirrored ? 140 : -140, 12, 8));
+		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(13, 12, 8, 100, false)));
 		addSequential(new DriveAutoConfirm());
 		addSequential(new HatchGrabberRetract());
-		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(2, 6, 4, 100, true)));
+		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(2, 12, 8, 100, true)));
 
 		// addParallel(new HatchGrabberExtend());
 		// addParallel(new HatchArmExtendDelayed(1));

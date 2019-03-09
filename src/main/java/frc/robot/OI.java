@@ -82,18 +82,18 @@ public class OI {
 		driverLTrigger.whenPressed(new HatchArmToggle());
 		driverStartSelect.whenPressed(new CancelCommand());
 
-		// driverRB6.whenPressed(new AutoRocketNear(true));.
+		driverRB6.whenPressed(new AutoRocketNear(true));
 
-		coDriverA1.whenPressed(new ElevatorToBottom());
-		coDriverB2.whenPressed(new ElevatorToBallMiddle());
-		coDriverY4.whenPressed(new ElevatorToBallTop());
-		coDriverLB5.whenPressed(new ElevatorToAllianceWall());
-		coDriverRTrigger.whenPressed(new HatchGrabberToggle());
-		coDriverDLeft.whenPressed(new ClimberPrepareHigh());
-		coDriverDUp.whenPressed(new ClimberLevel3());
-		coDriverDDown.whenPressed(new ClimberLevel2());
-		coDriverDRight.whenPressed(new ClimberCenterPrepareLow());
-		coDriverStartSelect.whenPressed(new CancelCommand());
+		// coDriverA1.whenPressed(new ElevatorToBottom());
+		// coDriverB2.whenPressed(new ElevatorToBallMiddle());
+		// coDriverY4.whenPressed(new ElevatorToBallTop());
+		// coDriverLB5.whenPressed(new ElevatorToAllianceWall());
+		// coDriverRTrigger.whenPressed(new HatchGrabberToggle());
+		// coDriverDLeft.whenPressed(new ClimberPrepareHigh());
+		// coDriverDUp.whenPressed(new ClimberLevel3());
+		// coDriverDDown.whenPressed(new ClimberLevel2());
+		// coDriverDRight.whenPressed(new ClimberCenterPrepareLow());
+		// coDriverStartSelect.whenPressed(new CancelCommand());
 	}
 
 	public double getDriverLeftStickY() {
