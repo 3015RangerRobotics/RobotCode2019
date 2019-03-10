@@ -17,7 +17,7 @@ public class RobotMap {
 	public static final int rightDriveEncoder2 = 3;
 
 	public static final int elevatorTalonSRX = 16; // Elevator
-	public static final int elevatorBottomLimit = 8;
+	public static final int elevatorBottomLimit = 7;
 
 	public static final int intakeAidSPLeft = 0;
 	public static final int intakeAidSPRight = 0;

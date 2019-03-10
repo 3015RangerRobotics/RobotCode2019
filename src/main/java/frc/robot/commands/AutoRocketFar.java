@@ -10,12 +10,12 @@ public class AutoRocketFar extends CommandGroup {
 		addParallel(new HatchGrabberExtend());
 		addParallel(new HatchArmExtendDelayed(1));
 		addSequential(new DriveMotionProfile("backwards_to_far_rocket_test", mirrored));
-		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(3.5, 14, 10, 100, false)));
+		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(3.4, 14, 10, 100, false)));
 		addSequential(new DriveAutoConfirm());
 		addSequential(new HatchGrabberRetract());
 		addSequential(new WaitCommand(0.25));
 		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(1, 14, 10, 100, true)));
-		addSequential(new DriveTurnToAngleWithEncoders(mirrored ? 57 : -57, 14, 10));
+		addSequential(new DriveTurnToAngleWithEncoders(mirrored ? 58 : -58, 14, 10));
 		// addSequential(new DriveTurnToAngle(mirrored ? 29 : -29, true));
 		addSequential(new DriveMotionProfile("back_rocket_to_wall", mirrored));
 		addSequential(new DriveAutoConfirm());
