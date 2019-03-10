@@ -16,22 +16,24 @@ public class AutoCargoSide extends CommandGroup {
 	public AutoCargoSide(boolean mirrored) {
 		addParallel(new HatchGrabberExtend());
 		addParallel(new HatchArmExtendDelayed(.5));
-		addSequential(new DriveMotionProfile(MotionProfiles.generate2DPF(16, mirrored ? -2.5 : 2.5, 0, 0, 10, 6, 100, false)));
+		addSequential(new DriveMotionProfile(MotionProfiles.generate2DPF(16.9, mirrored ? -2.5 : 2.5, 0, 0, 10, 6, 100, false)));
 		// addSequential(new DriveMotionProfile("platform_to_cargo_side_line", mirrored));
-		addSequential(new DriveTurnToAngleWithEncoders(mirrored ? -90 : 90, 14, 10));
-		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(2, 14, 10, 100, false)));
+		addSequential(new DriveTurnToAngleWithEncoders(mirrored ? -85 : 85, 14, 10));
+		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(1.7, 14, 10, 100, false)));
 		addSequential(new DriveAutoConfirm());
+		addSequential(new DriveForTime(0.2, 0.25));
 		addSequential(new HatchGrabberRetract());
+		addSequential(new WaitCommand(0.25));
 		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(1.64, 14, 10, 100, true)));
-		addSequential(new DriveTurnToAngleWithEncoders(mirrored ? -105 : 105, 14, 10));
-		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(18.5, 12, 8, 100, false)));
+		addSequential(new DriveTurnToAngleWithEncoders(mirrored ? -90 : 90, 14, 10));
+		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(19, 12, 8, 100, false)));
 		// addSequential(new DriveTurnToAngle(180, true));
-		addSequential(new DriveTurnToAngleWithEncoders(mirrored ? 17 : -17, 14, 10));
-		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(2, 12, 8, 100, false)));
+		addSequential(new DriveTurnToAngleWithEncoders(mirrored ? 13 : -13, 14, 10));
+		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(1.3, 12, 8, 100, false)));
 		addSequential(new DriveAutoConfirm());
 		addSequential(new HatchGrabberExtend());
-		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(2.5, 14, 10, 100, true)));
-		addSequential(new DriveTurnToAngleWithEncoders(mirrored ? 180 : -180, 14, 10));
+		addSequential(new WaitCommand(0.25));
+		addSequential(new DriveMotionProfile("wall_backup", mirrored));
 	}
 }
 

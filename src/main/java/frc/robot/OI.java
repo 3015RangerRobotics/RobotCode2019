@@ -82,7 +82,7 @@ public class OI {
 		driverLTrigger.whenPressed(new HatchArmToggle());
 		driverStartSelect.whenPressed(new CancelCommand());
 
-		driverRB6.whenPressed(new AutoRocketFar(false));
+		driverRB6.whenPressed(new AutoCenterCargo(false));
 
 		coDriverA1.whenPressed(new ElevatorToBottom());
 		coDriverB2.whenPressed(new ElevatorToBallMiddle());

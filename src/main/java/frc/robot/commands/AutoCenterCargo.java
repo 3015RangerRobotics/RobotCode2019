@@ -8,24 +8,28 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.motionProfiles.MotionProfiles;
 
 public class AutoCenterCargo extends CommandGroup {
 	/**
 	 * Add your docs here.
 	 */
-	public AutoCenterCargo() {
+	public AutoCenterCargo(boolean mirrored) {
 		addParallel(new HatchGrabberExtend());
 		addParallel(new HatchArmExtendDelayed(.5));
-		addSequential(new DriveMotionProfile("platform_to_cargo_center"));
+		addSequential(new DriveMotionProfile("platform_to_cargo_center", mirrored));
 		addSequential(new DriveAutoConfirm());
+		addSequential(new DriveForTime(0.2, 0.25));
 		addSequential(new HatchGrabberRetract());
-		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(2, 6, 4, 100, true)));
-		addSequential(new DriveTurnToAngleWithEncoders(-90, 6, 4));
-		addSequential(new DriveMotionProfile("cargo_center_to_wall"));
+		addSequential(new WaitCommand(0.25));
+		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(2, 12, 8, 100, true)));
+		addSequential(new DriveTurnToAngleWithEncoders(mirrored ? 90 : -90, 6, 4));
+		addSequential(new DriveMotionProfile("cargo_center_to_wall", mirrored));
 		addSequential(new DriveAutoConfirm());
 		addSequential(new HatchGrabberExtend());
-		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(2, 6, 4, 100, true)));
+		addSequential(new WaitCommand(0.25));
+		addSequential(new DriveMotionProfile("wall_backup"));
 		// Add Commands here:
 		// e.g. addSequential(new Command1());
 		// addSequential(new Command2());
