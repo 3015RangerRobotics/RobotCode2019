@@ -6,13 +6,30 @@ import frc.motionProfiles.MotionProfiles;
 
 public class AutoRocketFar extends CommandGroup {
 	public AutoRocketFar(boolean mirrored) {
+		addSequential(new GyroReset());
 		addParallel(new HatchGrabberExtend());
 		addParallel(new HatchArmExtendDelayed(1));
-		addSequential(new DriveMotionProfile("platform_to_rocket_far_new", mirrored));
+		addSequential(new DriveMotionProfile("backwards_to_far_rocket_test", mirrored));
+		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(3.5, 14, 10, 100, false)));
 		addSequential(new DriveAutoConfirm());
 		addSequential(new HatchGrabberRetract());
-		addSequential(new WaitCommand(.5));
-		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(1, 12, 8, 100, true)));
+		addSequential(new WaitCommand(0.25));
+		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(1, 14, 10, 100, true)));
+		addSequential(new DriveTurnToAngleWithEncoders(mirrored ? 57 : -57, 14, 10));
+		// addSequential(new DriveTurnToAngle(mirrored ? 29 : -29, true));
+		addSequential(new DriveMotionProfile("back_rocket_to_wall", mirrored));
+		addSequential(new DriveAutoConfirm());
+		addSequential(new HatchGrabberExtend());
+		addSequential(new WaitCommand(0.25));
+		addSequential(new DriveMotionProfile("wall_backup", mirrored));
+
+		// addParallel(new HatchGrabberExtend());
+		// addParallel(new HatchArmExtendDelayed(1));
+		// addSequential(new DriveMotionProfile("platform_to_rocket_far", mirrored));
+		// addSequential(new DriveAutoConfirm());
+		// addSequential(new HatchGrabberRetract());
+		// addSequential(new WaitCommand(.5));
+		// addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(1, 12, 8, 100, true)));
 
 		// Make sure HatchGrabber is extended before starting auto
 		// addParallel(new HatchGrabberExtend());

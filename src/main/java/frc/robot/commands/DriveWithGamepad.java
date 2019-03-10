@@ -40,6 +40,7 @@ public class DriveWithGamepad extends CommandBase {
 		}
 
 		// System.out.println(Robot.getRotationalVelocity());
+		// System.out.println("Pitch: " + Robot.getPitch() + ", Roll: " + Robot.getRoll());
 
 	}
 

@@ -21,21 +21,21 @@ public class ClimberJackUpLow extends CommandBase {
 	@Override
 	protected void execute() {
 		if (climber.getCenterPosition() <= climber.centerPosJacked && !isCenterAtTarget) {
-			climber.setCenterVelocity(climber.climbSpeed - climber.getPitchOffset());
+			climber.setCenterVelocity(climber.climbSpeed - climber.getRollOffset());
 		} else {
 			climber.setCenter(ControlMode.PercentOutput, 0.1);
 			isCenterAtTarget = true;
 		}
 
 		if (climber.getBackLeftPosition() <= climber.backPosLow && !isLeftAtTarget) {
-			climber.setBackVelocityLeft(climber.climbSpeed + climber.getPitchOffset() - climber.getRollOffset());
+			climber.setBackVelocityLeft(climber.climbSpeed + climber.getRollOffset() - climber.getPitchOffset());
 		} else {
 			climber.setBackLeft(ControlMode.PercentOutput, 0.1);
 			isLeftAtTarget = true;
 		}
 
 		if (climber.getBackRightPosition() <= climber.backPosLow && !isRightAtTarget) {
-			climber.setBackVelocityRight(climber.climbSpeed + climber.getPitchOffset() + climber.getRollOffset());
+			climber.setBackVelocityRight(climber.climbSpeed + climber.getRollOffset() + climber.getPitchOffset());
 		} else {
 			climber.setBackRight(ControlMode.PercentOutput, 0.1);
 			isRightAtTarget = true;

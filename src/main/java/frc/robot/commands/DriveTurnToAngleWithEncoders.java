@@ -18,6 +18,9 @@ public class DriveTurnToAngleWithEncoders extends CommandBase {
 	private double prevErrorR = 0;
 	private boolean isAbsolute;
 	public double absoluteCurrent = 0;
+	private double vel = 0;
+	private double acc = 0;
+	private double angle = 0;
 
 	public DriveTurnToAngleWithEncoders(double angle, double vel, double acc, boolean isAbsolute) {
 		requires(drive);
@@ -42,9 +45,9 @@ public class DriveTurnToAngleWithEncoders extends CommandBase {
 		SmartDashboard.putBoolean("PathRunning", true);
 
 		if (isAbsolute) {
-			// angle -= drive.getAngle();
-			// System.out.println(angle + ", " + drive.getAngle());
-			// generateProfile(angle);
+			angle -= Robot.getYaw();
+			System.out.println(angle + ", " + Robot.getYaw());
+			generateProfile(angle, vel, acc);
 		}
 
 		if (leftMotion.length != rightMotion.length) {
@@ -144,7 +147,10 @@ public class DriveTurnToAngleWithEncoders extends CommandBase {
 		double arcLength = (RobotMap.wheelBaseWidth * Math.PI) * (Math.abs(profileAngle) / 360);
 		arcLength *= 1.18; //1.152;
 
+		// System.out.println("Arc Length: " + arcLength);
+
 		double[][] profile = MotionProfiles.generate1DPF(arcLength, vel, acc, 100, false);
+		// double [][] profile = MotionProfiles.generate1D(arcLength, vel, acc, false);
 		leftMotion = new double[profile.length][3];
 		rightMotion = new double[profile.length][3];
 

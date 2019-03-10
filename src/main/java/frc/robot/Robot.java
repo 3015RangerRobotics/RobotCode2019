@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutoCargoSide;
+import frc.robot.commands.AutoRocketFar;
 import frc.robot.commands.AutoRocketNear;
 import frc.robot.commands.CommandBase;
 
@@ -48,7 +49,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void robotInit() {
-		imu = new AHRS(Port.kOnboard);
+		imu = new AHRS(Port.kMXP);
 		// UsbCamera camera = new UsbCamera("USB Camera", 0);
 		// camera.setResolution(640, 360);
 		// camera.setFPS(30);
@@ -60,7 +61,7 @@ public class Robot extends TimedRobot {
 		StatTracker.init();
 		CommandBase.init();
 
-		autoTest = new AutoRocketNear(true);
+		autoTest = new AutoRocketFar(false);
 
 		SmartDashboard.putData("Gyro", imu);
 
@@ -172,7 +173,7 @@ public class Robot extends TimedRobot {
 	}
 
 	public static float getRoll() {
-		return imu.getRoll();
+		return imu.getRoll() + 35;
 	}
 
 	public static float getPitch() {

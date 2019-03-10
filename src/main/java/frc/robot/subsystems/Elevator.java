@@ -96,7 +96,7 @@ public class Elevator extends Subsystem {
 		}
 
 		// System.out.println(isAtBottom());
-		System.out.println(elevatorTalonSRX.getOutputCurrent());
+		// System.out.println(elevatorTalonSRX.getOutputCurrent());
 	}
 
 	/**
