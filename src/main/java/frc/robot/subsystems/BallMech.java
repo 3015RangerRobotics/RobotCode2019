@@ -26,7 +26,7 @@ public class BallMech extends Subsystem {
 
 	@Override
 	public void periodic() {
-		System.out.println("isBallPresent: " + isBallPresent());
+		// System.out.println("isBallPresent: " + ifsBallPresent());
 	}
 
 	public boolean isBallPresent() {

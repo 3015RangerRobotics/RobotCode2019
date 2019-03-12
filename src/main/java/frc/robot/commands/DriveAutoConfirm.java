@@ -23,7 +23,7 @@ public class DriveAutoConfirm extends CommandBase {
 			turnValue *= drive.fineAdjustTurn;
 		}
 
-		if (Math.abs(oi.getDriverRightStickX()) >= 0.1) {
+		if (Math.abs(oi.getDriverRightStickX()) >= 0.1 && !oi.isDriverRightStickPressed()) {
 			drive.curvatureDrive(driveValue, oi.getDriverRightStickX() / 1.25, false, true);
 		} else {
 			drive.arcadeDrive(driveValue, turnValue, true);
@@ -32,7 +32,7 @@ public class DriveAutoConfirm extends CommandBase {
 
 	@Override
 	protected boolean isFinished() {
-		return oi.isDriverUpPressed();
+		return oi.isDriverRTriggerPressed();
 	}
 
 	@Override

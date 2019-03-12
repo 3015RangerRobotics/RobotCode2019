@@ -5,8 +5,10 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.*;
 
@@ -55,11 +57,11 @@ public class Elevator extends Subsystem {
 
 	@Override
 	public void initDefaultCommand() {
-		
+
 	}
 
 	public void periodic() {
-		if(!lastLimit && isAtBottom()){
+		if (!lastLimit && isAtBottom()) {
 			resetEncoderPosition();
 		}
 		lastLimit = isAtBottom();
@@ -112,5 +114,36 @@ public class Elevator extends Subsystem {
 
 	public void resetEncoderPosition() {
 		elevatorTalonSRX.setSelectedSensorPosition(0);
+	}
+
+	public void selfTest() {
+		Robot.elevatorEncoder.setBoolean(false);
+		Robot.elevatorLimit.setBoolean(false);
+		Robot.elevatorPosition.setBoolean(false);
+
+		double encoderStart = getDistance();
+
+		set(ControlMode.PercentOutput, 0.4);
+		Timer.delay(1.0);
+		if (getDistance() - encoderStart > 1) {
+			Robot.elevatorEncoder.setBoolean(true);
+		}
+		if (!isAtBottom()) {
+			Robot.elevatorLimit.setBoolean(true);
+		}
+		set(ControlMode.PercentOutput, 0);
+		Timer.delay(1);
+
+		if (Robot.elevatorEncoder.getBoolean(false) == true && Robot.elevatorLimit.getBoolean(false) == true) {
+			set(ControlMode.MotionMagic, (elevatorHeightMiddle * pulsesPerInch));
+			Timer.delay(1.5);
+			if (getDistance() >= 28 && getDistance() <= 31) {
+				Robot.elevatorPosition.setBoolean(true);
+			}
+		} else {
+			System.out.println("Elevator Encoder/Limit Switch Broken");
+		}
+		set(ControlMode.PercentOutput, 0);
+
 	}
 }

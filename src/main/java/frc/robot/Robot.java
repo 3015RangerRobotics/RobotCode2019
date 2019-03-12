@@ -22,7 +22,9 @@ import frc.robot.commands.AutoRocketFar;
 import frc.robot.commands.AutoRocketNear;
 import frc.robot.commands.CommandBase;
 import frc.robot.commands.TestBallMech;
+import frc.robot.commands.TestClimber;
 import frc.robot.commands.TestDrive;
+import frc.robot.commands.TestElevator;
 import frc.robot.commands.TestHatchMech;
 
 public class Robot extends TimedRobot {
@@ -38,6 +40,15 @@ public class Robot extends TimedRobot {
 	public static NetworkTableEntry driveGyro;
 	public static NetworkTableEntry ballIn;
 	public static NetworkTableEntry ballOut;
+
+	public static NetworkTableEntry elevatorLimit;
+	public static NetworkTableEntry elevatorEncoder;
+	public static NetworkTableEntry elevatorPosition;
+
+	public static NetworkTableEntry climberLeft;
+	public static NetworkTableEntry climberRight;
+	public static NetworkTableEntry climberBack;
+	public static NetworkTableEntry climberWheel;
 
 	@Override
 	public void robotInit() {
@@ -60,6 +71,8 @@ public class Robot extends TimedRobot {
 		testCommands.add(new TestHatchMech());
 		testCommands.add(new TestDrive());
 		testCommands.add(new TestBallMech());
+		testCommands.add(new TestElevator());
+		testCommands.add(new TestClimber());
 
 		ShuffleboardLayout hatchValues = Shuffleboard.getTab("Systems Check")
 				.getLayout("Hatch Mech", BuiltInLayouts.kList).withSize(2, 2).withPosition(0, 0);
@@ -73,9 +86,22 @@ public class Robot extends TimedRobot {
 		driveGyro = driveValues.add("IMU", false).getEntry();
 
 		ShuffleboardLayout ballValues = Shuffleboard.getTab("Systems Check")
-				.getLayout("Ball Mech", BuiltInLayouts.kList).withSize(2, 2).withPosition(3, 0);
+				.getLayout("Ball Mech", BuiltInLayouts.kList).withSize(2, 2).withPosition(0, 2);
 		ballIn = ballValues.add("In", false).getEntry();
 		ballOut = ballValues.add("Out", false).getEntry();
+
+		ShuffleboardLayout elevatorValues = Shuffleboard.getTab("Systems Check")
+				.getLayout("Elevator", BuiltInLayouts.kList).withSize(2, 3).withPosition(4, 0);
+		elevatorLimit = elevatorValues.add("Bottom Limit", false).getEntry();
+		elevatorEncoder = elevatorValues.add("Encoder", false).getEntry();
+		elevatorPosition = elevatorValues.add("Position", false).getEntry();
+
+		ShuffleboardLayout climberValues = Shuffleboard.getTab("Systems Check")
+				.getLayout("Climber", BuiltInLayouts.kList).withSize(2, 4).withPosition(6	, 0);
+		climberLeft = climberValues.add("Left Jack", false).getEntry();
+		climberRight = climberValues.add("Right Jack", false).getEntry();
+		climberBack = climberValues.add("Back Jack", false).getEntry();
+		climberWheel = climberValues.add("Wheel", false).getEntry();
 
 		resetIMU();
 	}
@@ -121,6 +147,9 @@ public class Robot extends TimedRobot {
 	public void teleopInit() {
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
+		}
+		if(!OI.isConfigured) {
+			CommandBase.oi.configDriverControls();
 		}
 	}
 

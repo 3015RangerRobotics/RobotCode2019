@@ -1,23 +1,15 @@
 package frc.robot.commands;
 
-import frc.robot.OI;
+import edu.wpi.first.wpilibj.command.Command;
 
-public class CancelCommand extends CommandBase {
-	public CancelCommand() {
-		requires(ballMech);
+public class TestClimber extends CommandBase {
+	public TestClimber() {
 		requires(climber);
-		requires(drive);
-		requires(elevator);
-		requires(hatchMech);
-		requires(intakeAid);
-		requires(ourCompressor);
 	}
 
 	@Override
 	protected void initialize() {
-		if(!OI.isConfigured) {
-			CommandBase.oi.configDriverControls();
-		}
+		climber.selfTest();
 	}
 
 	@Override
