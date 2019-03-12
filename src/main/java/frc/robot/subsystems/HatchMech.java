@@ -1,18 +1,11 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.StatTracker;
-import frc.robot.commands.CommandBase;
 
 public class HatchMech extends Subsystem {
 	private DoubleSolenoid hatchGrabber;
@@ -30,7 +23,6 @@ public class HatchMech extends Subsystem {
 
 	public void hatchGrabberExtend() {
 		hatchGrabber.set(Value.kForward);
-		StatTracker.addHatchExtension();
 	}
 
 	public void hatchGrabberRetract() {

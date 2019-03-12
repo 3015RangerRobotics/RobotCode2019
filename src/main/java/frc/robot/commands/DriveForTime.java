@@ -32,7 +32,6 @@ public class DriveForTime extends CommandBase {
 	@Override
 	protected void end() {
 		drive.setMotorOutputs(ControlMode.PercentOutput, 0, 0);
-		System.out.println("Left: " + drive.getLeftDistance() + ", Right: " + drive.getRightDistance());
 	}
 
 	@Override

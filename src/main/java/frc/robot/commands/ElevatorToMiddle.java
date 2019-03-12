@@ -2,8 +2,8 @@ package frc.robot.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-public class ElevatorToBallTop extends CommandBase {
-	public ElevatorToBallTop() {
+public class ElevatorToMiddle extends CommandBase {
+	public ElevatorToMiddle() {
 		requires(elevator);
 	}
 
@@ -13,8 +13,7 @@ public class ElevatorToBallTop extends CommandBase {
 
 	@Override
 	protected void execute() {
-		elevator.set(ControlMode.MotionMagic, elevator.ballTop * elevator.pulsesPerInch);
-		// elevator.set(ControlMode.Position, elevator.ballTop * elevator.pulsesPerInch);
+		elevator.set(ControlMode.MotionMagic, (elevator.elevatorHeightMiddle * elevator.pulsesPerInch));
 	}
 
 	@Override

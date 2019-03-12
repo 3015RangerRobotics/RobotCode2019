@@ -1,10 +1,7 @@
 package frc.robot.commands;
 
-import frc.robot.StatTracker;
-
 public class BallMechControlDown extends CommandBase {
 	boolean ballAtStart;
-	boolean ballTracked = false;
 
 	public BallMechControlDown() {
 		requires(ballMech);
@@ -19,10 +16,7 @@ public class BallMechControlDown extends CommandBase {
 	protected void execute() {
 		if (ballMech.isBallPresent() && !ballAtStart) {
 			ballMech.intakeStop();
-			if (!ballTracked) {
-				StatTracker.addCargoHandled();
-				ballTracked = true;
-			}
+			oi.driverRumble(1.0);
 		}
 		else{
 			ballMech.intakeDown();
@@ -37,6 +31,7 @@ public class BallMechControlDown extends CommandBase {
 	@Override
 	protected void end() {
 		ballMech.intakeStop();
+		oi.driverRumble(0.0);
 	}
 
 	@Override

@@ -2,8 +2,8 @@ package frc.robot.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-public class ClimberCenterPrepareLow extends CommandBase {
-	public ClimberCenterPrepareLow() {
+public class ClimberPrepareLow extends CommandBase {
+	public ClimberPrepareLow() {
 		requires(climber);
 	}
 
@@ -15,7 +15,6 @@ public class ClimberCenterPrepareLow extends CommandBase {
 	@Override
 	protected void execute() {
 		climber.setCenter(ControlMode.PercentOutput, 0.5);
-		// System.out.println("hi my name is Keyshawn and I love lasagna");
 		System.out.println(climber.getCenterPosition());
 	}
 

@@ -7,7 +7,6 @@ public class HatchGrabberToggle extends CommandBase {
 
 	@Override
 	protected void initialize() {
-		// System.out.println(hatchMech.isExtended());
 		if(hatchMech.isGrabberExtended()){
 			hatchMech.hatchGrabberRetract();
 		}else{

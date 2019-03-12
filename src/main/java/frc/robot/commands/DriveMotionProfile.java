@@ -89,12 +89,12 @@ public class DriveMotionProfile extends CommandBase {
 
 	protected synchronized void threadedExecute() {
 		if (i == 24) {
-		if (drive.getLeftDistance() == 0) {
-		DriverStation.reportError("yo man left encoder is dead man", false);
-		new DriveForTime(.5, 3).start();
-		} else if (drive.getRightDistance() == 0) {
-		DriverStation.reportError("aw dang right encoder is chooched", false);
-		new DriveForTime(.5, 3).start();
+			if (drive.getLeftDistance() == 0) {
+				DriverStation.reportError("yo man left encoder is dead man", false);
+				new DriveForTime(.5, 1.5).start();
+			} else if (drive.getRightDistance() == 0) {
+				DriverStation.reportError("aw dang right encoder is chooched", false);
+				new DriveForTime(.5, 1.5).start();
 			}
 		}
 
@@ -132,7 +132,8 @@ public class DriveMotionProfile extends CommandBase {
 			SmartDashboard.putNumber("TargetRight", goalPosR);
 			SmartDashboard.putNumber("ActualRight", drive.getRightDistance());
 
-			// System.out.println(goalPosL + "," + drive.getLeftDistance() + "," + goalPosR + "," + drive.getRightDistance());
+			// System.out.println(goalPosL + "," + drive.getLeftDistance() + "," + goalPosR
+			// + "," + drive.getRightDistance());
 
 			// NetworkTableInstance.getDefault().flush();
 

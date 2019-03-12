@@ -5,46 +5,41 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.DriveHelper;
 import frc.robot.DriveSignal;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.StatTracker;
 import frc.robot.commands.DriveWithGamepad;
 
 public class Drive extends Subsystem {
-	public final double kV = 0.067;// 1 / 14;
-	public final double kA = 0.034;// 0.04; 
+	public final double kV = 0.067;
+	public final double kA = 0.034;
 
 	public final double kDistancePerPulse = 0.00904774;
 
-	public final double kDriveP = 1.8; // 2.75;
-	public final double kDriveD = 0.0; // 0.05;
+	public final double kDriveP = 1.8;
+	public final double kDriveD = 0.0;
 
 	public final double kVTurn = 0;
 	public final double kATurn = 0;
 
-	public final double kTurnP = 0.006;// 0.014;
+	public final double kTurnP = 0.006;
 	public final double kTurnI = 0.0;
-	public final double kTurnD = 0.01;// 0.034;
+	public final double kTurnD = 0.01;
 
-	public final double kTurnPEncoder = 6.0;// 5.5;
-	public final double kTurnDEncoder = 0.035;//0.05;
-	public final double kVEncoder = 0.067;//0.14;
-	public final double kAEncoder = 0.025; //0.033; 
+	public final double kTurnPEncoder = 6.0;
+	public final double kTurnDEncoder = 0.035;
+	public final double kVEncoder = 0.067;
+	public final double kAEncoder = 0.025; 
 
 	public final double kTurnPGyro = 0.02;
-	public final double kTurnDGyro = 0.000;//5;
+	public final double kTurnDGyro = 0.000;
 	public final double kVGyro = 1.0 / 400.0;
-	public final double kAGyro = 0.0015;//0.0012;
+	public final double kAGyro = 0.0015;
 
 	public final double speedModTopHeight = 0.75; // 0.5;
 	public final double speedModMidHeight = 0.75;
@@ -63,9 +58,6 @@ public class Drive extends Subsystem {
 
 	private Encoder leftEncoder;
 	private Encoder rightEncoder;
-
-	private double lastDistanceLeft = 0.0;
-	private double lastDistanceRight = 0.0;
 
 	public Drive() {
 		SmartDashboard.putNumber("kDriveP", kDriveP);
@@ -102,9 +94,6 @@ public class Drive extends Subsystem {
 		rightFollower1.follow(rightMaster);
 		rightFollower2.follow(rightMaster);
 
-		// leftMaster.configNeutralDeadband(0.01);
-		// rightMaster.configNeutralDeadband(0.01);
-
 		rightMaster.setInverted(true);
 		rightFollower1.setInverted(true);
 		rightFollower2.setInverted(true);
@@ -118,21 +107,6 @@ public class Drive extends Subsystem {
 		rightMaster.setNeutralMode(NeutralMode.Brake);
 		rightFollower1.setNeutralMode(NeutralMode.Brake);
 		rightFollower2.setNeutralMode(NeutralMode.Brake);
-
-		// leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-		// rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-
-		// rightMaster.setSensorPhase(true);
-		// leftMaster.setSensorPhase(false);
-
-		// leftMaster.config_kP(0, kDriveP);
-		// leftMaster.config_kI(0, kDriveI);
-		// leftMaster.config_kD(0, kDriveD);
-		// leftMaster.config_kF(0, kDriveF);
-		// rightMaster.config_kP(0, kDriveP);
-		// rightMaster.config_kI(0, kDriveI);
-		// rightMaster.config_kD(0, kDriveD);
-		// rightMaster.config_kF(0, kDriveF);
 
 		leftMaster.enableVoltageCompensation(true);
 		leftMaster.configVoltageCompSaturation(12.5);
@@ -152,15 +126,7 @@ public class Drive extends Subsystem {
 
 	@Override
 	public void periodic() {
-		if (DriverStation.getInstance().isEnabled()) {
-			double left = getLeftDistance();
-			double right = getRightDistance();
-			StatTracker.addDriveDistance(left - this.lastDistanceLeft, right - this.lastDistanceRight);
-			this.lastDistanceLeft = left;
-			this.lastDistanceRight = right;
-		}
-
-		// System.out.println(getLeftVelocity());
+		
 	}
 
 	public void resetEncoders() {

@@ -2,8 +2,6 @@ package frc.robot.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import frc.robot.Robot;
-
 public class DriveWithGamepad extends CommandBase {
 
 	public DriveWithGamepad() {
@@ -25,23 +23,12 @@ public class DriveWithGamepad extends CommandBase {
 			turnValue *= drive.fineAdjustTurn;
 		}
 
-		// if (elevator.getDistance() > 40) {
-		// 	driveValue *= drive.speedModTopHeight;
-		// 	turnValue *= drive.turnModTopHeight;
-		// } else if (elevator.getDistance() > 20) {
-		// 	driveValue *= drive.speedModMidHeight;
-		// }
-
 		if (Math.abs(oi.getDriverRightStickX()) >= 0.1 && !oi.isDriverRightStickPressed()) {
 			drive.curvatureDrive(driveValue, oi.getDriverRightStickX() / 1.25, false, true);
 		} else {
 			drive.arcadeDrive(driveValue, turnValue, true);
 		
 		}
-
-		// System.out.println(Robot.getRotationalVelocity());
-		// System.out.println("Pitch: " + Robot.getPitch() + ", Roll: " + Robot.getRoll());
-
 	}
 
 	@Override
@@ -52,7 +39,6 @@ public class DriveWithGamepad extends CommandBase {
 	@Override
 	protected void end() {
 		drive.setMotorOutputs(ControlMode.PercentOutput, 0, 0);
-		drive.setRampRate(0);
 	}
 
 	@Override

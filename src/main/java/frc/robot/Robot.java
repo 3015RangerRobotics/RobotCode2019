@@ -1,21 +1,9 @@
 package frc.robot;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 import com.kauailabs.navx.frc.AHRS;
 
-import org.opencv.calib3d.Calib3d;
-import org.opencv.core.Mat;
-import org.opencv.core.MatOfDouble;
-import org.opencv.core.MatOfPoint2f;
-import org.opencv.core.MatOfPoint3f;
-import org.opencv.core.Point;
-import org.opencv.core.Point3;
-import org.opencv.imgproc.Imgproc;
-
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -23,7 +11,6 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
@@ -55,12 +42,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		imu = new AHRS(Port.kMXP);
-		// UsbCamera camera = new UsbCamera("USB Camera", 0);
-		// camera.setResolution(640, 360);
-		// camera.setFPS(30);
-		// CameraServer.getInstance().startAutomaticCapture(0);
 
-		StatTracker.init();
 		CommandBase.init();
 
 		chooser.addOption("Back Rocket", new AutoRocketFar(false));
@@ -123,10 +105,11 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		autonomousCommand = chooser.getSelected();
 
+		resetIMU();
+
 		if (autonomousCommand != null) {
 			autonomousCommand.start();
 		}
-		resetIMU();
 	}
 
 	@Override
@@ -144,8 +127,6 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("Gyro1", imu.getAngle());
-		// System.out.println(imu.getAngle());
 	}
 
 	@Override
@@ -153,7 +134,7 @@ public class Robot extends TimedRobot {
 	}
 
 	public static float getRoll() {
-		return imu.getRoll() + 35;
+		return imu.getRoll() + 35; // roborio/navx mounted at -35 degrees
 	}
 
 	public static float getPitch() {
@@ -178,37 +159,10 @@ public class Robot extends TimedRobot {
 
 	public static double getTargetXAngle() {
 		return SmartDashboard.getNumber("TargetXAngle", -1);
-		// double rawXAngle = SmartDashboard.getNumber("TargetXAngle", -1);
-		// double targetDistance = SmartDashboard.getNumber("TargetDistance", -1);
-		// double angleInRadians = Math.toRadians(rawXAngle);
-		// if(targetDistance < 0){
-		// System.out.println("Target Distance < 0");
-		// return -1;
-		// }else{
-		// double a = getTargetDistance();
-		// System.out.println(a);
-		// double correctedAngle = Math.toDegrees(Math.asin((targetDistance *
-		// Math.sin(angleInRadians)) / a));
-		// return correctedAngle;
-		// }
 	}
 
 	public static double getTargetDistance() {
 		return SmartDashboard.getNumber("TargetDistance", -1);
-		// double rawXAngle = SmartDashboard.getNumber("TargetXAngle", -1);
-		// double targetDistance = SmartDashboard.getNumber("TargetDistance", -1);
-		// double angleInRadians = Math.toRadians(rawXAngle);
-		// if(targetDistance < 0) {
-		// System.out.println("Target Distance < 0");
-		// return -1;
-		// }else{
-		// double correctedDistance = Math.sqrt((RobotMap.tapeCameraOffset *
-		// RobotMap.tapeCameraOffset) +
-		// (targetDistance * targetDistance) - (2 * RobotMap.tapeCameraOffset *
-		// targetDistance
-		// * Math.cos(angleInRadians)));
-		// return correctedDistance;
-		// }
 	}
 
 	public static void setVisionModeTape() {

@@ -49,50 +49,23 @@ public class OI {
 	Button coDriverStartSelect = new DoubleButton(coDriverSEL7, coDriverSTART8);
 
 	public OI() {
-		// driverRB6.whenPressed(new AutoCargoSide());
-		// driverA1.whenPressed(new HatchGrabberExtend());
-		// driverB2.whenPressed(new HatchGrabberRetract());
-		// driverX3.whenPressed(new HatchArmExtend());
-		// driverY4.whenPressed(new HatchArmRetract());
-
-		// driverLB5.whileHeld(new BallMechDown());
-		// driverRB6.whileHeld(new BallMechUp());
-		// driverA1.whenPressed(new ElevatorToBottom());
-		// driverB2.whenPressed(new ElevatorToBallMiddle());
-		// driverY4.whenPressed(new ElevatorToBallTop());
-		// driverStartSelect.whenPressed(new CancelCommand());
-
-		// // driverRB6.whenPressed(new AutoCenterCargo());
-		// driverRB6.whenPressed(new DriveMotionProfile("traction_config"));
-		// driverLB5.whenPressed(new DriveForTime(0.3, 5));
-		// // driverRB6.whenPressed(new AutoRocketNear());
-		// // driverRB6.whenPressed(new AutoCargoSide());
-		// // // driverRB6.whenPressed(new AutoCargoSideSegmented());
-		// driverLB5.whenPressed(new DriveTurnToAngleWithEncoders(90, 14, 10));
-		// driverRB6.whenPressed(new DriveTurnToAngleWithEncoders(90, 14, 10));
-		// driverRB6.whenPressed(new DriveTurnToAngle(90));
-		// driverA1.whenPressed(new HatchGrabberExtend());
-		// driverB2.whenPressed(new HatchGrabberRetract());
-		// driverX3.whenPressed(new HatchArmExtend());
-		// driverY4.whenPressed(new HatchArmRetract());
-
 		driverA1.whileHeld(new BallMechControlDown());
 		driverB2.whileHeld(new BallMechControlUp());
 		driverRTrigger.whenPressed(new HatchGrabberToggle());
 		driverLTrigger.whenPressed(new HatchArmToggle());
 		driverStartSelect.whenPressed(new CancelCommand());
 
-		driverRB6.whenPressed(new AutoRocketFar(false));
+		// driverRB6.whenPressed(new AutoRocketFar(false));
 
 		coDriverA1.whenPressed(new ElevatorToBottom());
-		coDriverB2.whenPressed(new ElevatorToBallMiddle());
-		coDriverY4.whenPressed(new ElevatorToBallTop());
+		coDriverB2.whenPressed(new ElevatorToMiddle());
+		coDriverY4.whenPressed(new ElevatorToTop());
 		coDriverLB5.whenPressed(new ElevatorToAllianceWall());
 		coDriverRTrigger.whenPressed(new HatchGrabberToggle());
 		coDriverDLeft.whenPressed(new ClimberPrepareHigh());
 		coDriverDUp.whenPressed(new ClimberLevel3());
 		coDriverDDown.whenPressed(new ClimberLevel2());
-		coDriverDRight.whenPressed(new ClimberCenterPrepareLow());
+		coDriverDRight.whenPressed(new ClimberPrepareLow());
 		coDriverStartSelect.whenPressed(new CancelCommand());
 	}
 

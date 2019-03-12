@@ -2,8 +2,8 @@ package frc.robot.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-public class ElevatorToCargoHeight extends CommandBase {
-	public ElevatorToCargoHeight() {
+public class ElevatorToTop extends CommandBase {
+	public ElevatorToTop() {
 		requires(elevator);
 	}
 
@@ -13,8 +13,7 @@ public class ElevatorToCargoHeight extends CommandBase {
 
 	@Override
 	protected void execute() {
-		elevator.set(ControlMode.MotionMagic, elevator.elevatorHeightCargo * elevator.pulsesPerInch);
-		// elevator.set(ControlMode.Position, elevator.elevatorHeightCargo * elevator.pulsesPerInch);
+		elevator.set(ControlMode.MotionMagic, elevator.elevatorHeightTop * elevator.pulsesPerInch);
 	}
 
 	@Override

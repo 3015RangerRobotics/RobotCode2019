@@ -34,7 +34,6 @@ public class RobotMap {
 	public static final int climberLeftJackTalonSRX = 17; // Left Jack
 	public static final int climberRightJackTalonSRX = 18; // Right Jack
 	public static final int climberCenterWheelsVictorSP = 4;
-	public static final int climberDistanceSensor = 1;
 
 	public enum Side {
 		kLeft, kRight

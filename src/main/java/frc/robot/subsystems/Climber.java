@@ -5,23 +5,16 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.StatTracker;
-import frc.robot.commands.ClimberTest;
-import frc.robot.commands.CommandBase;
 
 public class Climber extends Subsystem {
 	private TalonSRX centerJackTalonSRX;
 	private TalonSRX leftJackTalonSRX;
 	private TalonSRX rightJackTalonSRX;
 	private VictorSP centerWheelsVictorSP;
-	private AnalogInput distanceSensor;
 
 	private double backP = 0.7;
 	private double backD = 0;
@@ -41,19 +34,11 @@ public class Climber extends Subsystem {
 
 	public final double climbSpeed = 10;
 
-	private double lastDistance = 0;
-
-	// +roll = lean right
-	// -roll = lean left
-	// +pitch = lean forward
-	// -pitch = lean backward
-
 	public Climber() {
 		this.centerJackTalonSRX = new TalonSRX(RobotMap.climberCenterJackTalonSRX);
 		this.leftJackTalonSRX = new TalonSRX(RobotMap.climberLeftJackTalonSRX);
 		this.rightJackTalonSRX = new TalonSRX(RobotMap.climberRightJackTalonSRX);
 		this.centerWheelsVictorSP = new VictorSP(RobotMap.climberCenterWheelsVictorSP);
-		this.distanceSensor = new AnalogInput(RobotMap.climberDistanceSensor);
 
 		centerJackTalonSRX.configFactoryDefault();
 		leftJackTalonSRX.configFactoryDefault();
@@ -68,7 +53,6 @@ public class Climber extends Subsystem {
 		rightJackTalonSRX.setNeutralMode(NeutralMode.Brake);
 
 		centerWheelsVictorSP.setInverted(true);
-		// centerJackTalonSRX.setInverted(true);
 		rightJackTalonSRX.setInverted(true);
 		leftJackTalonSRX.setSensorPhase(true);
 		rightJackTalonSRX.setSensorPhase(true);
@@ -100,23 +84,12 @@ public class Climber extends Subsystem {
 
 	@Override
 	public void initDefaultCommand() {
-		// setDefaultCommand(new ClimberTest());
+		
 	}
 
 	@Override
 	public void periodic() {
-		if(DriverStation.getInstance().isEnabled()){
-			double d = Math.max(this.getBackLeftPosition() / 12, this.getBackRightPosition() / 12);
-			StatTracker.addClimbDistance(Math.abs(d - lastDistance));
-			lastDistance = d;
-		}
-		// System.out.println("roll: " + Robot.getRoll() + ", pitch: " +
-		// Robot.getPitch() + ", yaw: " + Robot.getYaw());
-		// System.out.println(getDistanceToWall());
-		// System.out.println("X: " + Robot.getXPos() + ", Y: " + Robot.getYPos() + ",
-		// Z: " + Robot.getZPos());
-
-		// System.out.println(getCenterPosition());
+		
 	}
 
 	public void setCenter(ControlMode mode, double value) {
@@ -159,20 +132,8 @@ public class Climber extends Subsystem {
 		return (centerJackTalonSRX.getSelectedSensorVelocity() / pulsesPerInchCenter) * 10;
 	}
 
-	public double getDistanceToWall() {
-		return distanceSensor.getAverageVoltage() / RobotController.getInputVoltage() * 12.5;
-	}
-
 	public void setCenterWheels(double speed) {
 		centerWheelsVictorSP.set(speed);
-	}
-
-	public void test() {
-		leftJackTalonSRX.set(ControlMode.PercentOutput, CommandBase.oi.getDriverRightStickY());
-		rightJackTalonSRX.set(ControlMode.PercentOutput, CommandBase.oi.getDriverRightStickY());
-		centerJackTalonSRX.set(ControlMode.PercentOutput, CommandBase.oi.getDriverRightStickY());
-		System.out.println("Left: " + getBackLeftPosition() + ", Right: " + getBackRightPosition() + ", Center: "
-				+ getCenterPosition());
 	}
 
 	public double getRollOffset() {

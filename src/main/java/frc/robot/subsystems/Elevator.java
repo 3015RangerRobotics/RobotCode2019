@@ -5,11 +5,9 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
-import frc.robot.StatTracker;
 import frc.robot.commands.*;
 
 public class Elevator extends Subsystem {
@@ -17,28 +15,16 @@ public class Elevator extends Subsystem {
 	private DigitalInput elevatorBottomLimit;
 
 	public final double elevatorHeightBottom = 0;
-	public final double elevatorHeightHatch = 9;
-	public final double elevatorHeightCargo = 14;
-	public final double elevatorHeightWall = 18;
-
-	public final double allianceWall = 17.75;
-
-	public final double ballLow = 0.17;
-	public final double ballMiddle = 29.5;
-	public final double ballTop = 57.1;
-
-	public final double hatchLow = 0.23; // Acquisition from wall
-	public final double hatchMiddle = 36.1;
-	public final double hatchTop = 61;
+	public final double elevatorHeightMiddle = 29.5;
+	public final double elevatorHeightTop = 57.0;
+	public final double elevatorHeightWall = 17.75;
 
 	public final double kElevatorP = 7.5;
 	public final double kElevatorI = 0.0;
-	public final double kElevatorD = 0.0; //0.3;
+	public final double kElevatorD = 0.0;
 	public final double kElevatorF = 1023 / 3000;
 
 	public final double pulsesPerInch = 331;
-
-	private double lastDistance = 0.0;
 
 	private boolean lastLimit = false;
 
@@ -69,7 +55,7 @@ public class Elevator extends Subsystem {
 
 	@Override
 	public void initDefaultCommand() {
-		// setDefaultCommand(new ElevatorRightStick());
+		
 	}
 
 	public void periodic() {
@@ -81,23 +67,12 @@ public class Elevator extends Subsystem {
 		if (Math.abs(elevatorTalonSRX.getMotorOutputVoltage()) >= 4
 				&& Math.abs(elevatorTalonSRX.getSelectedSensorVelocity(0) / pulsesPerInch) < 0.25) {
 			CommandBase.oi.coDriverRumble(1.0);
-			System.out.println("uh oh spaghettio");
 		} else {
 			CommandBase.oi.coDriverRumble(0);
 		}
 
 		SmartDashboard.putNumber("Elevator Encoder", getDistance());
 		SmartDashboard.putBoolean("Elevator Bottom", isAtBottom());
-
-		if (DriverStation.getInstance().isEnabled()) {
-			double distance = this.elevatorTalonSRX.getSelectedSensorPosition() / this.pulsesPerInch / 12;
-			StatTracker.addElevatorDistance(distance - lastDistance);
-			this.lastDistance = distance;
-		}
-
-		// System.out.println(isAtBottom());
-		// System.out.println(elevatorTalonSRX.getOutputCurrent());
-	
 	}
 
 	/**

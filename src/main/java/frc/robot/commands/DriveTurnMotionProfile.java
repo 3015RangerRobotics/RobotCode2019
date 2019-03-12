@@ -1,7 +1,5 @@
 package frc.robot.commands;
 
-import java.util.HashMap;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -10,7 +8,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.motionProfiles.MotionProfiles;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.RobotMap.Side;
 
 public class DriveTurnMotionProfile extends CommandBase {
 	private volatile boolean isFinished = false;
@@ -26,7 +23,6 @@ public class DriveTurnMotionProfile extends CommandBase {
 	@Override
 	protected void initialize() {
 		Robot.resetIMU();
-		// Timer.delay(.05);
 		SmartDashboard.putBoolean("PathRunning", true);
 		isFinished = false;
 		i = 0;
@@ -50,16 +46,6 @@ public class DriveTurnMotionProfile extends CommandBase {
 	}
 
 	protected synchronized void threadedExecute() {
-		// if (i == 24) {
-		// if (drive.getLeftDistance() == 0) {
-		// DriverStation.reportError("yo man left encoder is dead man", false);
-		// new DriveForTime(.5, 3).start();
-		// } else if (drive.getRightDistance() == 0) {
-		// DriverStation.reportError("aw dang right encoder is chooched", false);
-		// new DriveForTime(.5, 3).start();
-		// }
-		// }
-
 		if (i < profile.length) {
 			double goalPos = profile[i][0];
 			double goalVel = profile[i][1];
@@ -76,19 +62,11 @@ public class DriveTurnMotionProfile extends CommandBase {
 
 			double pwm = (kP * error) + (kD * errorDeriv) + (kV * goalVel) + (kA * goalAcc);
 
-			// System.out.println(pwm);
-			// System.out.println(goalVel);
-			// System.out.println(goalPos);
-
 			SmartDashboard.putNumber("TargetLeft", goalPos);
 			SmartDashboard.putNumber("ActualLeft", Robot.getYaw());
 
 			SmartDashboard.putNumber("TargetRight", goalPos);
 			SmartDashboard.putNumber("ActualRight", Robot.getYaw());
-
-			// System.out.println(goalPosL + "," + drive.getLeftDistance() + "," + goalPosR + "," + drive.getRightDistance());
-
-			// NetworkTableInstance.getDefault().flush();
 
 			prevError = error;
 

@@ -20,7 +20,6 @@ public class ClimberHoldAndDrive extends CommandBase {
 		climber.setCenter(ControlMode.PercentOutput, 0.1);
 		drive.arcadeDrive(-0.4, 0, false);
 		climber.setCenterWheels(1.0);
-		// System.out.println("Hi Michael you look nice today!");
 	}
 
 	@Override

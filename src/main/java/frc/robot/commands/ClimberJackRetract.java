@@ -10,8 +10,7 @@ public class ClimberJackRetract extends CommandBase {
 
 	@Override
 	protected void initialize() {
-		// climber.setBackPosition(climber.backPosRetract);
-		// climber.setCenterPosition(climber.centerPosRetract);
+		
 	}
 
 	@Override
