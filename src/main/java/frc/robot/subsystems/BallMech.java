@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
@@ -26,7 +27,7 @@ public class BallMech extends Subsystem {
 
 	@Override
 	public void periodic() {
-		// System.out.println(isBallPresent());
+		System.out.println("isBallPresent: " + isBallPresent());
 	}
 
 	public boolean isBallPresent() {
@@ -51,10 +52,12 @@ public class BallMech extends Subsystem {
 
 		intakeUp();
 		while(!isBallPresent()){}
+		intakeStop();	
 		Robot.ballIn.setBoolean(true);
 		Timer.delay(1);
 		intakeDown();
 		Timer.delay(0.5);
 		Robot.ballOut.setBoolean(!isBallPresent());
+		intakeStop();
 	}
 }

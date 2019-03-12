@@ -34,6 +34,7 @@ import frc.robot.commands.AutoCenterCargo;
 import frc.robot.commands.AutoRocketFar;
 import frc.robot.commands.AutoRocketNear;
 import frc.robot.commands.CommandBase;
+import frc.robot.commands.TestBallMech;
 import frc.robot.commands.TestDrive;
 import frc.robot.commands.TestHatchMech;
 
@@ -43,7 +44,7 @@ public class Robot extends TimedRobot {
 
 	public static AHRS imu;
 
-	public static NetworkTableEntry hatchArm; 
+	public static NetworkTableEntry hatchArm;
 	public static NetworkTableEntry hatchNubs;
 	public static NetworkTableEntry driveLeft;
 	public static NetworkTableEntry driveRight;
@@ -72,17 +73,19 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Gyro", imu);
 
 		ShuffleboardLayout testCommands = Shuffleboard.getTab("Systems Check")
-				.getLayout("Test Commands", BuiltInLayouts.kList).withSize(2, 2).withPosition(9, 0).withProperties(Map.of("Label position", "HIDDEN"));
+				.getLayout("Test Commands", BuiltInLayouts.kList).withSize(2, 2).withPosition(9, 0)
+				.withProperties(Map.of("Label position", "HIDDEN"));
 		testCommands.add(new TestHatchMech());
 		testCommands.add(new TestDrive());
+		testCommands.add(new TestBallMech());
 
 		ShuffleboardLayout hatchValues = Shuffleboard.getTab("Systems Check")
 				.getLayout("Hatch Mech", BuiltInLayouts.kList).withSize(2, 2).withPosition(0, 0);
 		hatchArm = hatchValues.add("Arm", false).getEntry();
 		hatchNubs = hatchValues.add("Nubs", false).getEntry();
 
-		ShuffleboardLayout driveValues = Shuffleboard.getTab("Systems Check")
-				.getLayout("Drive", BuiltInLayouts.kList).withSize(2, 3).withPosition(2, 0);
+		ShuffleboardLayout driveValues = Shuffleboard.getTab("Systems Check").getLayout("Drive", BuiltInLayouts.kList)
+				.withSize(2, 3).withPosition(2, 0);
 		driveLeft = driveValues.add("Left", false).getEntry();
 		driveRight = driveValues.add("Right", false).getEntry();
 		driveGyro = driveValues.add("IMU", false).getEntry();
@@ -92,8 +95,6 @@ public class Robot extends TimedRobot {
 		ballIn = ballValues.add("In", false).getEntry();
 		ballOut = ballValues.add("Out", false).getEntry();
 
-		
-		
 		resetIMU();
 	}
 
