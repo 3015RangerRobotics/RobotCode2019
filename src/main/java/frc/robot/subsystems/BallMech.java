@@ -1,8 +1,10 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 public class BallMech extends Subsystem {
@@ -41,5 +43,18 @@ public class BallMech extends Subsystem {
 
 	public void intakeStop() {
 		intakeMotor1.set(0);
+	}
+
+	public void selfTest() {
+		Robot.ballIn.setBoolean(false);
+		Robot.ballOut.setBoolean(false);
+
+		intakeUp();
+		while(!isBallPresent()){}
+		Robot.ballIn.setBoolean(true);
+		Timer.delay(1);
+		intakeDown();
+		Timer.delay(0.5);
+		Robot.ballOut.setBoolean(!isBallPresent());
 	}
 }

@@ -1,6 +1,7 @@
 package frc.robot;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -15,37 +16,40 @@ import org.opencv.imgproc.Imgproc;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutoCargoSide;
+import frc.robot.commands.AutoCenterCargo;
 import frc.robot.commands.AutoRocketFar;
 import frc.robot.commands.AutoRocketNear;
 import frc.robot.commands.CommandBase;
+import frc.robot.commands.TestDrive;
+import frc.robot.commands.TestHatchMech;
 
 public class Robot extends TimedRobot {
-	Command m_autonomousCommand;
-	SendableChooser<Command> m_chooser = new SendableChooser<>();
+	Command autonomousCommand;
+	SendableChooser<Command> chooser = new SendableChooser<>();
 
 	public static AHRS imu;
 
-	Command autoTest;
-
-	double TARGET_STRIP_WIDTH = 2;
-	double TARGET_STRIP_LENGTH = 5.5;
-	double TARGET_STRIP_ROTATION = Math.toRadians(14.5);
-	double TARGET_STRIP_CORNER_OFFSET = 4;
-
-	static MatOfPoint3f objPointsMatrix = new MatOfPoint3f();
-	static Mat cameraMatrix = new Mat();
-	static MatOfDouble distCoefficients = new MatOfDouble();
-
-	static double CAMERA_OFFSET_X = 0;
-	static double CAMERA_OFFSET_Z = 0;
-	static double CAMERA_TILT = 0;
+	public static NetworkTableEntry hatchArm; 
+	public static NetworkTableEntry hatchNubs;
+	public static NetworkTableEntry driveLeft;
+	public static NetworkTableEntry driveRight;
+	public static NetworkTableEntry driveGyro;
+	public static NetworkTableEntry ballIn;
+	public static NetworkTableEntry ballOut;
 
 	@Override
 	public void robotInit() {
@@ -55,75 +59,54 @@ public class Robot extends TimedRobot {
 		// camera.setFPS(30);
 		// CameraServer.getInstance().startAutomaticCapture(0);
 
-		// chooser.addOption("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", m_chooser);
-
 		StatTracker.init();
 		CommandBase.init();
 
-		autoTest = new AutoRocketFar(false);
+		chooser.addOption("Back Rocket", new AutoRocketFar(false));
+		chooser.addOption("Near Rocket", new AutoRocketNear(false));
+		chooser.addOption("Cargo Side", new AutoCargoSide(false));
+		chooser.addOption("Cargo Front", new AutoCenterCargo(false));
+		chooser.addOption("None", null);
 
+		SmartDashboard.putData("Auto Mode", chooser);
 		SmartDashboard.putData("Gyro", imu);
 
+		ShuffleboardLayout testCommands = Shuffleboard.getTab("Systems Check")
+				.getLayout("Test Commands", BuiltInLayouts.kList).withSize(2, 2).withPosition(9, 0).withProperties(Map.of("Label position", "HIDDEN"));
+		testCommands.add(new TestHatchMech());
+		testCommands.add(new TestDrive());
+
+		ShuffleboardLayout hatchValues = Shuffleboard.getTab("Systems Check")
+				.getLayout("Hatch Mech", BuiltInLayouts.kList).withSize(2, 2).withPosition(0, 0);
+		hatchArm = hatchValues.add("Arm", false).getEntry();
+		hatchNubs = hatchValues.add("Nubs", false).getEntry();
+
+		ShuffleboardLayout driveValues = Shuffleboard.getTab("Systems Check")
+				.getLayout("Drive", BuiltInLayouts.kList).withSize(2, 3).withPosition(2, 0);
+		driveLeft = driveValues.add("Left", false).getEntry();
+		driveRight = driveValues.add("Right", false).getEntry();
+		driveGyro = driveValues.add("IMU", false).getEntry();
+
+		ShuffleboardLayout ballValues = Shuffleboard.getTab("Systems Check")
+				.getLayout("Ball Mech", BuiltInLayouts.kList).withSize(2, 2).withPosition(3, 0);
+		ballIn = ballValues.add("In", false).getEntry();
+		ballOut = ballValues.add("Out", false).getEntry();
+
+		
+		
 		resetIMU();
-
-		double cos_a = Math.cos(TARGET_STRIP_ROTATION);
-        double sin_a = Math.sin(TARGET_STRIP_ROTATION);
-
-        // Top left corner of the right tape [x, y, z]
-		double[] pt = new double[] {TARGET_STRIP_CORNER_OFFSET, 0, 0};
-		ArrayList<Point3> rightStrip = new ArrayList<>();
-		rightStrip.add(new Point3(pt[0], pt[1], pt[2]));
-        // Top right corner of the right tape
-        pt[0] += TARGET_STRIP_WIDTH * cos_a;
-        pt[1] += TARGET_STRIP_WIDTH * sin_a;
-		rightStrip.add(new Point3(pt[0], pt[1], pt[2]));
-        // Bottom right corner of the right tape
-        pt[0] += TARGET_STRIP_LENGTH * sin_a;
-        pt[1] -= TARGET_STRIP_LENGTH * cos_a;
-		rightStrip.add(new Point3(pt[0], pt[1], pt[2]));
-        // Bottom left corner of the right tape
-        pt[0] -= TARGET_STRIP_WIDTH * cos_a;
-        pt[1] -= TARGET_STRIP_WIDTH * sin_a;
-		rightStrip.add(new Point3(pt[0], pt[1], pt[2]));
-
-        // Order is clockwise from the top left for right strip (strip)
-        // Left strip is a mirror of right strip
-		ArrayList<Point3> leftStrip = new ArrayList<>();
-		for(Point3 p: rightStrip){
-			leftStrip.add(new Point3(-p.x, p.y, p.z));
-		}
-
-		ArrayList<Point3> objPoints = new ArrayList<>();
-		objPoints.add(leftStrip.get(1));
-		objPoints.add(leftStrip.get(2));
-		objPoints.add(leftStrip.get(3));
-		objPoints.add(leftStrip.get(0));
-		objPoints.add(rightStrip.get(0));
-		objPoints.add(rightStrip.get(3));
-		objPoints.add(rightStrip.get(2));
-		objPoints.add(rightStrip.get(1));
-
-		objPointsMatrix.fromList(objPoints);
-		
-		cameraMatrix.put(0, 0, 772.53876202);
-		cameraMatrix.put(0, 2, 479.132337442);
-		cameraMatrix.put(1, 1, 769.052151477);
-		cameraMatrix.put(1, 2, 359.143001808);
-		cameraMatrix.put(2, 2, 1);
-		
-		ArrayList<Double> dist = new ArrayList<>();
-		dist.add(2.9684613693070039e-01);
-		dist.add(-1.4380252254747885e+00);
-		dist.add(-2.2098421479494509e-03);
-		dist.add(-3.3894563533907176e-03);
-		dist.add(2.5344430354806740e+00);
-
-		distCoefficients.fromList(dist);
 	}
 
 	@Override
 	public void robotPeriodic() {
+		SmartDashboard.putNumber("time", DriverStation.getInstance().getMatchTime());
+		String alliance = "white";
+		if (DriverStation.getInstance().getAlliance() == Alliance.Red) {
+			alliance = "red";
+		} else if (DriverStation.getInstance().getAlliance() == Alliance.Blue) {
+			alliance = "blue";
+		}
+		SmartDashboard.putString("alliance", alliance);
 	}
 
 	@Override
@@ -137,13 +120,12 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = m_chooser.getSelected();
+		autonomousCommand = chooser.getSelected();
 
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.start();
+		if (autonomousCommand != null) {
+			autonomousCommand.start();
 		}
 		resetIMU();
-		autoTest.start();
 	}
 
 	@Override
@@ -153,12 +135,9 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.cancel();
+		if (autonomousCommand != null) {
+			autonomousCommand.cancel();
 		}
-		autoTest.cancel();
-		// resetIMU();
-
 	}
 
 	@Override
@@ -261,35 +240,5 @@ public class Robot extends TimedRobot {
 
 	public static double getVisionXDistance() {
 		return SmartDashboard.getNumber("TargetXDistance", -1);
-	}
-
-	public static void test() {
-		double[] xPoints = SmartDashboard.getNumberArray("limelight/tcornx", new double[0]);
-		double[] yPoints = SmartDashboard.getNumberArray("limelight/tcorny", new double[0]);
-		ArrayList<Point> imgPoints = new ArrayList<>();
-		for(int i = 0; i < xPoints.length; i++){
-			imgPoints.add(new Point(xPoints[i], yPoints[i]));
-		}
-		MatOfPoint2f imgPointsMatrix = new MatOfPoint2f();
-		imgPointsMatrix.fromList(imgPoints);
-
-		Mat rvec = new Mat();
-		Mat tvec = new Mat();
-
-		Calib3d.solvePnP(objPointsMatrix, imgPointsMatrix, cameraMatrix, distCoefficients, rvec, tvec);
-
-		// x = tvec[0][0] + CAMERA_OFFSET_X
-        // z = (math.sin(CAMERA_TILT) * tvec[1][0]) + (math.cos(CAMERA_TILT) * tvec[2][0]) + CAMERA_OFFSET_Z
-        // distance = math.sqrt(x**2 + z**2)
-        // angle1 = math.degrees(math.atan2(x, z))
-        // rot, _ = cv2.Rodrigues(rvec)
-        // rot_inv = rot.transpose()
-        // pzero_world = np.matmul(rot_inv, self.camera_offset_rotated - tvec)
-        // angle2 = math.degrees(math.atan2(pzero_world[0][0], pzero_world[2][0]))
-		// return distance, angle1, angle2, x, z
-		
-		// double x = tvec.get(0, 0) + CAMERA_OFFSET_X;
-
-		System.out.println(tvec.get(0, 0));
 	}
 }

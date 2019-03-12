@@ -7,10 +7,15 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.DriveHelper;
 import frc.robot.DriveSignal;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.StatTracker;
 import frc.robot.commands.DriveWithGamepad;
@@ -197,5 +202,33 @@ public class Drive extends Subsystem {
 	public void setRampRate(double rampRate) {
 		leftMaster.configOpenloopRamp(rampRate);
 		rightMaster.configOpenloopRamp(rampRate);
+	}
+
+	public void selfTest() {
+		Robot.driveLeft.setBoolean(false);
+		Robot.driveRight.setBoolean(false);
+		Robot.driveGyro.setBoolean(false);
+
+		double leftStart = getLeftDistance();
+		setMotorOutputs(ControlMode.PercentOutput, 0.35, 0);
+		Timer.delay(0.5);
+		setMotorOutputs(ControlMode.PercentOutput, 0, 0);
+		Timer.delay(0.25);
+		System.out.println("Left: " + getLeftDistance());
+		if(getLeftDistance() - leftStart >= 0.5) {
+			Robot.driveLeft.setBoolean(true);
+		}
+
+		double rightStart = getRightDistance();
+		setMotorOutputs(ControlMode.PercentOutput, 0, 0.35);
+		Timer.delay(0.5);
+		setMotorOutputs(ControlMode.PercentOutput, 0, 0);
+		Timer.delay(0.25);
+		System.out.println("Right: " + getRightDistance());
+		if(getRightDistance() - rightStart >= 0.5) {
+			Robot.driveRight.setBoolean(true);
+		}
+
+		Robot.driveGyro.setBoolean(Robot.isIMUConnected());
 	}
 }

@@ -16,20 +16,20 @@ public class ClimberJackRetract extends CommandBase {
 
 	@Override
 	protected void execute() {
-		if (climber.getCenterPosition() >= .1) {
-			climber.setCenter(ControlMode.PercentOutput, -.3);
+		if (climber.getCenterPosition() >= 0.25) {
+			climber.setCenter(ControlMode.PercentOutput, -0.75);
 		} else {
 			climber.setCenter(ControlMode.PercentOutput, 0);
 		}
 
-		if (climber.getBackLeftPosition() >= .1) {
-			climber.setBackLeft(ControlMode.PercentOutput, -.3);
+		if (climber.getBackLeftPosition() >= 0.25) {
+			climber.setBackLeft(ControlMode.PercentOutput, -0.75);
 		} else {
 			climber.setBackLeft(ControlMode.PercentOutput, 0);
 		}
 
-		if (climber.getBackRightPosition() >= .1) {
-			climber.setBackRight(ControlMode.PercentOutput, -.3);
+		if (climber.getBackRightPosition() >= 0.25) {
+			climber.setBackRight(ControlMode.PercentOutput, -0.75);
 		} else {
 			climber.setBackRight(ControlMode.PercentOutput, 0);
 		}
@@ -37,8 +37,8 @@ public class ClimberJackRetract extends CommandBase {
 
 	@Override
 	protected boolean isFinished() {
-		return climber.getCenterPosition() <= 0.1 && climber.getBackLeftPosition() <= 0.1
-				&& climber.getBackRightPosition() <= 0.1;
+		return climber.getCenterPosition() <= 0.25 && climber.getBackLeftPosition() <= 0.25
+				&& climber.getBackRightPosition() <= 0.25;
 	}
 
 	@Override

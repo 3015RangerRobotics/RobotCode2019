@@ -8,18 +8,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
 
-public class TestCommand extends Command {
-	public TestCommand() {
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
+public class TestDrive extends CommandBase {
+	public TestDrive() {
+		requires(drive);
 	}
 
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		Robot.test();
+		drive.selfTest();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -42,6 +40,5 @@ public class TestCommand extends Command {
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		end();
 	}
 }

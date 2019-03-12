@@ -7,37 +7,33 @@
 
 package frc.robot.commands;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ClimberPrepareHighStep2 extends CommandBase {
-	public ClimberPrepareHighStep2() {
-		requires(climber);
+public class TestBallMech extends CommandBase {
+	public TestBallMech() {
+		requires(ballMech);
 	}
 
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		
+		ballMech.selfTest();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		climber.setCenter(ControlMode.PercentOutput, -0.5);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return climber.getCenterPosition() <= climber.centerPosHigh;
+		return true;
 	}
 
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		climber.setCenter(ControlMode.PercentOutput, 0);
 	}
 
 	// Called when another command which requires one or more of the same
