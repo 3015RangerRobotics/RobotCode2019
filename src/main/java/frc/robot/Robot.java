@@ -26,6 +26,7 @@ import frc.robot.commands.TestClimber;
 import frc.robot.commands.TestDrive;
 import frc.robot.commands.TestElevator;
 import frc.robot.commands.TestHatchMech;
+import frc.robot.commands.TestRobot;
 
 public class Robot extends TimedRobot {
 	Command autonomousCommand;
@@ -73,6 +74,7 @@ public class Robot extends TimedRobot {
 		testCommands.add(new TestBallMech());
 		testCommands.add(new TestElevator());
 		testCommands.add(new TestClimber());
+		testCommands.add(new TestRobot());
 
 		ShuffleboardLayout hatchValues = Shuffleboard.getTab("Systems Check")
 				.getLayout("Hatch Mech", BuiltInLayouts.kList).withSize(2, 2).withPosition(0, 0);
