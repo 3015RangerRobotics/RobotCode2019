@@ -3,9 +3,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.motionProfiles.MotionProfiles;
+import frc.robot.OI;
 
 public class AutoCenterCargo extends CommandGroup {
 	public AutoCenterCargo(boolean mirrored) {
+		this.setInterruptible(false);
 		addParallel(new HatchGrabberExtend());
 		addParallel(new HatchArmExtendDelayed(.5));
 		addSequential(new DriveMotionProfile("platform_to_cargo_center", mirrored));
@@ -20,5 +22,10 @@ public class AutoCenterCargo extends CommandGroup {
 		addSequential(new HatchGrabberExtend());
 		addSequential(new WaitCommand(0.25));
 		addSequential(new DriveMotionProfile("wall_backup"));
+	}
+
+	@Override
+	public boolean isFinished(){
+		return super.isFinished() || OI.isCancelledPressed();
 	}
 }

@@ -3,9 +3,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.motionProfiles.MotionProfiles;
+import frc.robot.OI;
 
 public class AutoRocketNear extends CommandGroup {
 	public AutoRocketNear(boolean mirrored) {
+		this.setInterruptible(false);
 		addSequential(new GyroReset());
 		addParallel(new HatchGrabberExtend());
 		addParallel(new HatchArmExtendDelayed(1));
@@ -23,6 +25,11 @@ public class AutoRocketNear extends CommandGroup {
 		addSequential(new HatchGrabberExtend());
 		addSequential(new WaitCommand(0.25));
 		addSequential(new DriveMotionProfile("wall_reverse_near", mirrored));	
+	}
+
+	@Override
+	public boolean isFinished(){
+		return super.isFinished() || OI.isCancelledPressed();
 	}
 }
 

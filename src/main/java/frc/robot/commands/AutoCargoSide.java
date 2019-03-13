@@ -3,10 +3,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.motionProfiles.MotionProfiles;
+import frc.robot.OI;
 
 public class AutoCargoSide extends CommandGroup {
 
 	public AutoCargoSide(boolean mirrored) {
+		this.setInterruptible(false);
 		addParallel(new HatchGrabberExtend());
 		addParallel(new HatchArmExtendDelayed(.5));
 		addSequential(new DriveMotionProfile(MotionProfiles.generate2DPF(16.9, mirrored ? -2.5 : 2.5, 0, 0, 10, 6, 100, false)));
@@ -25,6 +27,11 @@ public class AutoCargoSide extends CommandGroup {
 		addSequential(new HatchGrabberExtend());
 		addSequential(new WaitCommand(0.25));
 		addSequential(new DriveMotionProfile("wall_backup", mirrored));
+	}
+
+		@Override
+		public boolean isFinished(){
+		return super.isFinished() || OI.isCancelledPressed();
 	}
 }
 

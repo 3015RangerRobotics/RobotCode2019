@@ -3,9 +3,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.motionProfiles.MotionProfiles;
+import frc.robot.OI;
 
 public class AutoRocketFarLow extends CommandGroup {
 	public AutoRocketFarLow(boolean mirrored) {
+		this.setInterruptible(false);
 		addSequential(new GyroReset());
 		addParallel(new HatchGrabberExtend());
 		addParallel(new HatchArmExtendDelayed(1));
@@ -21,5 +23,10 @@ public class AutoRocketFarLow extends CommandGroup {
 		addSequential(new HatchGrabberExtend());
 		addSequential(new WaitCommand(0.25));
 		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(7, 16, 12, 300, true)));
+	}
+
+	@Override
+	public boolean isFinished(){
+		return super.isFinished() || OI.isCancelledPressed();
 	}
 }

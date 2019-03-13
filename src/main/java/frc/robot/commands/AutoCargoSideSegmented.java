@@ -3,9 +3,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.motionProfiles.MotionProfiles;
+import frc.robot.OI;
 
 public class AutoCargoSideSegmented extends CommandGroup {
 	public AutoCargoSideSegmented() {
+		this.setInterruptible(false);
 		// addParallel(new HatchGrabberExtend());
 		// addParallel(new HatchArmExtend());
 		// addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(16.4, 12, 8, 100, false)));
@@ -24,5 +26,10 @@ public class AutoCargoSideSegmented extends CommandGroup {
 		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(.5, 12, 8, 100, false)));
 		addSequential(new HatchGrabberRetract());
 		addSequential(new WaitCommand(1));
+	}
+
+	@Override
+	public boolean isFinished(){
+		return super.isFinished() || OI.isCancelledPressed();
 	}
 }
