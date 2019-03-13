@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutoCargoSide;
@@ -74,7 +75,9 @@ public class Robot extends TimedRobot {
 		testCommands.add(new TestBallMech());
 		testCommands.add(new TestElevator());
 		testCommands.add(new TestClimber());
-		testCommands.add(new TestRobot());
+
+		ShuffleboardTab testTab = Shuffleboard.getTab("Systems Check");
+		testTab.add(new TestRobot()).withSize(2, 1).withPosition(9, 2);
 
 		ShuffleboardLayout hatchValues = Shuffleboard.getTab("Systems Check")
 				.getLayout("Hatch Mech", BuiltInLayouts.kList).withSize(2, 2).withPosition(0, 0);

@@ -178,36 +178,35 @@ public class Climber extends Subsystem {
 		double backStart = getCenterPosition();
 		double wheelStart = centerWheelsVictorSP.get();
 
-		leftJackTalonSRX.set(ControlMode.PercentOutput, 0.2);
+		setBackLeft(ControlMode.PercentOutput, 0.2);
 		Timer.delay(1);
 		if(getBackLeftPosition() - leftStart > 1){
 			Robot.climberLeft.setBoolean(true);
 		}
-		leftJackTalonSRX.set(ControlMode.PercentOutput, -0.2);
-		Timer.delay(1.3);
-		leftJackTalonSRX.set(ControlMode.PercentOutput, 0);
-
+		setBackLeft(ControlMode.PercentOutput, -0.2);
+		Timer.delay(1);
+		setBackLeft(ControlMode.PercentOutput, 0);
 		Timer.delay(1);
 
-		rightJackTalonSRX.set(ControlMode.PercentOutput, 0.2);
+		setBackRight(ControlMode.PercentOutput, 0.2);
 		Timer.delay(1);
 		if(getBackRightPosition() - rightStart > 1){
 			Robot.climberRight.setBoolean(true);
 		}
-		rightJackTalonSRX.set(ControlMode.PercentOutput, -0.2);
-		Timer.delay(1.3);
-		rightJackTalonSRX.set(ControlMode.PercentOutput, 0);
+		setBackRight(ControlMode.PercentOutput, -0.2);
+		Timer.delay(1);
+		setBackRight(ControlMode.PercentOutput, 0);
 
 		Timer.delay(1);
 
-		centerJackTalonSRX.set(ControlMode.PercentOutput, 0.2);
+		setCenter(ControlMode.PercentOutput, 0.2);
 		Timer.delay(0.5);
 		if(getCenterPosition() - backStart > 1){
 			Robot.climberBack.setBoolean(true);
 		}
-		centerJackTalonSRX.set(ControlMode.PercentOutput, -0.2);
-		Timer.delay(1.3);
-		centerJackTalonSRX.set(ControlMode.PercentOutput, 0);
+		setCenter(ControlMode.PercentOutput, -0.2);
+		Timer.delay(1);
+		setCenter(ControlMode.PercentOutput, 0);
 
 		Timer.delay(1);
 

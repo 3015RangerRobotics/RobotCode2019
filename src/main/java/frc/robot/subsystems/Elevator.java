@@ -140,6 +140,9 @@ public class Elevator extends Subsystem {
 			if (getDistance() >= 28 && getDistance() <= 31) {
 				Robot.elevatorPosition.setBoolean(true);
 			}
+			while(!isAtBottom()) {
+				set(ControlMode.PercentOutput, -0.1);
+			}
 		} else {
 			System.out.println("Elevator Encoder/Limit Switch Broken");
 		}

@@ -11,7 +11,7 @@ public class AutoRocketFar extends CommandGroup {
 		addParallel(new HatchArmExtendDelayed(1));
 		addSequential(new DriveMotionProfile("backwards_to_far_rocket", mirrored));
 		addParallel(new ElevatorToTop());
-		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(3.2, 6, 4, 100, false)));
+		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(3.2, 5, 3, 100, false)));
 		addSequential(new DriveAutoConfirm());
 		addSequential(new HatchGrabberRetract());
 		addSequential(new WaitCommand(0.25));
