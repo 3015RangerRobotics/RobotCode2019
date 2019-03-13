@@ -30,6 +30,8 @@ public class RobotMap {
 	public static final int hatchArm1 = 7;
 	public static final int hatchArm2 = 6;
 
+	public static final int pressureSensor = 0;
+
 	public static final int climberCenterJackTalonSRX = 19; // Rear Jack
 	public static final int climberLeftJackTalonSRX = 17; // Left Jack
 	public static final int climberRightJackTalonSRX = 18; // Right Jack
