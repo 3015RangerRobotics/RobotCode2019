@@ -28,7 +28,7 @@ public class AutoRocketFar extends CommandGroup {
 	}
 
 	@Override
-	public boolean isFinished(){
+	public boolean isFinished() {
 		return super.isFinished() || OI.isCancelledPressed();
 	}
 }

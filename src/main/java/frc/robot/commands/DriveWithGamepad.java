@@ -18,7 +18,7 @@ public class DriveWithGamepad extends CommandBase {
 		double driveValue = oi.getDriverLeftStickY();
 		double turnValue = oi.getDriverLeftStickX() / 1.25;
 
-		if(oi.isDriverRightStickPressed()){
+		if (oi.isDriverRightStickPressed()) {
 			driveValue *= drive.fineAdjustDrive;
 			turnValue *= drive.fineAdjustTurn;
 		}
@@ -27,7 +27,7 @@ public class DriveWithGamepad extends CommandBase {
 			drive.curvatureDrive(driveValue, oi.getDriverRightStickX() / 1.25, false, true);
 		} else {
 			drive.arcadeDrive(driveValue, turnValue, true);
-		
+
 		}
 	}
 

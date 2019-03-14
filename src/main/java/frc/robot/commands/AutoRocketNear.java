@@ -24,12 +24,11 @@ public class AutoRocketNear extends CommandGroup {
 		addSequential(new DriveAutoConfirm());
 		addSequential(new HatchGrabberExtend());
 		addSequential(new WaitCommand(0.25));
-		addSequential(new DriveMotionProfile("wall_reverse_near", mirrored));	
+		addSequential(new DriveMotionProfile("wall_reverse_near", mirrored));
 	}
 
 	@Override
-	public boolean isFinished(){
+	public boolean isFinished() {
 		return super.isFinished() || OI.isCancelledPressed();
 	}
 }
-

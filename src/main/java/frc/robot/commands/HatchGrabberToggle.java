@@ -7,11 +7,11 @@ public class HatchGrabberToggle extends CommandBase {
 
 	@Override
 	protected void initialize() {
-		if(hatchMech.isGrabberExtended()){
+		if (hatchMech.isGrabberExtended()) {
 			hatchMech.hatchGrabberRetract();
-		}else{
+		} else {
 			hatchMech.hatchGrabberExtend();
-		}	
+		}
 	}
 
 	@Override

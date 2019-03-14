@@ -35,7 +35,6 @@ public class DriveTurnToAngleWithEncoders extends CommandBase {
 	}
 
 	protected void initialize() {
-		// Robot.resetIMU();
 		drive.resetEncoders();
 		isFinished = false;
 		i = 0;
@@ -111,9 +110,6 @@ public class DriveTurnToAngleWithEncoders extends CommandBase {
 			double pwmL = (kP * errorL) + (kD * errorDerivL) + (kV * goalVelL) + (kA * goalAccL);
 			double pwmR = (kP * errorR) + (kD * errorDerivR) + (kV * goalVelR) + (kA * goalAccR);
 
-			// System.out.println(goalPosL + ", " + goalPosR + ", " +
-			// drive.getLeftDistance() + ", " + drive.getRightDistance());
-
 			SmartDashboard.putNumber("TargetLeft", goalPosL);
 			SmartDashboard.putNumber("ActualLeft", drive.getLeftDistance());
 
@@ -145,12 +141,9 @@ public class DriveTurnToAngleWithEncoders extends CommandBase {
 
 	private void generateProfile(double profileAngle, double vel, double acc) {
 		double arcLength = (RobotMap.wheelBaseWidth * Math.PI) * (Math.abs(profileAngle) / 360);
-		arcLength *= 1.18; //1.152;
-
-		// System.out.println("Arc Length: " + arcLength);
+		arcLength *= 1.18; // 1.152;
 
 		double[][] profile = MotionProfiles.generate1DPF(arcLength, vel, acc, 100, false);
-		// double [][] profile = MotionProfiles.generate1D(arcLength, vel, acc, false);
 		leftMotion = new double[profile.length][3];
 		rightMotion = new double[profile.length][3];
 

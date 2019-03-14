@@ -11,7 +11,7 @@ public class DriveTurnToAngle extends CommandBase implements PIDOutput {
 	PIDController turnController;
 	double angle = 0;
 	int onTargetCount = 0;
-	double minTurn = 0.2; //0.2;
+	double minTurn = 0.2;
 	boolean isAbsolute = false;
 
 	public DriveTurnToAngle(double angle) {
@@ -32,13 +32,13 @@ public class DriveTurnToAngle extends CommandBase implements PIDOutput {
 	@Override
 	protected void initialize() {
 		double setpoint = 0;
-		if(isAbsolute) {
+		if (isAbsolute) {
 			setpoint = this.angle;
-		}else{
+		} else {
 			setpoint = Robot.getYaw() + this.angle;
-			if(setpoint > 180){
+			if (setpoint > 180) {
 				setpoint -= 360;
-			}else if(setpoint < -180){
+			} else if (setpoint < -180) {
 				setpoint += 360;
 			}
 		}
@@ -83,6 +83,6 @@ public class DriveTurnToAngle extends CommandBase implements PIDOutput {
 				output = minTurn;
 			}
 		}
-		drive.arcadeDrive(0, (output * 12.5 / RobotController.getInputVoltage()) , false);
+		drive.arcadeDrive(0, (output * 12.5 / RobotController.getInputVoltage()), false);
 	}
 }

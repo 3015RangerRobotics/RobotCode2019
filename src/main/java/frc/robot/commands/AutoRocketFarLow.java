@@ -12,7 +12,7 @@ public class AutoRocketFarLow extends CommandGroup {
 		addParallel(new HatchGrabberExtend());
 		addParallel(new HatchArmExtendDelayed(1));
 		addSequential(new DriveMotionProfile("backwards_to_far_rocket", mirrored));
-		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(3.4, 16, 12, 300, false))); 
+		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(3.4, 16, 12, 300, false)));
 		addSequential(new DriveAutoConfirm());
 		addSequential(new HatchGrabberRetract());
 		addSequential(new WaitCommand(0.25));
@@ -26,7 +26,7 @@ public class AutoRocketFarLow extends CommandGroup {
 	}
 
 	@Override
-	public boolean isFinished(){
+	public boolean isFinished() {
 		return super.isFinished() || OI.isCancelledPressed();
 	}
 }

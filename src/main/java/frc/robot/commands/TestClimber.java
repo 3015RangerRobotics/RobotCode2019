@@ -1,7 +1,5 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-
 public class TestClimber extends CommandBase {
 	public TestClimber() {
 		requires(climber);

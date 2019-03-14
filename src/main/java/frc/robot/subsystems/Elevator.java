@@ -140,7 +140,7 @@ public class Elevator extends Subsystem {
 			if (getDistance() >= 28 && getDistance() <= 31) {
 				Robot.elevatorPosition.setBoolean(true);
 			}
-			while(!isAtBottom()) {
+			while (!isAtBottom()) {
 				set(ControlMode.PercentOutput, -0.1);
 			}
 		} else {

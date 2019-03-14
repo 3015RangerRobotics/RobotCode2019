@@ -26,7 +26,6 @@ public class BallMech extends Subsystem {
 
 	@Override
 	public void periodic() {
-		// System.out.println("isBallPresent: " + ifsBallPresent());
 	}
 
 	public boolean isBallPresent() {
@@ -50,8 +49,9 @@ public class BallMech extends Subsystem {
 		Robot.ballOut.setBoolean(false);
 
 		intakeUp();
-		while(!isBallPresent()){}
-		intakeStop();	
+		while (!isBallPresent()) {
+		}
+		intakeStop();
 		Robot.ballIn.setBoolean(true);
 		Timer.delay(1);
 		intakeDown();

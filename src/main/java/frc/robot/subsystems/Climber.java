@@ -85,12 +85,12 @@ public class Climber extends Subsystem {
 
 	@Override
 	public void initDefaultCommand() {
-		
+
 	}
 
 	@Override
 	public void periodic() {
-		
+
 	}
 
 	public void setCenter(ControlMode mode, double value) {
@@ -176,11 +176,10 @@ public class Climber extends Subsystem {
 		double leftStart = getBackLeftPosition();
 		double rightStart = getBackRightPosition();
 		double backStart = getCenterPosition();
-		double wheelStart = centerWheelsVictorSP.get();
 
 		setBackLeft(ControlMode.PercentOutput, 0.2);
 		Timer.delay(1);
-		if(getBackLeftPosition() - leftStart > 1){
+		if (getBackLeftPosition() - leftStart > 1) {
 			Robot.climberLeft.setBoolean(true);
 		}
 		setBackLeft(ControlMode.PercentOutput, -0.2);
@@ -190,7 +189,7 @@ public class Climber extends Subsystem {
 
 		setBackRight(ControlMode.PercentOutput, 0.2);
 		Timer.delay(1);
-		if(getBackRightPosition() - rightStart > 1){
+		if (getBackRightPosition() - rightStart > 1) {
 			Robot.climberRight.setBoolean(true);
 		}
 		setBackRight(ControlMode.PercentOutput, -0.2);
@@ -201,7 +200,7 @@ public class Climber extends Subsystem {
 
 		setCenter(ControlMode.PercentOutput, 0.2);
 		Timer.delay(0.5);
-		if(getCenterPosition() - backStart > 1){
+		if (getCenterPosition() - backStart > 1) {
 			Robot.climberBack.setBoolean(true);
 		}
 		setCenter(ControlMode.PercentOutput, -0.2);

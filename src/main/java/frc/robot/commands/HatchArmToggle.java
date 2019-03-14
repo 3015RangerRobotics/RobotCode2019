@@ -7,11 +7,11 @@ public class HatchArmToggle extends CommandBase {
 
 	@Override
 	protected void initialize() {
-		if(hatchMech.isArmExtended()){
+		if (hatchMech.isArmExtended()) {
 			hatchMech.hatchArmRetract();
-		}else{
+		} else {
 			hatchMech.hatchArmExtend();
-		}	
+		}
 	}
 
 	@Override

@@ -34,7 +34,7 @@ public class Drive extends Subsystem {
 	public final double kTurnPEncoder = 6.0;
 	public final double kTurnDEncoder = 0.035;
 	public final double kVEncoder = 0.067;
-	public final double kAEncoder = 0.025; 
+	public final double kAEncoder = 0.025;
 
 	public final double kTurnPGyro = 0.02;
 	public final double kTurnDGyro = 0.000;
@@ -126,7 +126,7 @@ public class Drive extends Subsystem {
 
 	@Override
 	public void periodic() {
-		
+
 	}
 
 	public void resetEncoders() {
@@ -181,7 +181,7 @@ public class Drive extends Subsystem {
 		setMotorOutputs(ControlMode.PercentOutput, 0, 0);
 		Timer.delay(0.25);
 		System.out.println("Left: " + getLeftDistance());
-		if(getLeftDistance() - leftStart >= 0.5) {
+		if (getLeftDistance() - leftStart >= 0.5) {
 			Robot.driveLeft.setBoolean(true);
 		}
 
@@ -191,7 +191,7 @@ public class Drive extends Subsystem {
 		setMotorOutputs(ControlMode.PercentOutput, 0, 0);
 		Timer.delay(0.25);
 		System.out.println("Right: " + getRightDistance());
-		if(getRightDistance() - rightStart >= 0.5) {
+		if (getRightDistance() - rightStart >= 0.5) {
 			Robot.driveRight.setBoolean(true);
 		}
 

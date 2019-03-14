@@ -128,7 +128,7 @@ public class OI {
 		return driverRTrigger.get();
 	}
 
-	public static boolean isCancelledPressed(){
+	public static boolean isCancelledPressed() {
 		return driverStartSelect.get() || coDriverStartSelect.get();
 	}
 }

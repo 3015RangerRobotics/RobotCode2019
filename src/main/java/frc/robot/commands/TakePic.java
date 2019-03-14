@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TakePic extends CommandBase {
 	public TakePic() {
-		
+
 	}
 
 	@Override

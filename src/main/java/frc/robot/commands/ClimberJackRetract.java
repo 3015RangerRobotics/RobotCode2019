@@ -10,7 +10,7 @@ public class ClimberJackRetract extends CommandBase {
 
 	@Override
 	protected void initialize() {
-		
+
 	}
 
 	@Override

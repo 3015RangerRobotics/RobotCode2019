@@ -21,7 +21,7 @@ public class DriveLockout extends CommandBase {
 	@Override
 	protected void end() {
 	}
-	
+
 	@Override
 	protected void interrupted() {
 		end();

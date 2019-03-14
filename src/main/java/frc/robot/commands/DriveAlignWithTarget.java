@@ -32,7 +32,6 @@ public class DriveAlignWithTarget extends CommandBase implements PIDOutput {
 		}
 
 		this.setpoint = Robot.getTargetXAngle();
-		// Robot.resetIMU();
 		turnController.setP(SmartDashboard.getNumber("kTurnP", 0));
 		turnController.setI(SmartDashboard.getNumber("kTurnI", 0));
 		turnController.setD(SmartDashboard.getNumber("kTurnD", 0));

@@ -17,8 +17,7 @@ public class BallMechControlDown extends CommandBase {
 		if (ballMech.isBallPresent() && !ballAtStart) {
 			ballMech.intakeStop();
 			oi.driverRumble(1.0);
-		}
-		else{
+		} else {
 			ballMech.intakeDown();
 		}
 	}
