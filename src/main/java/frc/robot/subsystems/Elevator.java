@@ -122,6 +122,7 @@ public class Elevator extends Subsystem {
 		Robot.elevatorPosition.setBoolean(false);
 
 		double encoderStart = getDistance();
+		boolean bottomStart = isAtBottom();
 
 		set(ControlMode.PercentOutput, 0.4);
 		Timer.delay(1.0);
@@ -129,7 +130,7 @@ public class Elevator extends Subsystem {
 			Robot.elevatorEncoder.setBoolean(true);
 		}
 		if (!isAtBottom()) {
-			Robot.elevatorLimit.setBoolean(true);
+			Robot.elevatorLimit.setBoolean(bottomStart);
 		}
 		set(ControlMode.PercentOutput, 0);
 		Timer.delay(1);

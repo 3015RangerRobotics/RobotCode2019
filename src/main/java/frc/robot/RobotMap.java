@@ -25,10 +25,10 @@ public class RobotMap {
 	public static final int ballMechVictor = 3;
 	public static final int ballLimitSwitch = 4;
 
-	public static final int hatchGrabber1 = 2;// 3;
-	public static final int hatchGrabber2 = 3;// 2;
-	public static final int hatchArm1 = 7;
-	public static final int hatchArm2 = 6;
+	public static final int hatchGrabber1 = 2;
+	public static final int hatchGrabber2 = 3;
+	public static final int hatchArm1 = 0;
+	public static final int hatchArm2 = 1;
 
 	public static final int pressureSensor = 0;
 
