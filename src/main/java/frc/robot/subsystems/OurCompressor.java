@@ -13,7 +13,7 @@ public class OurCompressor extends Subsystem {
 
 	public OurCompressor() {
 		compressor = new Compressor();
-		pressureSensor = new AnalogPotentiometer(RobotMap.pressureSensor, 250, 02);
+		pressureSensor = new AnalogPotentiometer(RobotMap.pressureSensor, 250, -26);
 	}
 
 	@Override
