@@ -7,7 +7,9 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.DriverStation.MatchType;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -51,6 +53,8 @@ public class Robot extends TimedRobot {
 	public static NetworkTableEntry climberRight;
 	public static NetworkTableEntry climberBack;
 	public static NetworkTableEntry climberWheel;
+
+	private boolean shouldStopRecording = false;
 
 	@Override
 	public void robotInit() {
@@ -109,6 +113,8 @@ public class Robot extends TimedRobot {
 		climberWheel = climberValues.add("Wheel", false).getEntry();
 
 		resetIMU();
+
+		SmartDashboard.putBoolean("RecordVid", false);
 	}
 
 	@Override
@@ -125,6 +131,12 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledInit() {
+		// Don't stop recording when autonomous is disabled, only stop after teleop
+		if(!shouldStopRecording){
+			shouldStopRecording = true;
+		}else{
+			stopRecording();
+		}
 	}
 
 	@Override
@@ -134,6 +146,8 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void autonomousInit() {
+		startRecording();
+
 		autonomousCommand = chooser.getSelected();
 
 		resetIMU();
@@ -165,6 +179,28 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void testPeriodic() {
+	}
+
+	public static void startRecording(){
+		DriverStation ds = DriverStation.getInstance();
+		MatchType matchType = ds.getMatchType();
+		if(matchType == MatchType.None) return;
+		String type = matchType.name();
+		String event = ds.getEventName();
+		int matchNum = ds.getMatchNumber();
+		int replayNum = ds.getReplayNumber();
+
+		String fileName = "pov-" + event + "-" + type + "-" + matchNum + "-" + replayNum;
+		SmartDashboard.putString("RecordName", fileName);
+		SmartDashboard.putBoolean("RecordVid", true);
+	}
+
+	public static void stopRecording(){
+		new Thread(() -> {
+			// Delay the end of the pov video
+			Timer.delay(10);
+			SmartDashboard.putBoolean("RecordVid", false);
+		}).start();
 	}
 
 	public static float getRoll() {
