@@ -132,9 +132,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledInit() {
 		// Don't stop recording when autonomous is disabled, only stop after teleop
-		if(!shouldStopRecording){
-			shouldStopRecording = true;
-		}else{
+		if(shouldStopRecording){
 			stopRecording();
 		}
 	}
@@ -147,6 +145,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		startRecording();
+		shouldStopRecording = false;
 
 		autonomousCommand = chooser.getSelected();
 
@@ -175,23 +174,27 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		if(DriverStation.getInstance().getMatchTime() < 5){
+			shouldStopRecording = true;
+		}
 	}
 
 	@Override
 	public void testPeriodic() {
+
 	}
 
 	public static void startRecording(){
 		DriverStation ds = DriverStation.getInstance();
 		MatchType matchType = ds.getMatchType();
 		if(matchType == MatchType.None) return;
-		String type = matchType.name();
-		String event = ds.getEventName();
-		int matchNum = ds.getMatchNumber();
-		int replayNum = ds.getReplayNumber();
+		// String type = matchType.name();
+		// String event = ds.getEventName();
+		// int matchNum = ds.getMatchNumber();
+		// int replayNum = ds.getReplayNumber();
 
-		String fileName = "pov-" + event + "-" + type + "-" + matchNum + "-" + replayNum;
-		SmartDashboard.putString("RecordName", fileName);
+		// String fileName = "pov-" + event + "-" + type + "-" + matchNum + "-" + replayNum;
+		// SmartDashboard.putString("RecordName", fileName);
 		SmartDashboard.putBoolean("RecordVid", true);
 	}
 
