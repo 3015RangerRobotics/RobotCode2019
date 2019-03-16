@@ -6,18 +6,18 @@ import frc.motionProfiles.MotionProfiles;
 import frc.robot.OI;
 
 public class AutoCenterCargo extends CommandGroup {
-	public AutoCenterCargo(boolean mirrored) {
+	public AutoCenterCargo(boolean isRightStart) {
 		this.setInterruptible(false);
 		addParallel(new HatchGrabberExtend());
 		addParallel(new HatchArmExtendDelayed(.5));
-		addSequential(new DriveMotionProfile("platform_to_cargo_center", mirrored));
+		addSequential(new DriveMotionProfile("platform_to_cargo_center", isRightStart));
 		addSequential(new DriveAutoConfirm());
 		addSequential(new DriveForTime(0.2, 0.25));
 		addSequential(new HatchGrabberRetract());
 		addSequential(new WaitCommand(0.25));
 		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(2, 12, 8, 100, true)));
-		addSequential(new DriveTurnToAngleWithEncoders(mirrored ? 90 : -90, 6, 4));
-		addSequential(new DriveMotionProfile("cargo_center_to_wall", mirrored));
+		addSequential(new DriveTurnToAngleWithEncoders(isRightStart ? 90 : -90, 6, 4));
+		addSequential(new DriveMotionProfile("cargo_center_to_wall", isRightStart));
 		addSequential(new DriveAutoConfirm());
 		addSequential(new HatchGrabberExtend());
 		addSequential(new WaitCommand(0.25));

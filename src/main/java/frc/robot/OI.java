@@ -48,15 +48,9 @@ public class OI {
 	static Button coDriverRTrigger = new TriggerButton(coDriver, Hand.kRight);
 	static Button coDriverStartSelect = new DoubleButton(coDriverSEL7, coDriverSTART8);
 
-	public static boolean isConfigured = false;
-
 	public OI() {
 		driverStartSelect.whenPressed(new CancelCommand());
 		coDriverStartSelect.whenPressed(new CancelCommand());
-	}
-
-	public void configDriverControls() {
-		isConfigured = true;
 
 		driverA1.whileHeld(new BallMechControlDown());
 		driverB2.whileHeld(new BallMechControlUp());
@@ -69,9 +63,9 @@ public class OI {
 		coDriverLB5.whenPressed(new ElevatorToAllianceWall());
 		coDriverRTrigger.whenPressed(new HatchGrabberToggle());
 		coDriverDLeft.whenPressed(new ClimberPrepareHigh());
+		coDriverDRight.whenPressed(new ClimberPrepareLowSponsor());
 		coDriverDUp.whenPressed(new ClimberLevel3());
 		coDriverDDown.whenPressed(new ClimberLevel2());
-		coDriverDRight.whenPressed(new ClimberPrepareLow());
 	}
 
 	public double getDriverLeftStickY() {

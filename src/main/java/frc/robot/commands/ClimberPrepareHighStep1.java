@@ -14,7 +14,7 @@ public class ClimberPrepareHighStep1 extends CommandBase {
 	@Override
 	protected void execute() {
 		climber.setCenter(ControlMode.PercentOutput, 0.5);
-		System.out.println(climber.getCenterPosition());
+		// System.out.println(climber.getCenterPosition());
 	}
 
 	@Override

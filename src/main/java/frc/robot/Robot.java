@@ -167,9 +167,6 @@ public class Robot extends TimedRobot {
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}
-		if(!OI.isConfigured) {
-			CommandBase.oi.configDriverControls();
-		}
 	}
 
 	@Override

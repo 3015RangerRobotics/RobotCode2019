@@ -15,9 +15,7 @@ public class CancelCommand extends CommandBase {
 
 	@Override
 	protected void initialize() {
-		if (!OI.isConfigured) {
-			CommandBase.oi.configDriverControls();
-		}
+		
 	}
 
 	@Override

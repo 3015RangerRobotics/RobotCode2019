@@ -90,7 +90,7 @@ public class Climber extends Subsystem {
 
 	@Override
 	public void periodic() {
-
+		// System.out.println("Pitch Offset: " + getPitchOffset());
 	}
 
 	public void setCenter(ControlMode mode, double value) {
