@@ -36,10 +36,10 @@ public class Climber extends Subsystem {
 	public final double climbSpeed = 10;
 
 	public Climber() {
+		this.centerWheelsVictorSP = new VictorSP(RobotMap.climberCenterWheelsVictorSP);
 		this.centerJackTalonSRX = new TalonSRX(RobotMap.climberCenterJackTalonSRX);
 		this.leftJackTalonSRX = new TalonSRX(RobotMap.climberLeftJackTalonSRX);
 		this.rightJackTalonSRX = new TalonSRX(RobotMap.climberRightJackTalonSRX);
-		this.centerWheelsVictorSP = new VictorSP(RobotMap.climberCenterWheelsVictorSP);
 
 		centerJackTalonSRX.configFactoryDefault();
 		leftJackTalonSRX.configFactoryDefault();
@@ -55,9 +55,14 @@ public class Climber extends Subsystem {
 
 		centerWheelsVictorSP.setInverted(true);
 		rightJackTalonSRX.setInverted(true);
+		
+		centerJackTalonSRX.setSensorPhase(true);
 		leftJackTalonSRX.setSensorPhase(true);
 		rightJackTalonSRX.setSensorPhase(true);
-		centerJackTalonSRX.setSensorPhase(true);
+
+		centerJackTalonSRX.config_kP(0, centerP);
+		centerJackTalonSRX.config_kD(0, centerD);
+		centerJackTalonSRX.config_kF(0, centerF);
 
 		leftJackTalonSRX.config_kP(0, backP);
 		leftJackTalonSRX.config_kD(0, backD);
@@ -66,10 +71,6 @@ public class Climber extends Subsystem {
 		rightJackTalonSRX.config_kP(0, backP);
 		rightJackTalonSRX.config_kD(0, backD);
 		rightJackTalonSRX.config_kF(0, backF);
-
-		centerJackTalonSRX.config_kP(0, centerP);
-		centerJackTalonSRX.config_kD(0, centerD);
-		centerJackTalonSRX.config_kF(0, centerF);
 
 		centerJackTalonSRX.enableVoltageCompensation(true);
 		centerJackTalonSRX.configVoltageCompSaturation(12.5);

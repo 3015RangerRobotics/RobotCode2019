@@ -32,20 +32,23 @@ public class Elevator extends Subsystem {
 
 	public Elevator() {
 		elevatorTalonSRX = new TalonSRX(RobotMap.elevatorTalonSRX);
-		elevatorTalonSRX.configVoltageCompSaturation(13, 10);
-		elevatorTalonSRX.enableVoltageCompensation(true);
-		elevatorTalonSRX.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-		elevatorTalonSRX.setSensorPhase(true);
-		elevatorTalonSRX.setSelectedSensorPosition(0);
-		elevatorTalonSRX.setInverted(false);
-		elevatorTalonSRX.configPeakCurrentLimit(40, 10);
-		elevatorTalonSRX.configPeakCurrentDuration(200, 10);
+
 		elevatorTalonSRX.configContinuousCurrentLimit(30, 10);
+		elevatorTalonSRX.configPeakCurrentDuration(200, 10);
+		elevatorTalonSRX.configPeakCurrentLimit(40, 10);
+		elevatorTalonSRX.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+		elevatorTalonSRX.configVoltageCompSaturation(13, 10);
 		elevatorTalonSRX.enableCurrentLimit(true);
+		elevatorTalonSRX.enableVoltageCompensation(true);
+		elevatorTalonSRX.setInverted(false);
+		elevatorTalonSRX.setSelectedSensorPosition(0);
+		elevatorTalonSRX.setSensorPhase(true);
+
 		elevatorTalonSRX.config_kP(0, kElevatorP, 10);
 		elevatorTalonSRX.config_kI(0, kElevatorI, 10);
 		elevatorTalonSRX.config_kD(0, kElevatorD, 10);
 		elevatorTalonSRX.config_kF(0, kElevatorF, 10);
+
 		elevatorTalonSRX.configPeakOutputForward(1.0, 10);
 		elevatorTalonSRX.configPeakOutputReverse(-0.3, 10);
 

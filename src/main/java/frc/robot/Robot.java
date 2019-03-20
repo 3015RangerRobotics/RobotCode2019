@@ -39,9 +39,11 @@ public class Robot extends TimedRobot {
 
 	public static NetworkTableEntry hatchArm;
 	public static NetworkTableEntry hatchNubs;
+
 	public static NetworkTableEntry driveLeft;
 	public static NetworkTableEntry driveRight;
 	public static NetworkTableEntry driveGyro;
+
 	public static NetworkTableEntry ballIn;
 	public static NetworkTableEntry ballOut;
 
