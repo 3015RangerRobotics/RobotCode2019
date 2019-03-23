@@ -203,6 +203,7 @@ public class Robot extends TimedRobot {
 			Timer.delay(10);
 			SmartDashboard.putBoolean("RecordVid", false);
 		}).start();
+		// SmartDashboard.putBoolean("RecordVid", false);
 	}
 
 	public static float getRoll() {

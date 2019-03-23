@@ -41,6 +41,10 @@ public class Drive extends Subsystem {
 	public final double kVGyro = 1.0 / 400.0;
 	public final double kAGyro = 0.0015;
 
+	public final double kTurnVisionP = 0.03;
+	public final double kTurnVisionI = 0.0;
+	public final double kTurnVisionD = 0.0525;//.021;
+
 	public final double speedModMidHeight = 0.75;
 	public final double speedModTopHeight = 0.75; // 0.5;
 	public final double turnModTopHeight = 0.75;
