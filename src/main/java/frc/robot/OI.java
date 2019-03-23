@@ -61,6 +61,8 @@ public class OI {
 		coDriverB2.whenPressed(new ElevatorToMiddle());
 		coDriverY4.whenPressed(new ElevatorToTop());
 		coDriverLB5.whenPressed(new ElevatorToAllianceWall());
+		coDriverRB6.whenPressed(new ClimberJackRetract());
+		coDriverLS9.whileHeld(new ElevatorManualControl());
 		coDriverRTrigger.whenPressed(new HatchGrabberToggle());
 		coDriverDLeft.whenPressed(new ClimberPrepareHigh());
 		coDriverDRight.whenPressed(new ClimberPrepareLowSponsor());
@@ -87,6 +89,14 @@ public class OI {
 	public double getDriverRightStickY() {
 		if (Math.abs(driver.getY(Hand.kRight)) > 0.05) {
 			return -driver.getY(Hand.kRight);
+		} else {
+			return 0;
+		}
+	}
+
+	public double getCoDriverRightStickY() {
+		if (Math.abs(coDriver.getY(Hand.kRight)) > 0.1) {
+			return -coDriver.getY(Hand.kRight);
 		} else {
 			return 0;
 		}
@@ -124,5 +134,9 @@ public class OI {
 
 	public static boolean isCancelledPressed() {
 		return driverStartSelect.get() || coDriverStartSelect.get();
+	}
+
+	public static boolean isDriverXPressed() {
+		return driverX3.get();
 	}
 }

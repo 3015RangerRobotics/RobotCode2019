@@ -11,6 +11,7 @@ public class DriveWithGamepad extends CommandBase {
 	@Override
 	protected void initialize() {
 		drive.setRampRate(0);
+		drive.setBrakeMode();
 	}
 
 	@Override
@@ -18,12 +19,12 @@ public class DriveWithGamepad extends CommandBase {
 		double driveValue = oi.getDriverLeftStickY();
 		double turnValue = oi.getDriverLeftStickX() / 1.25;
 
-		if (oi.isDriverRightStickPressed()) {
+		if (oi.isDriverXPressed()) {
 			driveValue *= drive.fineAdjustDrive;
 			turnValue *= drive.fineAdjustTurn;
 		}
 
-		if (Math.abs(oi.getDriverRightStickX()) >= 0.1 && !oi.isDriverRightStickPressed()) {
+		if (Math.abs(oi.getDriverRightStickX()) >= 0.1) {
 			drive.curvatureDrive(driveValue, oi.getDriverRightStickX() / 1.25, false, true);
 		} else {
 			drive.arcadeDrive(driveValue, turnValue, true);
@@ -39,6 +40,7 @@ public class DriveWithGamepad extends CommandBase {
 	@Override
 	protected void end() {
 		drive.setMotorOutputs(ControlMode.PercentOutput, 0, 0);
+		drive.setCoastMode();
 	}
 
 	@Override

@@ -115,6 +115,7 @@ public class Drive extends Subsystem {
 		SmartDashboard.putData("Right Encoder", rightEncoder);
 
 		this.setRampRate(0);
+		this.setCoastMode();
 	}
 
 	@Override
@@ -145,6 +146,24 @@ public class Drive extends Subsystem {
 	public void curvatureDrive(double throttle, double turn, boolean isQuickTurn, boolean squaredInputs) {
 		DriveSignal ds = DriveHelper.curvatureDrive(throttle, turn, isQuickTurn, squaredInputs);
 		setMotorOutputs(ControlMode.PercentOutput, ds.leftSignal, ds.rightSignal);
+	}
+
+	public void setBrakeMode(){
+		leftMaster.setNeutralMode(NeutralMode.Brake);
+		leftFollower1.setNeutralMode(NeutralMode.Brake);
+		leftFollower2.setNeutralMode(NeutralMode.Brake);
+		rightMaster.setNeutralMode(NeutralMode.Brake);
+		rightFollower1.setNeutralMode(NeutralMode.Brake);
+		rightFollower2.setNeutralMode(NeutralMode.Brake);
+	}
+
+	public void setCoastMode(){
+		leftMaster.setNeutralMode(NeutralMode.Coast);
+		leftFollower1.setNeutralMode(NeutralMode.Coast);
+		leftFollower2.setNeutralMode(NeutralMode.Coast);
+		rightMaster.setNeutralMode(NeutralMode.Coast);
+		rightFollower1.setNeutralMode(NeutralMode.Coast);
+		rightFollower2.setNeutralMode(NeutralMode.Coast);
 	}
 
 	public double getLeftDistance() {

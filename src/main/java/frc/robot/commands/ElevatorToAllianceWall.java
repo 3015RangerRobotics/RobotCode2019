@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 public class ElevatorToAllianceWall extends CommandBase {
 	public ElevatorToAllianceWall() {
 		requires(elevator);
+		this.setRunWhenDisabled(true);
 	}
 
 	@Override

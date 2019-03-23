@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 public class ElevatorToTop extends CommandBase {
 	public ElevatorToTop() {
 		requires(elevator);
+		this.setRunWhenDisabled(true);
 	}
 
 	@Override
