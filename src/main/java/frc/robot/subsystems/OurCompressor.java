@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import java.util.ArrayList;
+
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -10,10 +12,13 @@ import frc.robot.commands.OurCompressorAuto;
 public class OurCompressor extends Subsystem {
 	private Compressor compressor;
 	private AnalogPotentiometer pressureSensor;
+	private ArrayList<Double> pressureValues;
 
 	public OurCompressor() {
 		compressor = new Compressor();
 		pressureSensor = new AnalogPotentiometer(RobotMap.pressureSensor, 250, -25);
+		pressureValues = new ArrayList<>();
+		pressureValues.add(getPressure());
 	}
 
 	@Override
@@ -23,7 +28,14 @@ public class OurCompressor extends Subsystem {
 
 	@Override
 	public void periodic() {
-		SmartDashboard.putNumber("Pressure", Math.round(getPressure()));
+		SmartDashboard.putNumber("Pressure", getAveragePressure());
+		
+		if(pressureValues.size() == 20){
+			pressureValues.remove(0);
+			pressureValues.add(getPressure());
+		} else {
+			pressureValues.add(getPressure());
+		}
 	}
 
 	public void startCompressor() {
@@ -36,5 +48,13 @@ public class OurCompressor extends Subsystem {
 
 	public double getPressure() {
 		return pressureSensor.get();
+	}
+
+	public double getAveragePressure() {
+		double sum = 0;
+		for(int i = 0; i < pressureValues.size(); i++){
+			sum += pressureValues.get(i);
+		}
+		return Math.round(sum / pressureValues.size());
 	}
 }

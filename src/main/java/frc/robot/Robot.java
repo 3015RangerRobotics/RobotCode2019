@@ -207,7 +207,7 @@ public class Robot extends TimedRobot {
 	}
 
 	public static float getRoll() {
-		return imu.getRoll() + 35; // RoboRIO and NavX mounted at -35 degrees
+		return imu.getRoll() + 3.5f; //+ 35; // RoboRIO and NavX mounted at -35 degrees
 	}
 
 	public static float getPitch() {

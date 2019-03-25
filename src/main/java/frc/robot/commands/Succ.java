@@ -2,40 +2,41 @@ package frc.robot.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-public class ClimberHoldAndDrive extends CommandBase {
-	double time; 
-	public ClimberHoldAndDrive(double time) {
+import edu.wpi.first.wpilibj.command.Command;
+
+public class Succ extends CommandBase {
+	boolean isLocked = false;
+
+	public Succ() {
+		requires(succer);
 		requires(climber);
-		requires(drive);
-		this.time = time;
 	}
 
 	@Override
 	protected void initialize() {
-		this.setTimeout(time);
+
 	}
 
 	@Override
 	protected void execute() {
+		succer.succ();
+
 		climber.setBackLeft(ControlMode.PercentOutput, 0.1);
 		climber.setBackRight(ControlMode.PercentOutput, 0.1);
 		climber.setCenter(ControlMode.PercentOutput, 0.1);
-		drive.arcadeDrive(-0.4, 0, false);
-		climber.setCenterWheels(1.0);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return this.isTimedOut();
+		return succer.getPressure() <= succer.pressureLockValue;
 	}
 
 	@Override
 	protected void end() {
+		succer.noMoreSucc();
 		climber.setBackLeft(ControlMode.PercentOutput, 0);
 		climber.setBackRight(ControlMode.PercentOutput, 0);
 		climber.setCenter(ControlMode.PercentOutput, 0);
-		drive.arcadeDrive(0, 0, false);
-		climber.setCenterWheels(0);
 	}
 
 	@Override

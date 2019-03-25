@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.OI;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
@@ -27,10 +28,12 @@ public class Climber extends Subsystem {
 	public final double pulsesPerInchCenter = 1000;
 	public final double pulsesPerInchFront = 1000;
 
-	public final double centerPosJacked = 21;
+	public final double centerPosJacked = 22.5;
 	public final double centerPosLow = 13;
+	public final double centerPosMid = 6;
 	public final double centerPosHigh = 1;
 	public final double backPosLow = 7;
+	public final double backPosMid = 14;
 	public final double backPosHigh = 20;
 
 	public final double climbSpeed = 10;
@@ -91,7 +94,7 @@ public class Climber extends Subsystem {
 
 	@Override
 	public void periodic() {
-		// System.out.println("Pitch Offset: " + getPitchOffset());
+		System.out.println("Roll: " + Robot.getRoll());
 	}
 
 	public void setCenter(ControlMode mode, double value) {

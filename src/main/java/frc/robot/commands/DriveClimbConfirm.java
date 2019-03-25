@@ -2,39 +2,52 @@ package frc.robot.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-public class ClimberHoldAndDrive extends CommandBase {
-	double time; 
-	public ClimberHoldAndDrive(double time) {
-		requires(climber);
+public class DriveClimbConfirm extends CommandBase {
+
+	public DriveClimbConfirm() {
 		requires(drive);
-		this.time = time;
+		requires(climber);
 	}
 
 	@Override
 	protected void initialize() {
-		this.setTimeout(time);
+		drive.setRampRate(0);
+		drive.setBrakeMode();
 	}
 
 	@Override
 	protected void execute() {
+		double driveValue = oi.getDriverLeftStickY();
+		// double turnValue = oi.getDriverLeftStickX() * 0.5;
+
+		drive.arcadeDrive(driveValue * 0.5, 0, true);
+
 		climber.setBackLeft(ControlMode.PercentOutput, 0.1);
 		climber.setBackRight(ControlMode.PercentOutput, 0.1);
 		climber.setCenter(ControlMode.PercentOutput, 0.1);
-		drive.arcadeDrive(-0.4, 0, false);
-		climber.setCenterWheels(1.0);
+
+		// if(driveValue < 0){
+		// 	climber.setCenterWheels(1);
+		// }else if(driveValue > 0){
+		// 	climber.setCenterWheels(-1);
+		// }else{
+		// 	climber.setCenterWheels(0);
+		// }		
+
+		climber.setCenterWheels(-driveValue);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return this.isTimedOut();
+		return oi.isDriverDDownPressed();
 	}
 
 	@Override
 	protected void end() {
+		drive.setMotorOutputs(ControlMode.PercentOutput, 0, 0);
 		climber.setBackLeft(ControlMode.PercentOutput, 0);
 		climber.setBackRight(ControlMode.PercentOutput, 0);
 		climber.setCenter(ControlMode.PercentOutput, 0);
-		drive.arcadeDrive(0, 0, false);
 		climber.setCenterWheels(0);
 	}
 
