@@ -192,6 +192,8 @@ public class Drive extends Subsystem {
 	}
 
 	public void selfTest() {
+		this.setBrakeMode();
+
 		Robot.driveLeft.setBoolean(false);
 		Robot.driveRight.setBoolean(false);
 		Robot.driveGyro.setBoolean(false);
@@ -217,5 +219,7 @@ public class Drive extends Subsystem {
 		}
 
 		Robot.driveGyro.setBoolean(Robot.isIMUConnected());
+		
+		this.setCoastMode();
 	}
 }

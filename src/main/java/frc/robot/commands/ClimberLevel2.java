@@ -7,7 +7,7 @@ public class ClimberLevel2 extends CommandGroup {
 	public ClimberLevel2() {
 		addSequential(new ClimberJackUpLow());
 		addSequential(new ClimberHoldAndDrive(1.3));
-		addParallel(new DriveForTime(-0.05, 1));
+		addParallel(new DriveForTime(-0.1, 1));
 		addSequential(new ClimberJackRetract());
 		addParallel(new ClimberPrepareMid());
 		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(1, 7, 4, 100, true)));

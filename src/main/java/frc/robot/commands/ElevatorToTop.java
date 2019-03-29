@@ -2,6 +2,8 @@ package frc.robot.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import edu.wpi.first.wpilibj.DriverStation;
+
 public class ElevatorToTop extends CommandBase {
 	public ElevatorToTop() {
 		requires(elevator);
@@ -10,6 +12,9 @@ public class ElevatorToTop extends CommandBase {
 
 	@Override
 	protected void initialize() {
+		if(DriverStation.getInstance().isDisabled()) {
+			this.cancel();
+		}
 	}
 
 	@Override

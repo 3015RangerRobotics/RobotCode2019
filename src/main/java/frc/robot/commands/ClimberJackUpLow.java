@@ -6,6 +6,7 @@ public class ClimberJackUpLow extends CommandBase {
 	boolean isCenterAtTarget = false;
 	boolean isLeftAtTarget = false;
 	boolean isRightAtTarget = false;
+	boolean isAtBottom = false;
 
 	public ClimberJackUpLow() {
 		requires(climber);
@@ -16,6 +17,7 @@ public class ClimberJackUpLow extends CommandBase {
 		isCenterAtTarget = false;
 		isLeftAtTarget = false;
 		isRightAtTarget = false;
+		isAtBottom = false;
 	}
 
 	@Override
@@ -28,23 +30,26 @@ public class ClimberJackUpLow extends CommandBase {
 		}
 
 		if (climber.getBackLeftPosition() <= climber.backPosLow && !isLeftAtTarget) {
-			climber.setBackVelocityLeft(climber.climbSpeed + climber.getRollOffset() - climber.getPitchOffset());
+			climber.setBackVelocityLeft(climber.climbSpeed + climber.getRollOffset() + climber.getPitchOffset());
 		} else {
 			climber.setBackLeft(ControlMode.PercentOutput, 0.1);
 			isLeftAtTarget = true;
 		}
 
 		if (climber.getBackRightPosition() <= climber.backPosLow && !isRightAtTarget) {
-			climber.setBackVelocityRight(climber.climbSpeed + climber.getRollOffset() + climber.getPitchOffset());
+			climber.setBackVelocityRight(climber.climbSpeed + climber.getRollOffset() - climber.getPitchOffset());
 		} else {
 			climber.setBackRight(ControlMode.PercentOutput, 0.1);
 			isRightAtTarget = true;
 		}
+	
+		isAtBottom = climber.isAtBottom();
+
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return isRightAtTarget && isCenterAtTarget && isLeftAtTarget;
+		return (isRightAtTarget && isLeftAtTarget) && (isCenterAtTarget || isAtBottom);
 	}
 
 	@Override
@@ -52,6 +57,7 @@ public class ClimberJackUpLow extends CommandBase {
 		climber.setCenter(ControlMode.PercentOutput, 0);
 		climber.setBackLeft(ControlMode.PercentOutput, 0);
 		climber.setBackRight(ControlMode.PercentOutput, 0);
+		System.out.println("neat neat");
 	}
 
 	@Override

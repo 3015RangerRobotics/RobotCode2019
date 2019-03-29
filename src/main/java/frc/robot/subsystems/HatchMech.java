@@ -15,7 +15,7 @@ public class HatchMech extends Subsystem {
 		hatchGrabber = new DoubleSolenoid(RobotMap.hatchGrabber1, RobotMap.hatchGrabber2);
 		hatchArm = new DoubleSolenoid(RobotMap.hatchArm1, RobotMap.hatchArm2);
 		hatchGrabberExtend();
-		hatchArmExtend();
+		hatchArmRetract();
 	}
 
 	@Override

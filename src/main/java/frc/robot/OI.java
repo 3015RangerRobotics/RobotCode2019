@@ -57,6 +57,7 @@ public class OI {
 		driverRB6.whileHeld(new DriveTargetAlign());
 		driverRTrigger.whenPressed(new HatchGrabberToggle());
 		driverLTrigger.whenPressed(new HatchArmToggle());
+
 		// driverDUp.whenPressed(new ClimberLevel2To3Succ());
 		// driverDRight.whenPressed(new ClimberLevel3Succ());
 
@@ -71,6 +72,10 @@ public class OI {
 		coDriverDRight.whenPressed(new ClimberPrepareLowSponsor());
 		coDriverDUp.whenPressed(new ClimberLevel3());
 		coDriverDDown.whenPressed(new ClimberLevel2());
+
+		// coDriverA1.whenPressed(new ClimberPrepareHigh());
+		// coDriverB2.whenPressed(new ClimberJackUpLow());
+		// coDriverRB6.whenPressed(new ClimberJackRetract());
 	}
 
 	public double getDriverLeftStickY() {
@@ -107,6 +112,7 @@ public class OI {
 
 	public double getDriverRightStickX() {
 		if (Math.abs(driver.getX(Hand.kRight)) > 0.05) {
+	
 			return driver.getX(Hand.kRight);
 		} else {
 			return 0;

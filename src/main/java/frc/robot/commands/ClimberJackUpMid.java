@@ -28,14 +28,14 @@ public class ClimberJackUpMid extends CommandBase {
 		}
 
 		if (climber.getBackLeftPosition() <= climber.backPosMid && !isLeftAtTarget) {
-			climber.setBackVelocityLeft(climber.climbSpeed + climber.getRollOffset() - climber.getPitchOffset());
+			climber.setBackVelocityLeft(climber.climbSpeed + climber.getRollOffset() + climber.getPitchOffset());
 		} else {
 			climber.setBackLeft(ControlMode.PercentOutput, 0.1);
 			isLeftAtTarget = true;
 		}
 
 		if (climber.getBackRightPosition() <= climber.backPosMid && !isRightAtTarget) {
-			climber.setBackVelocityRight(climber.climbSpeed + climber.getRollOffset() + climber.getPitchOffset());
+			climber.setBackVelocityRight(climber.climbSpeed + climber.getRollOffset() - climber.getPitchOffset());
 		} else {
 			climber.setBackRight(ControlMode.PercentOutput, 0.1);
 			isRightAtTarget = true;

@@ -135,7 +135,7 @@ public class Elevator extends Subsystem {
 		if (!isAtBottom()) {
 			Robot.elevatorLimit.setBoolean(bottomStart);
 		}
-		set(ControlMode.PercentOutput, 0);
+		set(ControlMode.PercentOutput, -0.3);
 		Timer.delay(1);
 
 		if (Robot.elevatorEncoder.getBoolean(false) == true && Robot.elevatorLimit.getBoolean(false) == true) {
@@ -145,7 +145,7 @@ public class Elevator extends Subsystem {
 				Robot.elevatorPosition.setBoolean(true);
 			}
 			while (!isAtBottom()) {
-				set(ControlMode.PercentOutput, -0.1);
+				set(ControlMode.PercentOutput, -0.3);
 			}
 		} else {
 			System.out.println("Elevator Encoder/Limit Switch Broken");

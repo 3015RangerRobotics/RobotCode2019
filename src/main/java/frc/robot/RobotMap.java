@@ -27,8 +27,8 @@ public class RobotMap {
 
 	public static final int hatchGrabber1 = 2;
 	public static final int hatchGrabber2 = 3;
-	public static final int hatchArm1 = 6;
-	public static final int hatchArm2 = 7;
+	public static final int hatchArm1 = 0;
+	public static final int hatchArm2 = 1;
 
 	public static final int pressureSensor = 0;
 
@@ -36,6 +36,7 @@ public class RobotMap {
 	public static final int climberLeftJackTalonSRX = 17; // Left Jack
 	public static final int climberRightJackTalonSRX = 18; // Right Jack
 	public static final int climberCenterWheelsVictorSP = 4;
+	public static final int climberBottomLimit = 8;
 
 	public static final int succerVacuum = 0;
 	public static final int succerSensor = 1;
