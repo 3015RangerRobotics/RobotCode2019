@@ -39,9 +39,11 @@ public class Robot extends TimedRobot {
 
 	public static NetworkTableEntry hatchArm;
 	public static NetworkTableEntry hatchNubs;
+
 	public static NetworkTableEntry driveLeft;
 	public static NetworkTableEntry driveRight;
 	public static NetworkTableEntry driveGyro;
+
 	public static NetworkTableEntry ballIn;
 	public static NetworkTableEntry ballOut;
 
@@ -53,6 +55,7 @@ public class Robot extends TimedRobot {
 	public static NetworkTableEntry climberRight;
 	public static NetworkTableEntry climberBack;
 	public static NetworkTableEntry climberWheel;
+	public static NetworkTableEntry climberOffsets;
 
 	private boolean shouldStopRecording = false;
 
@@ -106,11 +109,12 @@ public class Robot extends TimedRobot {
 		elevatorPosition = elevatorValues.add("Position", false).getEntry();
 
 		ShuffleboardLayout climberValues = Shuffleboard.getTab("Systems Check")
-				.getLayout("Climber", BuiltInLayouts.kList).withSize(2, 4).withPosition(6	, 0);
+				.getLayout("Climber", BuiltInLayouts.kList).withSize(2, 5).withPosition(6, 0);
 		climberLeft = climberValues.add("Left Jack", false).getEntry();
 		climberRight = climberValues.add("Right Jack", false).getEntry();
 		climberBack = climberValues.add("Back Jack", false).getEntry();
 		climberWheel = climberValues.add("Wheel", false).getEntry();
+		climberOffsets = climberValues.add("Offsets", false).getEntry();
 
 		resetIMU();
 
@@ -166,9 +170,6 @@ public class Robot extends TimedRobot {
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}
-		if(!OI.isConfigured) {
-			CommandBase.oi.configDriverControls();
-		}
 	}
 
 	@Override
@@ -204,10 +205,11 @@ public class Robot extends TimedRobot {
 			Timer.delay(10);
 			SmartDashboard.putBoolean("RecordVid", false);
 		}).start();
+		// SmartDashboard.putBoolean("RecordVid", false);
 	}
 
 	public static float getRoll() {
-		return imu.getRoll() + 35; // RoboRIO and NavX mounted at -35 degrees
+		return imu.getRoll() + 36.5f; //+ 35; // RoboRIO and NavX mounted at -35 degrees
 	}
 
 	public static float getPitch() {

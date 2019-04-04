@@ -11,6 +11,7 @@ public class DriveAutoConfirm extends CommandBase {
 	@Override
 	protected void initialize() {
 		drive.setRampRate(0);
+		drive.setBrakeMode();
 	}
 
 	@Override
@@ -38,6 +39,7 @@ public class DriveAutoConfirm extends CommandBase {
 	@Override
 	protected void end() {
 		drive.setMotorOutputs(ControlMode.PercentOutput, 0, 0);
+		drive.setCoastMode();
 	}
 
 	@Override

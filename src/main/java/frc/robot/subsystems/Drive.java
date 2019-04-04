@@ -41,8 +41,12 @@ public class Drive extends Subsystem {
 	public final double kVGyro = 1.0 / 400.0;
 	public final double kAGyro = 0.0015;
 
-	public final double speedModTopHeight = 0.75; // 0.5;
+	public final double kTurnVisionP = 0.03;
+	public final double kTurnVisionI = 0.0;
+	public final double kTurnVisionD = 0.0525;//.021;
+
 	public final double speedModMidHeight = 0.75;
+	public final double speedModTopHeight = 0.75; // 0.5;
 	public final double turnModTopHeight = 0.75;
 
 	public final double fineAdjustDrive = 0.5;
@@ -72,7 +76,6 @@ public class Drive extends Subsystem {
 		this.leftMaster = new TalonSRX(RobotMap.leftDriveMaster);
 		this.leftFollower1 = new VictorSPX(RobotMap.leftDriveFollower1);
 		this.leftFollower2 = new VictorSPX(RobotMap.leftDriveFollower2);
-
 		this.rightMaster = new TalonSRX(RobotMap.rightDriveMaster);
 		this.rightFollower1 = new VictorSPX(RobotMap.rightDriveFollower1);
 		this.rightFollower2 = new VictorSPX(RobotMap.rightDriveFollower2);
@@ -85,21 +88,20 @@ public class Drive extends Subsystem {
 		rightEncoder.setDistancePerPulse(kDistancePerPulse);
 		rightEncoder.setReverseDirection(false);// false on practice
 
-		rightMaster.configFactoryDefault();
 		leftMaster.configFactoryDefault();
+		rightMaster.configFactoryDefault();
 
 		leftFollower1.follow(leftMaster);
 		leftFollower2.follow(leftMaster);
-
 		rightFollower1.follow(rightMaster);
 		rightFollower2.follow(rightMaster);
 
-		rightMaster.setInverted(true);
-		rightFollower1.setInverted(true);
-		rightFollower2.setInverted(true);
 		leftMaster.setInverted(false);
 		leftFollower1.setInverted(false);
 		leftFollower2.setInverted(false);
+		rightMaster.setInverted(true);
+		rightFollower1.setInverted(true);
+		rightFollower2.setInverted(true);
 
 		leftMaster.setNeutralMode(NeutralMode.Brake);
 		leftFollower1.setNeutralMode(NeutralMode.Brake);
@@ -117,6 +119,7 @@ public class Drive extends Subsystem {
 		SmartDashboard.putData("Right Encoder", rightEncoder);
 
 		this.setRampRate(0);
+		this.setCoastMode();
 	}
 
 	@Override
@@ -149,6 +152,24 @@ public class Drive extends Subsystem {
 		setMotorOutputs(ControlMode.PercentOutput, ds.leftSignal, ds.rightSignal);
 	}
 
+	public void setBrakeMode(){
+		leftMaster.setNeutralMode(NeutralMode.Brake);
+		leftFollower1.setNeutralMode(NeutralMode.Brake);
+		leftFollower2.setNeutralMode(NeutralMode.Brake);
+		rightMaster.setNeutralMode(NeutralMode.Brake);
+		rightFollower1.setNeutralMode(NeutralMode.Brake);
+		rightFollower2.setNeutralMode(NeutralMode.Brake);
+	}
+
+	public void setCoastMode(){
+		leftMaster.setNeutralMode(NeutralMode.Coast);
+		leftFollower1.setNeutralMode(NeutralMode.Coast);
+		leftFollower2.setNeutralMode(NeutralMode.Coast);
+		rightMaster.setNeutralMode(NeutralMode.Coast);
+		rightFollower1.setNeutralMode(NeutralMode.Coast);
+		rightFollower2.setNeutralMode(NeutralMode.Coast);
+	}
+
 	public double getLeftDistance() {
 		return leftEncoder.getDistance();
 	}
@@ -171,6 +192,8 @@ public class Drive extends Subsystem {
 	}
 
 	public void selfTest() {
+		this.setBrakeMode();
+
 		Robot.driveLeft.setBoolean(false);
 		Robot.driveRight.setBoolean(false);
 		Robot.driveGyro.setBoolean(false);
@@ -196,5 +219,7 @@ public class Drive extends Subsystem {
 		}
 
 		Robot.driveGyro.setBoolean(Robot.isIMUConnected());
+		
+		this.setCoastMode();
 	}
 }

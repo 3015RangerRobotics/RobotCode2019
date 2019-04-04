@@ -5,17 +5,22 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.OI;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import frc.robot.commands.ClimberManualWheel;
 
 public class Climber extends Subsystem {
 	private TalonSRX centerJackTalonSRX;
 	private TalonSRX leftJackTalonSRX;
 	private TalonSRX rightJackTalonSRX;
 	private VictorSP centerWheelsVictorSP;
+
+	private DigitalInput climberBottomLimit;
 
 	private double backP = 0.7;
 	private double backD = 0;
@@ -27,19 +32,21 @@ public class Climber extends Subsystem {
 	public final double pulsesPerInchCenter = 1000;
 	public final double pulsesPerInchFront = 1000;
 
-	public final double centerPosJacked = 21;
+	public final double centerPosJacked = 21; //22.5;
 	public final double centerPosLow = 13;
+	public final double centerPosMid = 6;
 	public final double centerPosHigh = 1;
 	public final double backPosLow = 7;
+	public final double backPosMid = 14;
 	public final double backPosHigh = 20;
 
 	public final double climbSpeed = 10;
 
 	public Climber() {
+		this.centerWheelsVictorSP = new VictorSP(RobotMap.climberCenterWheelsVictorSP);
 		this.centerJackTalonSRX = new TalonSRX(RobotMap.climberCenterJackTalonSRX);
 		this.leftJackTalonSRX = new TalonSRX(RobotMap.climberLeftJackTalonSRX);
 		this.rightJackTalonSRX = new TalonSRX(RobotMap.climberRightJackTalonSRX);
-		this.centerWheelsVictorSP = new VictorSP(RobotMap.climberCenterWheelsVictorSP);
 
 		centerJackTalonSRX.configFactoryDefault();
 		leftJackTalonSRX.configFactoryDefault();
@@ -55,9 +62,14 @@ public class Climber extends Subsystem {
 
 		centerWheelsVictorSP.setInverted(true);
 		rightJackTalonSRX.setInverted(true);
+		
+		centerJackTalonSRX.setSensorPhase(true);
 		leftJackTalonSRX.setSensorPhase(true);
 		rightJackTalonSRX.setSensorPhase(true);
-		centerJackTalonSRX.setSensorPhase(true);
+
+		centerJackTalonSRX.config_kP(0, centerP);
+		centerJackTalonSRX.config_kD(0, centerD);
+		centerJackTalonSRX.config_kF(0, centerF);
 
 		leftJackTalonSRX.config_kP(0, backP);
 		leftJackTalonSRX.config_kD(0, backD);
@@ -66,10 +78,6 @@ public class Climber extends Subsystem {
 		rightJackTalonSRX.config_kP(0, backP);
 		rightJackTalonSRX.config_kD(0, backD);
 		rightJackTalonSRX.config_kF(0, backF);
-
-		centerJackTalonSRX.config_kP(0, centerP);
-		centerJackTalonSRX.config_kD(0, centerD);
-		centerJackTalonSRX.config_kF(0, centerF);
 
 		centerJackTalonSRX.enableVoltageCompensation(true);
 		centerJackTalonSRX.configVoltageCompSaturation(12.5);
@@ -81,16 +89,21 @@ public class Climber extends Subsystem {
 		centerJackTalonSRX.setSelectedSensorPosition(0);
 		leftJackTalonSRX.setSelectedSensorPosition(0);
 		rightJackTalonSRX.setSelectedSensorPosition(0);
+
+		climberBottomLimit = new DigitalInput(RobotMap.climberBottomLimit);
 	}
 
 	@Override
 	public void initDefaultCommand() {
-
+		// setDefaultCommand(new ClimberManualWheel());
 	}
 
 	@Override
 	public void periodic() {
+		// System.out.println("Roll: " + Robot.getRoll() + ", Pitch: " + Robot.getPitch());
 
+		// System.out.println("Center Encoder: " + getCenterPosition());
+		// System.out.println("ClimberLimit: " + isAtBottom());
 	}
 
 	public void setCenter(ControlMode mode, double value) {
@@ -167,21 +180,36 @@ public class Climber extends Subsystem {
 		return offset;
 	}
 
+	public boolean isAtBottom(){
+		return !climberBottomLimit.get();
+	}
+
 	public void selfTest() {
 		Robot.climberLeft.setBoolean(false);
 		Robot.climberRight.setBoolean(false);
 		Robot.climberBack.setBoolean(false);
 		Robot.climberWheel.setBoolean(false);
+		Robot.climberOffsets.setBoolean(false);
 
 		double leftStart = getBackLeftPosition();
 		double rightStart = getBackRightPosition();
 		double backStart = getCenterPosition();
+
+		double initPitch = Robot.getPitch();
+		double initRoll = Robot.getRoll();
+
+		System.out.println("Init Pitch: " + Robot.getPitch());
 
 		setBackLeft(ControlMode.PercentOutput, 0.2);
 		Timer.delay(1);
 		if (getBackLeftPosition() - leftStart > 1) {
 			Robot.climberLeft.setBoolean(true);
 		}
+
+		System.out.println("Curr Pitch: " + Robot.getPitch());
+
+		Robot.climberOffsets.setBoolean(initRoll - Robot.getRoll() > 1 && initPitch - Robot.getPitch() > 0.2);
+
 		setBackLeft(ControlMode.PercentOutput, -0.2);
 		Timer.delay(1);
 		setBackLeft(ControlMode.PercentOutput, 0);

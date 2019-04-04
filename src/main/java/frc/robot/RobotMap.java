@@ -3,7 +3,7 @@ package frc.robot;
 public class RobotMap {
 	public static final double kPeriod = 0.01;
 	public static final double wheelBaseWidth = 2.125;
-	public static final double tapeCameraOffset = 0.0;//-8.75;
+	public static final double tapeCameraOffset = 0.0;// -8.75;
 
 	public static final int leftDriveMaster = 10; // Left Drive Master
 	public static final int leftDriveFollower1 = 11; // Front Left Drive
@@ -36,6 +36,13 @@ public class RobotMap {
 	public static final int climberLeftJackTalonSRX = 17; // Left Jack
 	public static final int climberRightJackTalonSRX = 18; // Right Jack
 	public static final int climberCenterWheelsVictorSP = 4;
+	public static final int climberBottomLimit = 8;
+
+	public static final int succerVacuum = 0;
+	public static final int succerSensor = 1;
+
+	public static final int succerPistonExtend = 4;
+	public static final int succerPistonRetract = 5;
 
 	public enum Side {
 		kLeft, kRight

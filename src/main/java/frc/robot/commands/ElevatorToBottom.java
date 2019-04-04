@@ -7,6 +7,7 @@ public class ElevatorToBottom extends CommandBase {
 
 	public ElevatorToBottom() {
 		requires(elevator);
+		this.setRunWhenDisabled(true);
 	}
 
 	@Override

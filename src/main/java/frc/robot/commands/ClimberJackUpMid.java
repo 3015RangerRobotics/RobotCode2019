@@ -2,13 +2,12 @@ package frc.robot.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-public class ClimberJackUpLow extends CommandBase {
+public class ClimberJackUpMid extends CommandBase {
 	boolean isCenterAtTarget = false;
 	boolean isLeftAtTarget = false;
 	boolean isRightAtTarget = false;
-	boolean isAtBottom = false;
 
-	public ClimberJackUpLow() {
+	public ClimberJackUpMid() {
 		requires(climber);
 	}
 
@@ -17,7 +16,6 @@ public class ClimberJackUpLow extends CommandBase {
 		isCenterAtTarget = false;
 		isLeftAtTarget = false;
 		isRightAtTarget = false;
-		isAtBottom = false;
 	}
 
 	@Override
@@ -29,27 +27,24 @@ public class ClimberJackUpLow extends CommandBase {
 			isCenterAtTarget = true;
 		}
 
-		if (climber.getBackLeftPosition() <= climber.backPosLow && !isLeftAtTarget) {
+		if (climber.getBackLeftPosition() <= climber.backPosMid && !isLeftAtTarget) {
 			climber.setBackVelocityLeft(climber.climbSpeed + climber.getRollOffset() + climber.getPitchOffset());
 		} else {
 			climber.setBackLeft(ControlMode.PercentOutput, 0.1);
 			isLeftAtTarget = true;
 		}
 
-		if (climber.getBackRightPosition() <= climber.backPosLow && !isRightAtTarget) {
+		if (climber.getBackRightPosition() <= climber.backPosMid && !isRightAtTarget) {
 			climber.setBackVelocityRight(climber.climbSpeed + climber.getRollOffset() - climber.getPitchOffset());
 		} else {
 			climber.setBackRight(ControlMode.PercentOutput, 0.1);
 			isRightAtTarget = true;
 		}
-	
-		isAtBottom = climber.isAtBottom();
-
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return (isRightAtTarget && isLeftAtTarget) && (isCenterAtTarget || isAtBottom);
+		return isRightAtTarget && isCenterAtTarget && isLeftAtTarget;
 	}
 
 	@Override
@@ -57,7 +52,6 @@ public class ClimberJackUpLow extends CommandBase {
 		climber.setCenter(ControlMode.PercentOutput, 0);
 		climber.setBackLeft(ControlMode.PercentOutput, 0);
 		climber.setBackRight(ControlMode.PercentOutput, 0);
-		System.out.println("neat neat");
 	}
 
 	@Override

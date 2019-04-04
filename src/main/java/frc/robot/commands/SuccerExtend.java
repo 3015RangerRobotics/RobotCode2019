@@ -1,21 +1,15 @@
 package frc.robot.commands;
 
-import frc.robot.OI;
+import edu.wpi.first.wpilibj.command.Command;
 
-public class CancelCommand extends CommandBase {
-	public CancelCommand() {
-		requires(ballMech);
-		requires(climber);
-		requires(drive);
-		requires(elevator);
-		requires(hatchMech);
-		requires(intakeAid);
-		requires(ourCompressor);
+public class SuccerExtend extends CommandBase {
+	public SuccerExtend() {
+		requires(succer);
 	}
 
 	@Override
 	protected void initialize() {
-		
+		succer.succerPistonExtend();
 	}
 
 	@Override

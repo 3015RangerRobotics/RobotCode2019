@@ -3,21 +3,23 @@ package frc.robot.commands;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 public class ElevatorManualControl extends CommandBase {
-	double position = 0;
+	
 
 	public ElevatorManualControl() {
 		requires(elevator);
 	}
 
 	protected void initialize() {
-		this.position = elevator.getRawDistance();
+		
 	}
 
 	protected void execute() {
-		if ((!elevator.isAtBottom() || Math.abs(oi.getCoDriverSumTriggers()) > 0) || elevator.getDistance() > 65) {
-			this.position += oi.getCoDriverSumTriggers() * 100;
+		double output = oi.getCoDriverRightStickY();
+		
+		if(output == 0){
+			output = 0.175;
 		}
-		elevator.set(ControlMode.Position, position);
+		elevator.set(ControlMode.PercentOutput, output);
 	}
 
 	protected boolean isFinished() {

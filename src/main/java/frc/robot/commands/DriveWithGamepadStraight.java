@@ -2,9 +2,11 @@ package frc.robot.commands;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-public class DriveWithGamepad extends CommandBase {
+import frc.robot.Robot;
 
-	public DriveWithGamepad() {
+public class DriveWithGamepadStraight extends CommandBase {
+
+	public DriveWithGamepadStraight() {
 		requires(drive);
 	}
 
@@ -12,24 +14,26 @@ public class DriveWithGamepad extends CommandBase {
 	protected void initialize() {
 		drive.setRampRate(0);
 		drive.setBrakeMode();
+		Robot.resetIMU();
 	}
 
 	@Override
 	protected void execute() {
 		double driveValue = oi.getDriverLeftStickY();
-		double turnValue = oi.getDriverLeftStickX() / 1.25;
 
 		if (oi.isDriverXPressed()) {
 			driveValue *= drive.fineAdjustDrive;
-			turnValue *= drive.fineAdjustTurn;
 		}
 
-		if (Math.abs(oi.getDriverRightStickX()) >= 0.1) {
-			drive.curvatureDrive(driveValue, oi.getDriverRightStickX() / 1.25, false, true);
-		} else {
-			drive.arcadeDrive(driveValue, turnValue, true);
+		double turnValue = 0;
 
+		if(Robot.getYaw() >= 0.5){
+			turnValue = -0.25;
+		}else if(Robot.getYaw() <= -0.5){
+			turnValue = 0.25;
 		}
+
+		drive.arcadeDrive(driveValue, turnValue, true);
 	}
 
 	@Override

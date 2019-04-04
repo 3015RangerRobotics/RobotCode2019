@@ -48,30 +48,34 @@ public class OI {
 	static Button coDriverRTrigger = new TriggerButton(coDriver, Hand.kRight);
 	static Button coDriverStartSelect = new DoubleButton(coDriverSEL7, coDriverSTART8);
 
-	public static boolean isConfigured = false;
-
 	public OI() {
 		driverStartSelect.whenPressed(new CancelCommand());
 		coDriverStartSelect.whenPressed(new CancelCommand());
-	}
-
-	public void configDriverControls() {
-		isConfigured = true;
 
 		driverA1.whileHeld(new BallMechControlDown());
 		driverB2.whileHeld(new BallMechControlUp());
+		driverRB6.whileHeld(new DriveTargetAlign());
 		driverRTrigger.whenPressed(new HatchGrabberToggle());
 		driverLTrigger.whenPressed(new HatchArmToggle());
+
+		// driverDUp.whenPressed(new ClimberLevel2To3Succ());
+		// driverDRight.whenPressed(new ClimberLevel3Succ());
 
 		coDriverA1.whenPressed(new ElevatorToBottom());
 		coDriverB2.whenPressed(new ElevatorToMiddle());
 		coDriverY4.whenPressed(new ElevatorToTop());
 		coDriverLB5.whenPressed(new ElevatorToAllianceWall());
+		coDriverRB6.whenPressed(new ClimberJackRetract());
+		coDriverLS9.whileHeld(new ElevatorManualControl());
 		coDriverRTrigger.whenPressed(new HatchGrabberToggle());
 		coDriverDLeft.whenPressed(new ClimberPrepareHigh());
+		coDriverDRight.whenPressed(new ClimberPrepareLowSponsor());
 		coDriverDUp.whenPressed(new ClimberLevel3());
 		coDriverDDown.whenPressed(new ClimberLevel2());
-		coDriverDRight.whenPressed(new ClimberPrepareLow());
+
+		// coDriverA1.whenPressed(new ClimberPrepareHigh());
+		// coDriverB2.whenPressed(new ClimberJackUpLow());
+		// coDriverRB6.whenPressed(new ClimberJackRetract());
 	}
 
 	public double getDriverLeftStickY() {
@@ -90,7 +94,7 @@ public class OI {
 		}
 	}
 
-	public double getDriverRightStickY() {
+	public static double getDriverRightStickY() {
 		if (Math.abs(driver.getY(Hand.kRight)) > 0.05) {
 			return -driver.getY(Hand.kRight);
 		} else {
@@ -98,8 +102,17 @@ public class OI {
 		}
 	}
 
+	public double getCoDriverRightStickY() {
+		if (Math.abs(coDriver.getY(Hand.kRight)) > 0.1) {
+			return -coDriver.getY(Hand.kRight);
+		} else {
+			return 0;
+		}
+	}
+
 	public double getDriverRightStickX() {
 		if (Math.abs(driver.getX(Hand.kRight)) > 0.05) {
+	
 			return driver.getX(Hand.kRight);
 		} else {
 			return 0;
@@ -130,5 +143,13 @@ public class OI {
 
 	public static boolean isCancelledPressed() {
 		return driverStartSelect.get() || coDriverStartSelect.get();
+	}
+
+	public static boolean isDriverXPressed() {
+		return driverX3.get();
+	}
+
+	public static boolean isDriverDDownPressed() {
+		return driverDDown.get();
 	}
 }

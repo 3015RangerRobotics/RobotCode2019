@@ -14,8 +14,7 @@ public class ClimberPrepareLow extends CommandBase {
 
 	@Override
 	protected void execute() {
-		climber.setCenter(ControlMode.PercentOutput, 0.35);
-		System.out.println(climber.getCenterPosition());
+		climber.setCenter(ControlMode.PercentOutput, 0.5);
 	}
 
 	@Override
