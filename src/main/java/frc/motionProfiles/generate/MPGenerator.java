@@ -8,7 +8,45 @@ import frc.robot.RobotMap.Side;
 
 public class MPGenerator {
     public static double timeStep = RobotMap.kPeriod;
-    public static double wheelbaseWidth = RobotMap.wheelBaseWidth;
+	public static double wheelbaseWidth = RobotMap.wheelBaseWidth;
+	
+	public static ArrayList<PPPoint> get2DPP(double xDist, double yDist, double endAngle, double maxVel, double maxAcc){
+		Vector2 a0 = new Vector2(0, 0);
+        Vector2 a1 = new Vector2(xDist, yDist);
+        double h = Vector2.subtract(a1, a0).magnitude / 2;
+        double theta = Math.toRadians(endAngle);
+        double o = Math.sin(theta) * h;
+        double a = Math.cos(theta) * h;
+        Vector2 c0 = new Vector2(h, 0);
+        Vector2 c1 = Vector2.subtract(a1, new Vector2(a, o));
+
+        ArrayList<PPPoint> pointsOnCurve = new ArrayList<>();
+        for(double t = 0.0; t <= 1.0; t += 0.001){
+			PPPoint point = new PPPoint(Util.cubicCurve(a0, c0, c1, a1, t), 0);
+			if(Util.distanceBetweenPts(pointsOnCurve.get(pointsOnCurve.size() - 1), point) >= 0.25){
+				pointsOnCurve.add(point);
+			}
+		}
+
+		// for(int i = 1; i < pointsOnCurve.size(); i++){
+		// 	PPPoint current = pointsOnCurve.get(i);
+		// 	PPPoint last = pointsOnCurve.get(i - 1);
+		// 	double distance = Util.distanceBetweenPts(last, current);
+
+		// 	current.velocity = Math.min(Math.sqrt((last.velocity*last.velocity) + (2 * maxAcc * distance)), maxVel);
+		// }
+
+		for(int i = pointsOnCurve.size() - 2; i >= 0; i--){
+			PPPoint current = pointsOnCurve.get(i);
+			PPPoint next = pointsOnCurve.get(i + 1);
+
+			double distance = Util.distanceBetweenPts(current, next);
+
+			current.velocity = Math.min(maxVel, Math.sqrt((next.velocity*next.velocity) + (2 * maxAcc * distance)));
+		}
+		
+		return pointsOnCurve;
+	}
 
     public static HashMap<Side, double[][]> generate2DToTarget(double zDist, double xDist, double angle1, double angle2, double maxVel, double maxAcc){
         Vector2 a0 = new Vector2(0, 0);
