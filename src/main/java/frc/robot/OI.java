@@ -47,6 +47,8 @@ public class OI {
 	static Button coDriverLTrigger = new TriggerButton(coDriver, Hand.kLeft);
 	static Button coDriverRTrigger = new TriggerButton(coDriver, Hand.kRight);
 	static Button coDriverStartSelect = new DoubleButton(coDriverSEL7, coDriverSTART8);
+	static Button coDriverClimbLevel2 = new ConditionalButton(coDriverDUp, CommandBase.climber::isReadyToClimbLevel2);
+	static Button coDriverClimbLevel3 = new ConditionalButton(coDriverDUp, CommandBase.climber::isReadyToClimbLevel3);
 
 	public OI() {
 		driverStartSelect.whenPressed(new CancelCommand());
@@ -70,8 +72,11 @@ public class OI {
 		coDriverRTrigger.whenPressed(new HatchGrabberToggle());
 		coDriverDLeft.whenPressed(new ClimberPrepareHigh());
 		coDriverDRight.whenPressed(new ClimberPrepareLowSponsor());
-		coDriverDUp.whenPressed(new ClimberLevel3());
-		coDriverDDown.whenPressed(new ClimberLevel2());
+		coDriverClimbLevel2.whenPressed(new ClimberLevel2());
+		coDriverClimbLevel3.whenPressed(new ClimberLevel3());
+		// coDriverDUp.whenPressed(new ClimberLevel3());
+		// coDriverDDown.whenPressed(new ClimberLevel2());
+
 
 		// coDriverA1.whenPressed(new ClimberPrepareHigh());
 		// coDriverB2.whenPressed(new ClimberJackUpLow());

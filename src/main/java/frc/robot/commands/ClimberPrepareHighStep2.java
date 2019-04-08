@@ -25,6 +25,7 @@ public class ClimberPrepareHighStep2 extends CommandBase {
 	@Override
 	protected void end() {
 		climber.setCenter(ControlMode.PercentOutput, 0);
+		climber.isPrepared = true;
 	}
 	
 	@Override

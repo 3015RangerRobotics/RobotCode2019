@@ -42,6 +42,8 @@ public class Climber extends Subsystem {
 
 	public final double climbSpeed = 10;
 
+	public boolean isPrepared = false;
+
 	public Climber() {
 		this.centerWheelsVictorSP = new VictorSP(RobotMap.climberCenterWheelsVictorSP);
 		this.centerJackTalonSRX = new TalonSRX(RobotMap.climberCenterJackTalonSRX);
@@ -100,7 +102,7 @@ public class Climber extends Subsystem {
 
 	@Override
 	public void periodic() {
-		// System.out.println("Roll: " + Robot.getRoll() + ", Pitch: " + Robot.getPitch());
+		System.out.println("Roll: " + Robot.getRoll() + ", Pitch: " + Robot.getPitch());
 
 		// System.out.println("Center Encoder: " + getCenterPosition());
 		// System.out.println("ClimberLimit: " + isAtBottom());
@@ -184,6 +186,14 @@ public class Climber extends Subsystem {
 		return !climberBottomLimit.get();
 	}
 
+	public boolean isReadyToClimbLevel3(){
+		return isPrepared && Math.abs(getCenterPosition() - centerPosHigh) <= 1;
+	}
+
+	public boolean isReadyToClimbLevel2(){
+		return isPrepared && Math.abs(getCenterPosition() - centerPosLow) <= 1;
+	}
+
 	public void selfTest() {
 		Robot.climberLeft.setBoolean(false);
 		Robot.climberRight.setBoolean(false);
@@ -198,17 +208,17 @@ public class Climber extends Subsystem {
 		double initPitch = Robot.getPitch();
 		double initRoll = Robot.getRoll();
 
-		System.out.println("Init Pitch: " + Robot.getPitch());
+		System.out.println("Init Roll: " + Robot.getRoll());
 
-		setBackLeft(ControlMode.PercentOutput, 0.2);
+		setBackLeft(ControlMode.PercentOutput, 0.25);
 		Timer.delay(1);
 		if (getBackLeftPosition() - leftStart > 1) {
 			Robot.climberLeft.setBoolean(true);
 		}
 
-		System.out.println("Curr Pitch: " + Robot.getPitch());
+		System.out.println("Curr Roll: " + Robot.getRoll());
 
-		Robot.climberOffsets.setBoolean(initRoll - Robot.getRoll() > 1 && initPitch - Robot.getPitch() > 0.2);
+		Robot.climberOffsets.setBoolean(initRoll - Robot.getRoll() > 1 && initPitch - Robot.getPitch() > 0.1);
 
 		setBackLeft(ControlMode.PercentOutput, -0.2);
 		Timer.delay(1);

@@ -5,6 +5,7 @@ import java.util.Map;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -116,6 +117,10 @@ public class Robot extends TimedRobot {
 		climberWheel = climberValues.add("Wheel", false).getEntry();
 		climberOffsets = climberValues.add("Offsets", false).getEntry();
 
+		NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(0);
+		NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(1);
+		NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
+
 		resetIMU();
 
 		SmartDashboard.putBoolean("RecordVid", false);
@@ -155,6 +160,10 @@ public class Robot extends TimedRobot {
 
 		resetIMU();
 
+		NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(0);
+		NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(1);
+		NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
+
 		if (autonomousCommand != null) {
 			autonomousCommand.start();
 		}
@@ -170,6 +179,10 @@ public class Robot extends TimedRobot {
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}
+
+		NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(0);
+		NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(1);
+		NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
 	}
 
 	@Override
@@ -209,7 +222,8 @@ public class Robot extends TimedRobot {
 	}
 
 	public static float getRoll() {
-		return imu.getRoll() + 36.5f; //+ 35; // RoboRIO and NavX mounted at -35 degrees
+		// return imu.getRoll() + 36.5f; //comp bot
+		return imu.getRoll() + 3; //practice
 	}
 
 	public static float getPitch() {
