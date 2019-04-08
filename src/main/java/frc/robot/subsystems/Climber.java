@@ -102,7 +102,7 @@ public class Climber extends Subsystem {
 
 	@Override
 	public void periodic() {
-		System.out.println("Roll: " + Robot.getRoll() + ", Pitch: " + Robot.getPitch());
+		// System.out.println("Roll: " + Robot.getRoll() + ", Pitch: " + Robot.getPitch());
 
 		// System.out.println("Center Encoder: " + getCenterPosition());
 		// System.out.println("ClimberLimit: " + isAtBottom());

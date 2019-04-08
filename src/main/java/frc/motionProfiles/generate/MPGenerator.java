@@ -23,7 +23,7 @@ public class MPGenerator {
         ArrayList<PPPoint> pointsOnCurve = new ArrayList<>();
         for(double t = 0.0; t <= 1.0; t += 0.001){
 			PPPoint point = new PPPoint(Util.cubicCurve(a0, c0, c1, a1, t), 0);
-			if(Util.distanceBetweenPts(pointsOnCurve.get(pointsOnCurve.size() - 1), point) >= 0.25){
+			if(pointsOnCurve.size() == 0 || Util.distanceBetweenPts(pointsOnCurve.get(pointsOnCurve.size() - 1), point) >= 0.25){
 				pointsOnCurve.add(point);
 			}
 		}
@@ -98,11 +98,12 @@ public class MPGenerator {
             segments.add(seg);
         }
 
+		segments.get(segments.size() - 1).vel = 0;
         for(int i = segments.size() - 2; i > 1; i--){
             double v0 = segments.get(i + 1).vel;
             double dx = segments.get(i + 1).dx;
             double vMax = Math.sqrt(Math.abs(v0 * v0 + 2 * maxAcc * dx));
-            segments.get(i).vel = Math.min((Double.isNaN(vMax) ? maxVel : vMax), segments.get(i).vel);
+			segments.get(i).vel = Math.min((Double.isNaN(vMax) ? maxVel : vMax), segments.get(i).vel);
         }
 
         double time = 0;

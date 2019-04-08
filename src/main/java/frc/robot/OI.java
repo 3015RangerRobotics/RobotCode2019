@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.motionProfiles.MotionProfiles;
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -56,6 +57,7 @@ public class OI {
 
 		driverA1.whileHeld(new BallMechControlDown());
 		driverB2.whileHeld(new BallMechControlUp());
+		// driverY4.whenPressed(new DriveMotionProfile(MotionProfiles.generate2DToTarget(5, 2.5, 0, 45, 8, 5)));
 		driverRB6.whileHeld(new DriveTargetAlign());
 		driverRTrigger.whenPressed(new HatchGrabberToggle());
 		driverLTrigger.whenPressed(new HatchArmToggle());

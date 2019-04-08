@@ -57,6 +57,7 @@ public class DriveMotionProfile extends CommandBase {
 	@Override
 	protected void initialize() {
 		drive.resetEncoders();
+		drive.setBrakeMode();
 		SmartDashboard.putBoolean("PathRunning", true);
 		isFinished = false;
 		i = 0;
@@ -149,6 +150,7 @@ public class DriveMotionProfile extends CommandBase {
 	@Override
 	protected void end() {
 		SmartDashboard.putBoolean("PathRunning", false);
+		drive.setCoastMode();
 		drive.setMotorOutputs(ControlMode.PercentOutput, 0, 0);
 	}
 
