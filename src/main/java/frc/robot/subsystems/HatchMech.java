@@ -53,6 +53,8 @@ public class HatchMech extends Subsystem {
 		Robot.hatchArm.setBoolean(false);
 		Robot.hatchNubs.setBoolean(false);
 
+		hatchGrabberRetract();
+
 		hatchArmExtend();
 		Timer.delay(2);
 		hatchGrabberExtend();
