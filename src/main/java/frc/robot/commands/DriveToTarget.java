@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.motionProfiles.MotionProfiles;
 import frc.robot.Robot;
 
@@ -10,20 +11,22 @@ public class DriveToTarget extends CommandBase {
 
 	@Override
 	protected void initialize() {
-		// double distanceToTarget = (SmartDashboard.getNumber("TargetDistance", 0) / 12) - 2;
-		// double angleToTarget = SmartDashboard.getNumber("TargetXAngle", 0);
-		// double dx = Math.sin(Math.abs(angleToTarget)) * distanceToTarget;
-		// double dy = Math.sqrt((distanceToTarget*distanceToTarget) - (dx*dx));
-		// if(angleToTarget > 0) {
-		// dx *= -1;
-		// }
-		// System.out.println("End angle: " + (Robot.getVisionAngle1() + Robot.getVisionAngle2()));
-		// System.out.println(Robot.getVisionXDistance() + ", " +
-		// Robot.getVisionZDistance());
-		// if (Robot.getVisionDistance() > 0) new DriveMotionProfile(MotionProfiles.generate2DPF(Robot.getVisionZDistance(), -Robot.getVisionXDistance(), 0, Robot.getVisionAngle1(), 5, 3, 100, false)).start();
-			// if(Robot.getVisionDistance() > 0) new DriveToTargetJank(Robot.getVisionAngle1(), Robot.getVisionAngle2(), Robot.getVisionDistance() / 12).start();
-		// new DriveMotionProfile(MotionProfiles.generate1DPF(distanceToTarget, 8, 5, 100, false)).start();
-		if(Robot.getVisionDistance() > 0) new DriveMotionProfile(MotionProfiles.generate2DToTarget(Robot.getVisionZDistance(), Robot.getVisionXDistance(), Robot.getVisionAngle1(), Robot.getVisionAngle2(), 4, 2)).start();;
+		double tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+		double[] camtran = NetworkTableInstance.getDefault().getTable("limelight").getEntry("camtran").getDoubleArray(new double[] {0, 0, 0, 0, 0, 0});
+		double yaw = camtran[4];
+		double x = camtran[0];
+		double z = camtran[2];
+
+		double offset = 12;
+		double theta = Math.toRadians(yaw + tx);
+
+		double correctedX = x * Math.cos(theta) + z * Math.sin(theta);
+		double correctedZ = -(-x * Math.sin(theta) + z * Math.cos(theta)) - offset;
+		double correctedTX = Math.toDegrees(Math.atan2(correctedZ, x)) - 90;
+		double distance = Math.sqrt((correctedX * correctedX) + (correctedZ * correctedZ));
+
+		new DriveMotionProfile(MotionProfiles.generate2DToTarget(correctedZ / 12, -correctedX / 12, tx, yaw, 5, 3)).start();
+		// Values for corrected x and z are still in inches when put on SmartDashboard in Robot.java
 	}
 
 	@Override

@@ -25,18 +25,18 @@ public class DriveAlignWithTarget extends CommandBase implements PIDOutput {
 
 	@Override
 	protected void initialize() {
-		double targetDistance = Robot.getTargetDistance();
-		if (targetDistance < 0 || !Robot.isIMUConnected()) {
-			System.out.println("oopsies");
-			this.cancel();
-		}
+		// double targetDistance = Robot.getTargetDistance();
+		// if (targetDistance < 0 || !Robot.isIMUConnected()) {
+		// 	System.out.println("oopsies");
+		// 	this.cancel();
+		// }
 
-		this.setpoint = Robot.getTargetXAngle();
-		turnController.setP(SmartDashboard.getNumber("kTurnP", 0));
-		turnController.setI(SmartDashboard.getNumber("kTurnI", 0));
-		turnController.setD(SmartDashboard.getNumber("kTurnD", 0));
-		turnController.setSetpoint(setpoint);
-		turnController.enable();
+		// this.setpoint = Robot.getTargetXAngle();
+		// turnController.setP(SmartDashboard.getNumber("kTurnP", 0));
+		// turnController.setI(SmartDashboard.getNumber("kTurnI", 0));
+		// turnController.setD(SmartDashboard.getNumber("kTurnD", 0));
+		// turnController.setSetpoint(setpoint);
+		// turnController.enable();
 
 		System.out.println(this.setpoint);
 	}

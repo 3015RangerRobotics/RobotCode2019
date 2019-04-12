@@ -57,11 +57,10 @@ public class OI {
 
 		driverA1.whileHeld(new BallMechControlDown());
 		driverB2.whileHeld(new BallMechControlUp());
-		// driverY4.whenPressed(new DriveMotionProfile(MotionProfiles.generate2DToTarget(5, 2.5, 0, 45, 8, 5)));
-		driverRB6.whileHeld(new DriveTargetAlign());
+		driverRB6.whileHeld(new DriveTurnToTarget());
 		driverRTrigger.whenPressed(new HatchGrabberToggle());
 		driverLTrigger.whenPressed(new HatchArmToggle());
-
+		
 		// driverDUp.whenPressed(new ClimberLevel2To3Succ());
 		// driverDRight.whenPressed(new ClimberLevel3Succ());
 

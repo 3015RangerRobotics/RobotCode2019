@@ -117,7 +117,7 @@ public class Robot extends TimedRobot {
 		climberWheel = climberValues.add("Wheel", false).getEntry();
 		climberOffsets = climberValues.add("Offsets", false).getEntry();
 
-		NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(0);
+		// NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(0);
 		NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(1);
 		NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
 
@@ -136,6 +136,30 @@ public class Robot extends TimedRobot {
 			alliance = "blue";
 		}
 		SmartDashboard.putString("alliance", alliance);
+
+		double tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+		double[] camtran = NetworkTableInstance.getDefault().getTable("limelight").getEntry("camtran").getDoubleArray(new double[] {0, 0, 0, 0, 0, 0});
+		double yaw = camtran[4];
+		double x = camtran[0];
+		double z = camtran[2];
+
+		double offset = 12;
+		double theta = Math.toRadians(yaw + tx);
+
+		double correctedX = x * Math.cos(theta) + z * Math.sin(theta);
+		double correctedZ = -(-x * Math.sin(theta) + z * Math.cos(theta)) - offset;
+		double correctedTX = Math.toDegrees(Math.atan2(correctedZ, x)) - 90;
+		double distance = Math.sqrt((correctedX * correctedX) + (correctedZ * correctedZ));
+
+		SmartDashboard.putNumber("correctedX", correctedX);
+		SmartDashboard.putNumber("correctedZ", correctedZ);
+		SmartDashboard.putNumber("correctedDistance", distance);
+		SmartDashboard.putNumber("originalDistance", Math.sqrt((x * x) + (z * z)));
+
+		SmartDashboard.putNumber("yawwww", yaw);
+		SmartDashboard.putNumber("tx", tx);
+		SmartDashboard.putNumber("correctedTX", correctedTX);
+
 	}
 
 	@Override
@@ -160,7 +184,7 @@ public class Robot extends TimedRobot {
 
 		resetIMU();
 
-		NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(0);
+		// NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(0);
 		NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(1);
 		NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
 
@@ -180,7 +204,7 @@ public class Robot extends TimedRobot {
 			autonomousCommand.cancel();
 		}
 
-		NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(0);
+		// NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(0);
 		NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(1);
 		NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
 	}
@@ -238,51 +262,19 @@ public class Robot extends TimedRobot {
 		return Math.toDegrees(imu.getRate());
 	}
 
+	public static double getLimelightTX() {
+		return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+	}
+
+	public static boolean isTargetFound() {
+		return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0) == 1;
+	}
+
 	public static void resetIMU() {
 		imu.reset();
 	}
 
 	public static boolean isIMUConnected() {
 		return imu.isConnected();
-	}
-
-	public static double getTargetXAngle() {
-		return SmartDashboard.getNumber("TargetXAngle", -1);
-	}
-
-	public static double getTargetDistance() {
-		return SmartDashboard.getNumber("TargetDistance", -1);
-	}
-
-	public static void setVisionModeTape() {
-		SmartDashboard.putString("ProcessingMode", "tape");
-	}
-
-	public static void setVisionModeCargo() {
-		SmartDashboard.putString("ProcessingMode", "cargo");
-	}
-
-	public static void setVisionModeDriver() {
-		SmartDashboard.putString("ProcessingMode", "driver");
-	}
-
-	public static double getVisionAngle1() {
-		return SmartDashboard.getNumber("TargetAngle1", 0);
-	}
-
-	public static double getVisionAngle2() {
-		return SmartDashboard.getNumber("TargetAngle2", 0);
-	}
-
-	public static double getVisionDistance() {
-		return SmartDashboard.getNumber("TargetDistance", -1);
-	}
-
-	public static double getVisionZDistance() {
-		return SmartDashboard.getNumber("TargetZDistance", -1);
-	}
-
-	public static double getVisionXDistance() {
-		return SmartDashboard.getNumber("TargetXDistance", -1);
 	}
 }

@@ -102,6 +102,7 @@ public class Climber extends Subsystem {
 
 	@Override
 	public void periodic() {
+		// System.out.println(this.isReadyToClimbLevel3());
 		// System.out.println("Roll: " + Robot.getRoll() + ", Pitch: " + Robot.getPitch());
 
 		// System.out.println("Center Encoder: " + getCenterPosition());
@@ -187,11 +188,11 @@ public class Climber extends Subsystem {
 	}
 
 	public boolean isReadyToClimbLevel3(){
-		return isPrepared && Math.abs(getCenterPosition() - centerPosHigh) <= 1;
+		return isPrepared && Math.abs(getCenterPosition() - centerPosHigh) <= 2;
 	}
 
 	public boolean isReadyToClimbLevel2(){
-		return isPrepared && Math.abs(getCenterPosition() - centerPosLow) <= 1;
+		return isPrepared && Math.abs(getCenterPosition() - centerPosLow) <= 2;
 	}
 
 	public void selfTest() {
