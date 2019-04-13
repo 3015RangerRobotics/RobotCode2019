@@ -10,7 +10,7 @@ public class DriveWithGamepad extends CommandBase {
 
 	@Override
 	protected void initialize() {
-		drive.setRampRate(0);
+		drive.setRampRate(0.0);
 		drive.setBrakeMode();
 	}
 

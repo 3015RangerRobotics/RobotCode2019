@@ -60,9 +60,6 @@ public class OI {
 		driverRB6.whileHeld(new DriveTurnToTarget());
 		driverRTrigger.whenPressed(new HatchGrabberToggle());
 		driverLTrigger.whenPressed(new HatchArmToggle());
-		
-		// driverDUp.whenPressed(new ClimberLevel2To3Succ());
-		// driverDRight.whenPressed(new ClimberLevel3Succ());
 
 		coDriverA1.whenPressed(new ElevatorToBottom());
 		coDriverB2.whenPressed(new ElevatorToMiddle());

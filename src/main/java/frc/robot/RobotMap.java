@@ -38,12 +38,6 @@ public class RobotMap {
 	public static final int climberCenterWheelsVictorSP = 4;
 	public static final int climberBottomLimit = 8;
 
-	public static final int succerVacuum = 0;
-	public static final int succerSensor = 1;
-
-	public static final int succerPistonExtend = 4;
-	public static final int succerPistonRetract = 5;
-
 	public enum Side {
 		kLeft, kRight
 	}
