@@ -20,10 +20,6 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.AutoCargoSide;
-import frc.robot.commands.AutoCenterCargo;
-import frc.robot.commands.AutoRocketFar;
-import frc.robot.commands.AutoRocketNear;
 import frc.robot.commands.CommandBase;
 import frc.robot.commands.TestBallMech;
 import frc.robot.commands.TestClimber;
@@ -66,10 +62,10 @@ public class Robot extends TimedRobot {
 
 		CommandBase.init();
 
-		chooser.addOption("Back Rocket", new AutoRocketFar(false));
-		chooser.addOption("Near Rocket", new AutoRocketNear(false));
-		chooser.addOption("Cargo Side", new AutoCargoSide(false));
-		chooser.addOption("Cargo Front", new AutoCenterCargo(false));
+		// chooser.addOption("Back Rocket", new AutoRocketFar(false));
+		// chooser.addOption("Near Rocket", new AutoRocketNear(false));
+		// chooser.addOption("Cargo Side", new AutoCargoSide(false));
+		// chooser.addOption("Cargo Front", new AutoCenterCargo(false));
 		chooser.addOption("None", null);
 
 		SmartDashboard.putData("Auto Mode", chooser);

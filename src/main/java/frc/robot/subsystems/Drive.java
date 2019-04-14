@@ -16,13 +16,13 @@ import frc.robot.RobotMap;
 import frc.robot.commands.DriveWithGamepad;
 
 public class Drive extends Subsystem {
-	public final double kV = 0.08; //0.067
-	public final double kA = 0.02; //0.034
+	public final double kV = 0.067;
+	public final double kA = 0.034;
 
-	public final double kDistancePerPulse = 0.00698131; // 0.00904774;
+	public final double kDistancePerPulse = 0.00904774;
 
-	public final double kDriveP = 0.7; //1.8
-	public final double kDriveD = 0.01; //0.0
+	public final double kDriveP = 1.8;
+	public final double kDriveD = 0.0;
 
 	public final double kVTurn = 0;
 	public final double kATurn = 0;
@@ -41,7 +41,7 @@ public class Drive extends Subsystem {
 	public final double kVGyro = 1.0 / 400.0;
 	public final double kAGyro = 0.0015;
 
-	public final double kTurnVisionP = 0.018;//0.03;
+	public final double kTurnVisionP = 0.018;//0.018;//0.03;
 	public final double kTurnVisionI = 0.0;
 	public final double kTurnVisionD = 0.0;//0.0525;//.021;
 

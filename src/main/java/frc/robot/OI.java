@@ -57,9 +57,11 @@ public class OI {
 
 		driverA1.whileHeld(new BallMechControlDown());
 		driverB2.whileHeld(new BallMechControlUp());
-		driverRB6.whileHeld(new DriveTurnToTarget());
+		driverRB6.whileHeld(new DriveVisionAssist());
 		driverRTrigger.whenPressed(new HatchGrabberToggle());
 		driverLTrigger.whenPressed(new HatchArmToggle());
+
+		// driverY4.whenPressed(new AutoFrontSideCargo(false));
 
 		coDriverA1.whenPressed(new ElevatorToBottom());
 		coDriverB2.whenPressed(new ElevatorToMiddle());
@@ -74,7 +76,6 @@ public class OI {
 		coDriverClimbLevel3.whenPressed(new ClimberLevel3());
 		// coDriverDUp.whenPressed(new ClimberLevel3());
 		// coDriverDDown.whenPressed(new ClimberLevel2());
-
 
 		// coDriverA1.whenPressed(new ClimberPrepareHigh());
 		// coDriverB2.whenPressed(new ClimberJackUpLow());
@@ -115,7 +116,7 @@ public class OI {
 
 	public double getDriverRightStickX() {
 		if (Math.abs(driver.getX(Hand.kRight)) > 0.05) {
-	
+
 			return driver.getX(Hand.kRight);
 		} else {
 			return 0;

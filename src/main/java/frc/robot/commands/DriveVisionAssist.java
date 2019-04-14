@@ -9,11 +9,11 @@ import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import frc.robot.Robot;
 
-public class DriveTurnToTarget extends CommandBase implements PIDOutput, PIDSource {
+public class DriveVisionAssist extends CommandBase implements PIDOutput, PIDSource {
 	PIDController turnController;
 	double minTurn = 0.0;//0.18;
 
-	public DriveTurnToTarget() {
+	public DriveVisionAssist() {
 		requires(drive);
 		turnController = new PIDController(drive.kTurnVisionP, drive.kTurnVisionI, drive.kTurnVisionD, this, this);
 		turnController.setInputRange(-180.0, 180.0);
@@ -26,8 +26,11 @@ public class DriveTurnToTarget extends CommandBase implements PIDOutput, PIDSour
 		turnController.setSetpoint(0);
 		turnController.enable();
 	
+		drive.setBrakeMode();
+	
 		NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(0);
 		NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
+
 	}
 
 	@Override
@@ -49,6 +52,8 @@ public class DriveTurnToTarget extends CommandBase implements PIDOutput, PIDSour
 		drive.setMotorOutputs(ControlMode.PercentOutput, 0, 0);
 		turnController.disable();
 		oi.driverRumble(0);
+
+		drive.setCoastMode();
 		
 		NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(1);
 		NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
