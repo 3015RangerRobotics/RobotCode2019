@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.motionProfiles.MotionProfiles;
 
-public class AutoTwoHatchRocket extends CommandGroup {
-	public AutoTwoHatchRocket(boolean isRightStart) {
+public class AutoTwoHatchBackRocket extends CommandGroup {
+	public AutoTwoHatchBackRocket(boolean isRightStart) {
 		addSequential(new HatchGrabberExtend());
 		addParallel(new HatchArmExtendDelayed(0.4));
 		addSequential(new DriveMotionProfile("platform_to_back_rocket", isRightStart));

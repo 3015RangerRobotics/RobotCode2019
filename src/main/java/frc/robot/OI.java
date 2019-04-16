@@ -61,7 +61,7 @@ public class OI {
 		driverRTrigger.whenPressed(new HatchGrabberToggle());
 		driverLTrigger.whenPressed(new HatchArmToggle());
 
-		// driverY4.whenPressed(new AutoFrontSideCargo(false));
+		driverY4.whenPressed(new AutoTwoHatchFrontRocket(true));
 
 		coDriverA1.whenPressed(new ElevatorToBottom());
 		coDriverB2.whenPressed(new ElevatorToMiddle());
