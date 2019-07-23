@@ -28,8 +28,8 @@ public class AutoTwoHatchFrontRocket extends CommandGroup {
 		// addSequential(new DriveVisionAuto(0.25));
 		// addSequential(new HatchGrabberExtend());
 		// addSequential(new WaitCommand(0.1));
-		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(10, 6, 4, 100, true)));
-		addSequential(new DriveTurnToAngleWithEncoders(isRightStart ? 165 : -165, 14, 10));
+		// addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(10, 6, 4, 100, true)));
+		// addSequential(new DriveTurnToAngleWithEncoders(isRightStart ? 165 : -165, 14, 10));
 		// addSequential(new DriveVisionAuto(.25));
 		// addSequential(new HatchGrabberRetract());
 		// addSequential(new WaitCommand(0.1));

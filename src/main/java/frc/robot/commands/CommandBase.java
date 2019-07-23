@@ -12,6 +12,7 @@ public abstract class CommandBase extends Command {
 	public static HatchMech hatchMech;
 	public static IntakeAid intakeAid;
 	public static OurCompressor ourCompressor;
+	// public static Succer succer;
 	public static OI oi;
 
 	public static void init() {
@@ -22,6 +23,7 @@ public abstract class CommandBase extends Command {
 		hatchMech = new HatchMech();
 		intakeAid = new IntakeAid();
 		ourCompressor = new OurCompressor();
+		// succer = new Succer;
 		oi = new OI();
 	}
 }

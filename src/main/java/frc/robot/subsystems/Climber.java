@@ -107,6 +107,8 @@ public class Climber extends Subsystem {
 
 		// System.out.println("Center Encoder: " + getCenterPosition());
 		// System.out.println("ClimberLimit: " + isAtBottom());
+		// System.out.println("Left: "Right: " " + getBackLeftPosition());
+		// System.out.println(+ getBackRightPosition());
 	}
 
 	public void setCenter(ControlMode mode, double value) {
@@ -226,7 +228,7 @@ public class Climber extends Subsystem {
 		setBackLeft(ControlMode.PercentOutput, 0);
 		Timer.delay(1);
 
-		setBackRight(ControlMode.PercentOutput, 0.2);
+		setBackRight(ControlMode.PercentOutput, 0.25);
 		Timer.delay(1);
 		if (getBackRightPosition() - rightStart > 1) {
 			Robot.climberRight.setBoolean(true);

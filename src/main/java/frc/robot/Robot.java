@@ -156,6 +156,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("tx", tx);
 		SmartDashboard.putNumber("correctedTX", correctedTX);
 
+		// System.out.println("Roll: " + getRoll());
+
 	}
 
 	@Override

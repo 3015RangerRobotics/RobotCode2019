@@ -9,7 +9,7 @@ public class ClimberLevel3 extends CommandGroup {
 		addSequential(new ClimberHoldAndDrive(1.3));
 		addParallel(new DriveForTime(-0.1, 1.5));
 		addSequential(new ClimberJackRetract());
-		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(1, 7, 4, 100, true)));
+		addSequential(new DriveMotionProfile(MotionProfiles.generate1DPF(1, 12, 8, 100, true)));
 		addSequential(new DriveLockout());
 	}
 }

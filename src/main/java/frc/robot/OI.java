@@ -61,7 +61,8 @@ public class OI {
 		driverRTrigger.whenPressed(new HatchGrabberToggle());
 		driverLTrigger.whenPressed(new HatchArmToggle());
 
-		driverY4.whenPressed(new AutoTwoHatchFrontRocket(true));
+		// driverY4.whenPressed(new AutoFrontCargo());
+
 
 		coDriverA1.whenPressed(new ElevatorToBottom());
 		coDriverB2.whenPressed(new ElevatorToMiddle());
@@ -71,11 +72,13 @@ public class OI {
 		coDriverLS9.whileHeld(new ElevatorManualControl());
 		coDriverRTrigger.whenPressed(new HatchGrabberToggle());
 		coDriverDLeft.whenPressed(new ClimberPrepareHigh());
-		coDriverDRight.whenPressed(new ClimberPrepareLowSponsor());
-		coDriverClimbLevel2.whenPressed(new ClimberLevel2());
-		coDriverClimbLevel3.whenPressed(new ClimberLevel3());
-		// coDriverDUp.whenPressed(new ClimberLevel3());
-		// coDriverDDown.whenPressed(new ClimberLevel2());
+		coDriverDRight.whenPressed(new ClimberPrepareLow());
+		// coDriverClimbLevel2.whenPressed(new ClimberLevel2());
+		// coDriverClimbLevel3.whenPressed(new ClimberLevel3());
+		coDriverDUp.whenPressed(new ClimberLevel3());
+		coDriverDDown.whenPressed(new ClimberLevel2());
+
+		// coDriverX3.whileHeld(new ClimberManualJack());
 
 		// coDriverA1.whenPressed(new ClimberPrepareHigh());
 		// coDriverB2.whenPressed(new ClimberJackUpLow());
